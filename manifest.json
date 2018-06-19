@@ -1,0 +1,7 @@
+{
+  "name": "polymor-tutorial-game",
+  "short_name": "polymor-tutorial-game",
+  "description": "A game to teach people how to use Polyme",
+  "start_url": "/",
+  "display": "standalone"
+}

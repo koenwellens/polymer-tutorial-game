@@ -1,0 +1,112 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="start-tutorial">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+            .title h1 {
+                font-size: 4em;
+            }
+
+            .title h3 {
+                font-size: 1.5em;
+                font-style: italic;
+            }
+
+            .start {
+                background-color: #e37222;
+                color: #fff;
+                margin-top: 5%;
+                padding: 12px;
+                font-size: 4em;
+                border: 1px solid #e37222;
+                width: 25%;
+                border-radius: 25px;
+                text-decoration: none;
+
+                /* #07889B */
+                /* #E37222 */
+            }
+
+            .text1, .text2 {
+                width: 80%;
+                font-size: 1.2em;
+            }
+
+            .text2 {
+                margin-bottom: 5%;
+            }
+
+            p {
+                line-height: 2;
+            }
+
+        </style>
+
+        <div class="container">
+            <div class="title">
+                <h1>Polycraft</h1>
+                <h3>a Polymer 2.x tutorial game</h3>
+            </div>
+
+            <div>
+                <!--TODO image-->
+            </div>
+
+            <div class="text1">
+                <p>
+                    Welcome to Polycraft! In this game, you will learn how to use Polymer 2.x! Yeah, yeah. I know.
+                    Polymer 3.x is already out. Don't worry though. It's still useful to learn Polymer 2.x!
+                </p>
+            </div>
+
+            <div>
+                <!--TODO image-->
+            </div>
+
+            <div class="text2">
+                <p>Are you ready for this awesome adventure? Join Paul Eyemer on his quest but beware...</p>
+                <p>There is danger up ahead.</p>
+            </div>
+
+            <div>
+                <a class="start" is="pushstate-anchor" href="/soon/">Start game!</a>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        class StartTutorial extends Polymer.Element {
+            static get is() {
+                return 'start-tutorial';
+            }
+
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'polymor-tutorial-game-app'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(StartTutorial.is, StartTutorial);
+    </script>
+</dom-module>
