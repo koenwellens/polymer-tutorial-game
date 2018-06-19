@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/app-router/app-router.html">
 <link rel="import" href="./start/start-tutorial.html">
+<link rel="import" href="./level1/level1.html">
+<link rel="import" href="./level1/level-one-rocks.html">
 <link rel="import" href="./coming-soon.html">
 
 <dom-module id="polymor-tutorial-game-app">
@@ -15,6 +17,8 @@
         <app-router mode="auto|pushstate|hash">
             <!--<app-route path="/" import="/pages/home-page.html"></app-route>-->
             <app-route path="/start/" element="start-tutorial"></app-route>
+            <app-route path="/1/" element="level-one"></app-route>
+            <app-route path="/1-1/" element="level-one-rocks"></app-route>
             <app-route path="/soon/" element="coming-soon"></app-route>
             <app-route path="*" element="start-tutorial"></app-route>
         </app-router>
