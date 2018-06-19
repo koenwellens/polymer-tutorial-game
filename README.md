@@ -1,6 +1,6 @@
 # \<polymor-tutorial-game\>
 
-A game to teach people how to use Polyme
+A game to teach people how to use Polymer
 
 ## Install the Polymer-CLI
 
