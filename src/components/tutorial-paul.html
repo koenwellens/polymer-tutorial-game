@@ -1,0 +1,122 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-paul">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+            }
+
+            .text1 {
+                width: 80%;
+                font-size: 1.2em;
+            }
+
+            p {
+                line-height: 2;
+            }
+
+            .paul-text {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 5%;
+            }
+
+            .text-balloon {
+                border: 1px solid white;
+                flex-grow: 8;
+                background-color: white;
+                color: #66b9bf;
+                border-radius: 25px;
+                padding: 2%;
+                font-size: 1.7em;
+            }
+
+            .paul-imer {
+                width: 15%;
+                height: 15%;
+            }
+
+            .next-link {
+                float: right;
+            }
+
+        </style>
+
+        <div class="paul-text">
+            <img class="paul-imer" src="../../static/images/paul_imer.png"/>
+            <div class="text-balloon text1">
+                <p>[[currentText]]</p>
+                <template is="dom-if" if="{{displayNext}}">
+                    <a class="next-link" on-click="displayNextText">Next</a>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        class TutorialPaul extends Polymer.Element {
+            static get is() {
+                return 'tutorial-paul';
+            }
+
+            static get properties() {
+                return {
+                    text: {
+                        type: Array,
+                        value: [],
+                    },
+                    currentTextIndex: {
+                        type: Number,
+                        value: 0
+                    },
+                    currentText: {
+                        type: String,
+                        value: ''
+                    },
+                    displayNext: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this.displayText(0);
+            }
+
+            displayNextText() {
+                if (this.currentTextIndex < this.text.length) {
+                    this.currentTextIndex++;
+                    this.currentText = '';
+                    this.displayNext = false;
+                    this.displayText(0);
+                }
+            }
+
+            displayText(index) {
+                if (index < this.text[this.currentTextIndex].length) {
+                    this.currentText += this.text[this.currentTextIndex][index];
+                    const newIndex = index + 1;
+                    setTimeout(() => {
+                        this.displayText(newIndex);
+                    }, 15);
+                } else {
+                    this.calculateDisplayNext();
+                }
+            }
+
+            calculateDisplayNext() {
+                this.displayNext = this.currentTextIndex !== this.text.length - 1;
+            }
+        }
+
+        window.customElements.define(TutorialPaul.is, TutorialPaul);
+    </script>
+</dom-module>

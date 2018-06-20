@@ -95,17 +95,10 @@
         </style>
 
         <div class="container">
-            <tutorial-level-title value="Rock, Paper, ... Axes" level="1" progress="[[progress]]"></tutorial-level-title>
+            <tutorial-level-title value="Rock, Paper, ... Axes" level="1"
+                                  progress="[[progress]]"></tutorial-level-title>
 
-            <div class="paul-text">
-                <img class="paul-imer" src="../../../static/images/paul_imer.png"/>
-                <div class="text-balloon text1">
-                    <p>
-                        First, we'll need to collect some rocks. To do this, you'll need to create web components that
-                        we can use further on in the quest. Your rock will be a JavaScript class. Good luck!
-                    </p>
-                </div>
-            </div>
+            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
 
             <div>
                 <div class="exercise-header">
@@ -141,6 +134,11 @@
                     disabled: {
                         type: Boolean,
                         value: true,
+                    },
+                    levelDescription: {
+                        type: Array,
+                        value: ['First, we\'ll need to collect some rocks. To do this, you\'ll need to create web components ' +
+                        'that we can use further on in the quest. Your rock will be a JavaScript class. Good luck!'],
                     },
                     code: {
                         type: String,

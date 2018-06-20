@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../components/tutorial-title.html">
+<link rel="import" href="../../components/tutorial-level-title.html">
+<link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="level-one">
@@ -64,18 +65,7 @@
         <div class="container">
             <tutorial-level-title value="Rock, Paper, ... Axes" level="1"></tutorial-level-title>
 
-            <div class="paul-text">
-                <img class="paul-imer" src="../../../static/images/paul_imer.png"/>
-                <div class="text-balloon text1">
-                    <p>
-                        Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. But I can't do
-                        it on my own. Believe me, I tried. Maybe together we can join the championships and win!
-                    </p>
-                    <p>
-                        Let's first have a look at what Polycraft is. Click the button below to start the journey!
-                    </p>
-                </div>
-            </div>
+            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
 
             <div>
                 <a class="start" is="pushstate-anchor" href="/1-1/">Let's go!</a>
@@ -92,9 +82,11 @@
 
             static get properties() {
                 return {
-                    prop1: {
-                        type: String,
-                        value: 'polymor-tutorial-game-app'
+                    levelDescription: {
+                        type: Array,
+                        value: ['Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. ' +
+                        'But I can\'t do it on my own. Believe me, I tried. Maybe together we can join the championships and win!',
+                            'Let\'s first have a look at what Polycraft is. Click the button below to start the journey!'],
                     }
                 };
             }
