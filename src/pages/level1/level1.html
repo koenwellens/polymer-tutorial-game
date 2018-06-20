@@ -29,37 +29,6 @@
                 /* #07889B */
                 /* #E37222 */
             }
-
-            .text1 {
-                width: 80%;
-                font-size: 1.2em;
-            }
-
-            p {
-                line-height: 2;
-            }
-
-            .paul-text {
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 5%;
-            }
-
-            .text-balloon {
-                border: 1px solid white;
-                flex-grow: 8;
-                background-color: white;
-                color: #66b9bf;
-                border-radius: 25px;
-                padding: 2%;
-                font-size: 1.7em;
-            }
-
-            .paul-imer {
-                width: 15%;
-                height: 15%;
-            }
-
         </style>
 
         <div class="container">
@@ -67,9 +36,11 @@
 
             <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
 
-            <div>
-                <a class="start" is="pushstate-anchor" href="/1-1/">Let's go!</a>
-            </div>
+            <template is="dom-if" if="{{displayNextLevelButton}}">
+                <div>
+                    <a class="start" is="pushstate-anchor" href="/1-1/">Let's go!</a>
+                </div>
+            </template>
         </div>
     </template>
 
@@ -87,8 +58,22 @@
                         value: ['Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. ' +
                         'But I can\'t do it on my own. Believe me, I tried. Maybe together we can join the championships and win!',
                             'Let\'s first have a look at what Polycraft is. Click the button below to start the journey!'],
+                    },
+                    displayNextLevelButton: {
+                        type: Boolean,
+                        value: false,
                     }
                 };
+            }
+
+            ready() {
+                super.ready();
+                this.addEventListener('paul-talked', e => this._displayNextLevelButton(e));
+            }
+
+            _displayNextLevelButton(e) {
+                console.log(e);
+                this.displayNextLevelButton = true;
             }
         }
 

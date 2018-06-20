@@ -11,13 +11,8 @@
                 color: #fff;
             }
 
-            .text1 {
-                width: 80%;
-                font-size: 1.2em;
-            }
-
             p {
-                line-height: 2;
+                line-height: 1.5;
             }
 
             .paul-text {
@@ -27,13 +22,15 @@
             }
 
             .text-balloon {
+                width: 80%;
                 border: 1px solid white;
                 flex-grow: 8;
                 background-color: white;
                 color: #66b9bf;
                 border-radius: 25px;
                 padding: 2%;
-                font-size: 1.7em;
+                font-size: 1.2em;
+                height: 200px;
             }
 
             .paul-imer {
@@ -42,17 +39,22 @@
             }
 
             .next-link {
+                margin-top: 5%;
                 float: right;
+                color: #E37222;
+                background-color: #eee;
+                border-radius: 5px;
+                padding: 5px;
             }
 
         </style>
 
         <div class="paul-text">
             <img class="paul-imer" src="../../static/images/paul_imer.png"/>
-            <div class="text-balloon text1">
+            <div class="text-balloon" on-click="skipTalking">
                 <p>[[currentText]]</p>
                 <template is="dom-if" if="{{displayNext}}">
-                    <a class="next-link" on-click="displayNextText">Next</a>
+                    <a id="next-link" class="next-link" on-click="displayNextText">Next...</a>
                 </template>
             </div>
         </div>
@@ -82,26 +84,35 @@
                     displayNext: {
                         type: Boolean,
                         value: false,
+                    },
+                    _busyTalking: {
+                        type: Boolean,
+                        value: false,
                     }
                 };
             }
 
             ready() {
                 super.ready();
-                this.displayText(0);
+                this.startTalking();
             }
 
             displayNextText() {
                 if (this.currentTextIndex < this.text.length) {
                     this.currentTextIndex++;
-                    this.currentText = '';
-                    this.displayNext = false;
-                    this.displayText(0);
+                    this.startTalking();
                 }
             }
 
+            startTalking() {
+                this.currentText = '';
+                this._busyTalking = true;
+                this.displayNext = false;
+                this.displayText(0);
+            }
+
             displayText(index) {
-                if (index < this.text[this.currentTextIndex].length) {
+                if (index < this.text[this.currentTextIndex].length && this._busyTalking) {
                     this.currentText += this.text[this.currentTextIndex][index];
                     const newIndex = index + 1;
                     setTimeout(() => {
@@ -109,11 +120,31 @@
                     }, 15);
                 } else {
                     this.calculateDisplayNext();
+                    this.fireEventWhenNecessary();
                 }
             }
 
+            paulSaysLastLine() {
+                return this.currentTextIndex === this.text.length - 1;
+            }
+
             calculateDisplayNext() {
-                this.displayNext = this.currentTextIndex !== this.text.length - 1;
+                this.displayNext = !this.paulSaysLastLine();
+            }
+
+            fireEventWhenNecessary() {
+                if (this.paulSaysLastLine()) {
+                    this.dispatchEvent(new CustomEvent('paul-talked', {composed: true}));
+                }
+            }
+
+            skipTalking(e) {
+                if (e.target.id !== 'next-link') {
+                    this.currentText = this.text[this.currentTextIndex];
+                    this._busyTalking = false;
+                    this.calculateDisplayNext();
+                    this.fireEventWhenNecessary();
+                }
             }
         }
 

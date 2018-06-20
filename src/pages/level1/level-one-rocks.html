@@ -53,27 +53,6 @@
                 line-height: 2;
             }
 
-            .paul-text {
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 5%;
-            }
-
-            .text-balloon {
-                border: 1px solid white;
-                flex-grow: 8;
-                background-color: white;
-                color: #66b9bf;
-                border-radius: 25px;
-                padding: 2%;
-                font-size: 1.7em;
-            }
-
-            .paul-imer {
-                width: 15%;
-                height: 15%;
-            }
-
             .exercise-header {
                 display: flex;
             }
@@ -91,35 +70,39 @@
             .editor {
                 width: 100%;
             }
-
         </style>
 
         <div class="container">
-            <tutorial-level-title value="Rock, Paper, ... Axes" level="1"
-                                  progress="[[progress]]"></tutorial-level-title>
+            <tutorial-level-title
+                    value="Rock, Paper, ... Axes"
+                    level="1"
+                    progress="[[progress]]">
+            </tutorial-level-title>
 
             <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
 
-            <div>
-                <div class="exercise-header">
-                    <button id="tab-1" class="tab">
-                        rock.html
-                    </button>
+            <template is="dom-if" if="{{displayRest}}">
+                <div>
+                    <div class="exercise-header">
+                        <button id="tab-1" class="tab">
+                            rock.html
+                        </button>
+                    </div>
+                    <div class="exercise-body">
+                        <monaco-editor class="editor" language="html" value="{{code}}">
+                        </monaco-editor>
+                    </div>
                 </div>
-                <div class="exercise-body">
-                    <monaco-editor class="editor" language="html" value="{{code}}">
-                    </monaco-editor>
-                </div>
-            </div>
 
-            <div>
-                <template is="dom-if" if="{{!disabled}}">
-                    <a class="next" is="pushstate-anchor" href="/soon/">Good job!</a>
-                </template>
-                <template is="dom-if" if="{{disabled}}">
-                    <a class="disabled-next">Almost there...</a>
-                </template>
-            </div>
+                <div>
+                    <template is="dom-if" if="{{!disabled}}">
+                        <a class="next" is="pushstate-anchor" href="/soon/">Good job!</a>
+                    </template>
+                    <template is="dom-if" if="{{disabled}}">
+                        <a class="disabled-next">Almost there...</a>
+                    </template>
+                </div>
+            </template>
         </div>
     </template>
 
@@ -151,12 +134,22 @@
                     progress: {
                         type: Object,
                         value: {current: 1, total: 3}
+                    },
+                    displayRest: {
+                        type: Boolean,
+                        value: false,
                     }
                 };
             }
 
             ready() {
                 super.ready();
+                this.addEventListener('paul-talked', e => this._displayNextLevelButton(e));
+            }
+
+            _displayNextLevelButton(e) {
+                console.log(e);
+                this.displayRest = true;
             }
 
             _codeChanged(newValue) {
