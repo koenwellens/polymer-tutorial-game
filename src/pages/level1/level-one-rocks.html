@@ -1,6 +1,7 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../../bower_components/monaco-editor/monaco-editor.html">
+<link rel="import" href="../../components/tutorial-level-title.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="level-one-rocks">
@@ -13,20 +14,6 @@
                 padding-left: 5%;
                 padding-right: 5%;
                 padding-bottom: 5%;
-            }
-
-            .title {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-            }
-
-            .title h1 {
-                font-size: 4em;
-            }
-
-            .title h3 {
-                font-size: 1.5em;
             }
 
             .disabled-next {
@@ -108,10 +95,7 @@
         </style>
 
         <div class="container">
-            <div class="title">
-                <h1>Rock, Paper, ... Axes</h1>
-                <h3>Level 1 - 1/3</h3>
-            </div>
+            <tutorial-level-title value="Rock, Paper, ... Axes" level="1" progress="[[progress]]"></tutorial-level-title>
 
             <div class="paul-text">
                 <img class="paul-imer" src="../../../static/images/paul_imer.png"/>
@@ -166,6 +150,10 @@
                         notify: true,
                         observer: '_codeChanged'
                     },
+                    progress: {
+                        type: Object,
+                        value: {current: 1, total: 3}
+                    }
                 };
             }
 

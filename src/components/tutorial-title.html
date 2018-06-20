@@ -1,0 +1,66 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-title">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+            }
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+            .title h1 {
+                font-size: 4em;
+            }
+
+            .italic {
+                font-style: italic;
+            }
+
+            .title h3 {
+                font-size: 1.5em;
+            }
+        </style>
+
+        <div class="title">
+            <h1>[[title]]</h1>
+            <h3 class$="{{_subtitleClass}}">[[subtitle]]</h3>
+        </div>
+    </template>
+
+    <script>
+        class TutorialTitle extends Polymer.Element {
+            static get is() {
+                return 'tutorial-title';
+            }
+
+            static get properties() {
+                return {
+                    title: String,
+                    subtitle: String,
+                    subtitleItalic: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _subtitleClass: {
+                        type: String,
+                        computed: '_calculateSubtitleClass(subtitleItalic)'
+                    }
+                };
+            }
+
+            _calculateSubtitleClass(subtitleItalic) {
+                return subtitleItalic ? 'italic' : 'normal';
+            }
+        }
+
+        window.customElements.define(TutorialTitle.is, TutorialTitle);
+    </script>
+</dom-module>

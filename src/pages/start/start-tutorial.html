@@ -1,4 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../components/tutorial-title.html">
+
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="start-tutorial">
@@ -11,21 +13,6 @@
                 padding-left: 5%;
                 padding-right: 5%;
                 padding-bottom: 5%;
-            }
-
-            .title {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-            }
-
-            .title h1 {
-                font-size: 4em;
-            }
-
-            .title h3 {
-                font-size: 1.5em;
-                font-style: italic;
             }
 
             .start {
@@ -59,10 +46,7 @@
         </style>
 
         <div class="container">
-            <div class="title">
-                <h1>Polycraft</h1>
-                <h3>a Polymer 2.x tutorial game</h3>
-            </div>
+            <tutorial-title title="Polycraft" subtitle="a Polymer 2.x tutorial game" subtitle-italic></tutorial-title>
 
             <div>
                 <!--TODO image-->
