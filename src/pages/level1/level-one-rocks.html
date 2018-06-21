@@ -1,7 +1,8 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../../bower_components/monaco-editor/monaco-editor.html">
+<link rel="import" href="../../components/tutorial-code-practice.html">
 <link rel="import" href="../../components/tutorial-level-title.html">
+<link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="level-one-rocks">
@@ -14,19 +15,6 @@
                 padding-left: 5%;
                 padding-right: 5%;
                 padding-bottom: 5%;
-            }
-
-            .disabled-next {
-                background-color: lightgrey;
-                color: #fff;
-                margin-top: 5%;
-                padding: 12px;
-                font-size: 4em;
-                border: 1px solid lightgrey;
-                width: 25%;
-                border-radius: 25px;
-                text-decoration: none;
-                pointer-events: none;
             }
 
             .next {
@@ -43,65 +31,23 @@
                 /* #07889B */
                 /* #E37222 */
             }
-
-            .text1 {
-                width: 80%;
-                font-size: 1.2em;
-            }
-
-            p {
-                line-height: 2;
-            }
-
-            .exercise-header {
-                display: flex;
-            }
-
-            .tab {
-                padding: 1%;
-                font-size: 1.2em;
-            }
-
-            .exercise-body {
-                margin-bottom: 5%;
-                width: 100%;
-            }
-
-            .editor {
-                width: 100%;
-            }
         </style>
 
         <div class="container">
             <tutorial-level-title
                     value="Rock, Paper, ... Axes"
                     level="1"
-                    progress="[[progress]]">
+                    progress="[[_progress]]">
             </tutorial-level-title>
 
-            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
-            <template is="dom-if" if="{{displayRest}}">
-                <div>
-                    <div class="exercise-header">
-                        <button id="tab-1" class="tab">
-                            rock.html
-                        </button>
-                    </div>
-                    <div class="exercise-body">
-                        <monaco-editor class="editor" language="html" value="{{code}}">
-                        </monaco-editor>
-                    </div>
-                </div>
+            <template is="dom-if" if="{{_displayCode}}">
+                <tutorial-code-practice tabs="[[_codeExercises]]"></tutorial-code-practice>
 
-                <div>
-                    <template is="dom-if" if="{{!disabled}}">
-                        <a class="next" is="pushstate-anchor" href="/soon/">Good job!</a>
-                    </template>
-                    <template is="dom-if" if="{{disabled}}">
-                        <a class="disabled-next">Almost there...</a>
-                    </template>
-                </div>
+                <template is="dom-if" if="{{_displayNextLevelButton}}">
+                    <a class="next" is="pushstate-anchor" href="/soon/">Good job!</a>
+                </template>
             </template>
         </div>
     </template>
@@ -114,28 +60,25 @@
 
             static get properties() {
                 return {
-                    disabled: {
-                        type: Boolean,
-                        value: true,
-                    },
-                    levelDescription: {
+                    _levelDescription: {
                         type: Array,
                         value: ['First, we\'ll need to collect some rocks. To do this, you\'ll need to create web components ' +
-                        'that we can use further on in the quest. Your rock will be a JavaScript class. Good luck!'],
+                        'that we can use further on in the quest.',
+                            'To start, create a JavaScript class with the appropriate name. Good luck!'],
                     },
-                    code: {
-                        type: String,
-                        value: `<script>
-    // TODO
-<\/script>`,
-                        notify: true,
-                        observer: '_codeChanged'
-                    },
-                    progress: {
+                    _progress: {
                         type: Object,
                         value: {current: 1, total: 3}
                     },
-                    displayRest: {
+                    _codeExercises: {
+                        type: Array,
+                        value: [],
+                    },
+                    _displayCode: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _displayNextLevelButton: {
                         type: Boolean,
                         value: false,
                     }
@@ -144,18 +87,36 @@
 
             ready() {
                 super.ready();
-                this.addEventListener('paul-talked', e => this._displayNextLevelButton(e));
+                this._initializeCodeExercises();
+
+                this.addEventListener('paul-talked', this._showCode);
+                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
+                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
             }
 
-            _displayNextLevelButton(e) {
-                console.log(e);
-                this.displayRest = true;
+            _initializeCodeExercises() {
+                this._codeExercises = [
+                    {
+                        fileName: 'rock.html',
+                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+}(\\s)+(<\/script>)`,
+                        template: `<script>
+    // TODO
+<\/script>`,
+                        hint: `<script>
+    // class Rock {
+
+    // }
+<\/script>`
+                    }
+                ]
             }
 
-            _codeChanged(newValue) {
-                const correctCode = RegExp(`(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+}(\\s)+(<\/script>)`, 'gm');
+            _showCode() {
+                this._displayCode = true;
+            }
 
-                this.disabled = !correctCode.test(newValue);
+            _showNextLevelButton(value) {
+                this._displayNextLevelButton = value;
             }
         }
 

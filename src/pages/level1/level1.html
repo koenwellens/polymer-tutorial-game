@@ -34,7 +34,7 @@
         <div class="container">
             <tutorial-level-title value="Rock, Paper, ... Axes" level="1"></tutorial-level-title>
 
-            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
             <template is="dom-if" if="{{displayNextLevelButton}}">
                 <div>
@@ -53,7 +53,7 @@
 
             static get properties() {
                 return {
-                    levelDescription: {
+                    _levelDescription: {
                         type: Array,
                         value: ['Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. ' +
                         'But I can\'t do it on my own. Believe me, I tried. Maybe together we can join the championships and win!',

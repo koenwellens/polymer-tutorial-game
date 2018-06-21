@@ -1,0 +1,171 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/juicy-ace-editor/juicy-ace-editor.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-code-practice">
+    <template>
+        <style>
+            .exercise-header {
+                display: flex;
+            }
+
+            .active {
+                font-weight: bold;
+            }
+
+            .tab {
+                padding: 8px;
+                background-color: #66b9bf;
+                font-size: 1em;
+                color: #fff;
+            }
+
+            .exercise-body {
+                margin-bottom: 5%;
+            }
+
+            .editor {
+                width: 40%;
+                height: 10em;
+            }
+
+            .hint {
+                background-color: #e37222;
+                color: #fff;
+                border-radius: 2px;
+                font-size: 0.75em;
+            }
+        </style>
+
+        <div class="exercise-header">
+            <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
+                <template>
+                    <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]" on-click="_changeTab">
+                        [[tab.fileName]]
+                    </button>
+                </template>
+            </dom-repeat>
+        </div>
+        <div class="exercise-body">
+            <juicy-ace-editor
+                    id="code-editor"
+                    class="editor"
+                    min-lines="10"
+                    max-lines="25"
+                    theme="ace/theme/monokai"
+                    mode="ace/mode/html"
+                    value="{{_currentCode}}">
+            </juicy-ace-editor>
+            <template is="dom-if" if="{{!_currentCodeIsCorrect}}">
+                <button class="hint" on-click="_showHint">Hint</button>
+            </template>
+
+        </div>
+    </template>
+
+    <script>
+        class TutorialCodePractice extends Polymer.Element {
+            static get is() {
+                return 'tutorial-code-practice';
+            }
+
+            static get properties() {
+                return {
+                    tabs: {
+                        type: Array,
+                        value: [],
+                        // [ { fileName: 'fileName', solutionRegExp: '', template: '', hint: ''}]
+                    },
+                    _code: {
+                        type: Array,
+                        value: [],
+                    },
+                    _currentCode: {
+                        type: String,
+                        value: '',
+                        notify: true,
+                        observer: '_currentCodeChanged',
+                    },
+                    _currentTab: {
+                        type: Number,
+                        value: 0,
+                    },
+                    _currentCodeIsCorrect: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _editor: {
+                        type: Object,
+                        value: {},
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this._code = this.tabs.map(file => file.template);
+                this._currentCode = this._code[0];
+
+                this.addEventListener('change', this._currentCodeChanged);
+                this.addEventListener('editor-ready', e => this._storeEditor(e));
+            }
+
+            _storeEditor(e) {
+                this._editor = e.detail;
+            }
+
+            _additionalTabClass(tabIndex) {
+                if (tabIndex === this._currentTab) {
+                    return 'active tab';
+                }
+
+                return 'tab';
+            }
+
+            _changeTab(tabChangedEvent) {
+                this._code[this._currentTab] = this._currentCode;
+                const tabIndex = tabChangedEvent.target.id.substr(4);
+                this._currentCode = this._code[tabIndex];
+            }
+
+            _currentCodeChanged() {
+                if (!!this._editor.getSession) {
+                    const newValue = this._editor.getSession().getValue();
+                    const solutionRegExp = RegExp(this.tabs[this._currentTab].solutionRegExp, 'gm');
+
+                    this._currentCodeIsCorrect = solutionRegExp.test(newValue);
+                    this._code[this._currentTab] = newValue;
+                    this._fireEventWhenAllCodeIsCorrect();
+                }
+            }
+
+            _fireEventWhenAllCodeIsCorrect() {
+                if (this._allCodeIsCorrect()) {
+                    this.dispatchEvent(new CustomEvent('solution-correct', {composed: true}));
+                } else {
+                    this.dispatchEvent(new CustomEvent('solution-incorrect', {composed: true}));
+                }
+            }
+
+            _allCodeIsCorrect() {
+                let solutionRegExp;
+                let solutionIsComplete = true;
+                for (let index = 0; index < this.tabs.length && solutionIsComplete; index++) {
+                    solutionRegExp = RegExp(this.tabs[index].solutionRegExp, 'gm');
+                    solutionIsComplete = solutionIsComplete && solutionRegExp.test(this._code[index]);
+                }
+
+                return solutionIsComplete;
+            }
+
+            _showHint() {
+                // Instead of changing the text, open a pop-up!
+                this._currentCode = this.tabs[this._currentTab].hint;
+            }
+        }
+
+        window.customElements.define(TutorialCodePractice.is, TutorialCodePractice);
+    </script>
+</dom-module>
