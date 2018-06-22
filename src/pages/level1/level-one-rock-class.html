@@ -5,7 +5,7 @@
 <link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-<dom-module id="level-one-rocks">
+<dom-module id="level-one-rock-class">
     <template>
         <style>
             :host {
@@ -22,7 +22,7 @@
                 color: #fff;
                 margin-top: 5%;
                 padding: 12px;
-                font-size: 4em;
+                font-size: 2em;
                 border: 1px solid #e37222;
                 width: 25%;
                 border-radius: 25px;
@@ -42,20 +42,23 @@
 
             <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
+            <!--TODO shouldnt the follow up message be said by Paul?-->
             <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[_codeExercises]]"></tutorial-code-practice>
+                <tutorial-code-practice tabs="[[_codeExercises]]"
+                                        follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
 
-                <template is="dom-if" if="{{_displayNextLevelButton}}">
-                    <a class="next" is="pushstate-anchor" href="/soon/">Good job!</a>
+                <!--TODO componentize the button?-->
+                <template is="dom-if" if="{{_codeIsCorrect}}">
+                    <a class="next" is="pushstate-anchor" href="/soon/">Continue</a>
                 </template>
             </template>
         </div>
     </template>
 
     <script>
-        class LevelOneRocks extends Polymer.Element {
+        class LevelOneRockClass extends Polymer.Element {
             static get is() {
-                return 'level-one-rocks';
+                return 'level-one-rock-class';
             }
 
             static get properties() {
@@ -78,7 +81,11 @@
                         type: Boolean,
                         value: false,
                     },
-                    _displayNextLevelButton: {
+                    _followUpMessage: {
+                        type: String,
+                        value: 'Great! You created your first JavaScript class! Click the button below to go to the next part of this level!',
+                    },
+                    _codeIsCorrect: {
                         type: Boolean,
                         value: false,
                     }
@@ -116,10 +123,10 @@
             }
 
             _showNextLevelButton(value) {
-                this._displayNextLevelButton = value;
+                this._codeIsCorrect = value;
             }
         }
 
-        window.customElements.define(LevelOneRocks.is, LevelOneRocks);
+        window.customElements.define(LevelOneRockClass.is, LevelOneRockClass);
     </script>
 </dom-module>

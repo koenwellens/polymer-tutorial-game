@@ -1,6 +1,6 @@
 {
   "name": "polymor-tutorial-game",
-  "description": "A game to teach people how to use Polyme",
+  "description": "A game to teach people how to use Polymer",
   "main": "index.html",
   "dependencies": {
     "app-router": "^2.7.2",

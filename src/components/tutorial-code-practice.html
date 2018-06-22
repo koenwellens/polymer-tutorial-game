@@ -22,12 +22,34 @@
                 color: #fff;
             }
 
+            .practice {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-bottom: 3%;
+            }
+
+            .exercise {
+                width: 40%;
+            }
+
+            .follow-up-message {
+                margin-left: 5%;
+                border: 1px solid white;
+                background-color: white;
+                color: #66b9bf;
+                border-radius: 25px;
+                padding: 2%;
+                font-size: 1.2em;
+                height: 80px;
+                line-height: 1.2;
+            }
+
             .exercise-body {
                 margin-bottom: 5%;
             }
 
             .editor {
-                width: 40%;
                 height: 10em;
             }
 
@@ -39,29 +61,39 @@
             }
         </style>
 
-        <div class="exercise-header">
-            <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
-                <template>
-                    <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]" on-click="_changeTab">
-                        [[tab.fileName]]
-                    </button>
+        <div class="practice">
+            <div class="exercise">
+                <div class="exercise-header">
+                    <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
+                        <template>
+                            <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]"
+                                    on-click="_changeTab">
+                                [[tab.fileName]]
+                            </button>
+                        </template>
+                    </dom-repeat>
+                </div>
+                <div class="exercise-body">
+                    <juicy-ace-editor
+                            id="code-editor"
+                            class="editor"
+                            min-lines="10"
+                            max-lines="25"
+                            theme="ace/theme/monokai"
+                            mode="ace/mode/html"
+                            value="{{_currentCode}}">
+                    </juicy-ace-editor>
+                    <template is="dom-if" if="{{!_currentCodeIsCorrect}}">
+                        <button class="hint" on-click="_showHint">Hint</button>
+                    </template>
+                </div>
+            </div>
+            <div>
+                <template is="dom-if" if="{{_currentCodeIsCorrect}}">
+                    <p class="follow-up-message">[[followUpMessage]]</p>
                 </template>
-            </dom-repeat>
-        </div>
-        <div class="exercise-body">
-            <juicy-ace-editor
-                    id="code-editor"
-                    class="editor"
-                    min-lines="10"
-                    max-lines="25"
-                    theme="ace/theme/monokai"
-                    mode="ace/mode/html"
-                    value="{{_currentCode}}">
-            </juicy-ace-editor>
-            <template is="dom-if" if="{{!_currentCodeIsCorrect}}">
-                <button class="hint" on-click="_showHint">Hint</button>
-            </template>
-
+                <p></p>
+            </div>
         </div>
     </template>
 
@@ -77,6 +109,10 @@
                         type: Array,
                         value: [],
                         // [ { fileName: 'fileName', solutionRegExp: '', template: '', hint: ''}]
+                    },
+                    followUpMessage: {
+                        type: String,
+                        value: '',
                     },
                     _code: {
                         type: Array,
