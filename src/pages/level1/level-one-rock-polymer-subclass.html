@@ -5,7 +5,7 @@
 <link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-<dom-module id="level-one-rock-class">
+<dom-module id="level-one-rock-polymer-subclass">
     <template>
         <style>
             :host {
@@ -49,29 +49,29 @@
 
                 <!--TODO componentize the button?-->
                 <template is="dom-if" if="{{_codeIsCorrect}}">
-                    <a class="next" is="pushstate-anchor" href="/1-2/">Continue</a>
+                    <a class="next" is="pushstate-anchor" href="/soon/">Continue</a>
                 </template>
             </template>
         </div>
     </template>
 
     <script>
-        class LevelOneRockClass extends Polymer.Element {
+        class LevelOneRockPolymerSubclass extends Polymer.Element {
             static get is() {
-                return 'level-one-rock-class';
+                return 'level-one-rock-polymer-subclass';
             }
 
             static get properties() {
                 return {
                     _levelDescription: {
                         type: Array,
-                        value: ['First, we\'ll need to collect some rocks. To do this, you\'ll need to create web components ' +
-                        'that we can use further on in the quest.',
-                            'To start, create a JavaScript class with the appropriate name. Good luck!'],
+                        value: ['Your JavaScript class has everything it needs to become a web component. Accept... there\'s no Polymer yet!',
+                        'Let\'s change that. To make a Polymer element, your class needs to extend the Polymer Element class.',
+                        'So, transform your class to a subclass from Polymer.Element!'],
                     },
                     _progress: {
                         type: Object,
-                        value: {current: 1, total: 7}
+                        value: {current: 3, total: 7}
                     },
                     _codeExercises: {
                         type: Array,
@@ -83,7 +83,7 @@
                     },
                     _followUpMessage: {
                         type: String,
-                        value: 'Great! You created your first JavaScript class! Click the button below to go to the next part of this level!',
+                        value: 'Great! Your class is now a Polymer element! Or is it? Click the continue button to find out!',
                     },
                     _codeIsCorrect: {
                         type: Boolean,
@@ -105,14 +105,23 @@
                 this._codeExercises = [
                     {
                         fileName: 'rock.html',
-                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+}(\\s)+(<\/script>)`,
+                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
                         template: `<script>
-    // TODO
+    class Rock {
+
+        static get is() {
+            return 'rock';
+        }
+    }
 <\/script>`,
                         hint: `<script>
-    // class Rock {
+    class Rock // extends Polymer.Element {
+    { // HINT This curly brace can be removed when the line above is uncommented.
 
-    // }
+        static get is() {
+            return 'rock';
+        }
+    }
 <\/script>`
                     }
                 ]
@@ -127,6 +136,6 @@
             }
         }
 
-        window.customElements.define(LevelOneRockClass.is, LevelOneRockClass);
+        window.customElements.define(LevelOneRockPolymerSubclass.is, LevelOneRockPolymerSubclass);
     </script>
 </dom-module>
