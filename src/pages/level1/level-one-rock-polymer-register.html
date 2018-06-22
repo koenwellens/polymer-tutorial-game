@@ -119,12 +119,12 @@
                 this._codeExercises = [
                     {
                         fileName: 'rock.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib\/polymer\/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png">)(\\s)+(</template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
+                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib\/polymer\/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png"/>)(\\s)+(</template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
                         template: `<link rel="import" href="lib/polymer/polymer-element.html">
 
 <dom-module id="rock">
     <template>
-         <img src="assets/images/rock.png">
+         <img src="assets/images/rock.png"/>
      </template>
 </dom-module>
 
@@ -140,7 +140,7 @@
 
 <dom-module id="rock">
      <template>
-         <img src="assets/images/rock.png">
+         <img src="assets/images/rock.png"/>
      </template>
 </dom-module>
 
