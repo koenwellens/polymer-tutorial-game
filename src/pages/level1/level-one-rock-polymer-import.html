@@ -5,7 +5,7 @@
 <link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-<dom-module id="level-one-rock-polymer-subclass">
+<dom-module id="level-one-rock-polymer-import">
     <template>
         <style>
             :host {
@@ -49,29 +49,30 @@
 
                 <!--TODO componentize the button?-->
                 <template is="dom-if" if="{{_codeIsCorrect}}">
-                    <a class="next" is="pushstate-anchor" href="/1-4/">Continue</a>
+                    <a class="next" is="pushstate-anchor" href="/soon/">Continue</a>
                 </template>
             </template>
         </div>
     </template>
 
     <script>
-        class LevelOneRockPolymerSubclass extends Polymer.Element {
+        class LevelOneRockPolymerImport extends Polymer.Element {
             static get is() {
-                return 'level-one-rock-polymer-subclass';
+                return 'level-one-rock-polymer-import';
             }
 
             static get properties() {
                 return {
                     _levelDescription: {
                         type: Array,
-                        value: ['Your JavaScript class has everything it needs to become a web component. Accept... there\'s no Polymer yet!',
-                        'Let\'s change that. To make a Polymer element, your class needs to extend the Polymer Element class.',
-                        'So, transform your class to a subclass from Polymer.Element!'],
+                        value: ['Almost there... This won\'t work as your browser doesn\'t know Polymer.Element.',
+                        'You need to tell your browser where to find it. To do this, we\'ll use html imports.',
+                        'A html import can be done as follows: <link rel="import" href="location">, where location is the location of the polymer-element.html file.',
+                        'Add <link rel="import" href="location"> above your script tag. The location of polymer is "lib/polymer/polymer-element.html".'],
                     },
                     _progress: {
                         type: Object,
-                        value: {current: 3, total: 7}
+                        value: {current: 4, total: 7}
                     },
                     _codeExercises: {
                         type: Array,
@@ -83,7 +84,7 @@
                     },
                     _followUpMessage: {
                         type: String,
-                        value: 'Great! Your class is now a Polymer element! Or is it? Click the continue button to find out!',
+                        value: 'Wow! You created your first Polymer element. Let\'s make it look a bit nicer now and add content!',
                     },
                     _codeIsCorrect: {
                         type: Boolean,
@@ -105,18 +106,19 @@
                 this._codeExercises = [
                     {
                         fileName: 'rock.html',
-                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
+                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib\/polymer\/polymer-element.html">)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
                         template: `<script>
-    class Rock {
+    class Rock extends Polymer.Element {
 
         static get is() {
             return 'rock';
         }
     }
 <\/script>`,
-                        hint: `<script>
-    class Rock // extends Polymer.Element {
-    { // HINT This curly brace can be removed when the line above is uncommented.
+                        hint: `<!-- <link rel="import" href="lib/polymer/polymer-element.html"> -->
+
+<script>
+    class Rock extends Polymer.Element {
 
         static get is() {
             return 'rock';
@@ -136,6 +138,6 @@
             }
         }
 
-        window.customElements.define(LevelOneRockPolymerSubclass.is, LevelOneRockPolymerSubclass);
+        window.customElements.define(LevelOneRockPolymerImport.is, LevelOneRockPolymerImport);
     </script>
 </dom-module>
