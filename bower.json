@@ -1,10 +1,11 @@
 {
   "name": "polymor-tutorial-game",
-  "description": "A game to teach people how to use Polyme",
+  "description": "A game to teach people how to use Polymer",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0",
-    "app-router": "^2.7.2"
+    "app-router": "^2.7.2",
+    "juicy-ace-editor": "^2.0.5",
+    "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",

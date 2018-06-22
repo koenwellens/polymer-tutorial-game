@@ -1,0 +1,154 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../components/tutorial-code-practice.html">
+<link rel="import" href="../../components/tutorial-level-title.html">
+<link rel="import" href="../../components/tutorial-paul.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="level-one-rock-polymer-template">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+
+            .next {
+                background-color: #e37222;
+                color: #fff;
+                margin-top: 5%;
+                padding: 12px;
+                font-size: 2em;
+                border: 1px solid #e37222;
+                width: 25%;
+                border-radius: 25px;
+                text-decoration: none;
+
+                /* #07889B */
+                /* #E37222 */
+            }
+        </style>
+
+        <div class="container">
+            <tutorial-level-title
+                    value="Polymer Rocks"
+                    level="1"
+                    progress="[[_progress]]">
+            </tutorial-level-title>
+
+            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
+
+            <!--TODO shouldnt the follow up message be said by Paul?-->
+            <template is="dom-if" if="{{_displayCode}}">
+                <tutorial-code-practice tabs="[[_codeExercises]]"
+                                        follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
+
+                <!--TODO componentize the button?-->
+                <template is="dom-if" if="{{_codeIsCorrect}}">
+                    <a class="next" is="pushstate-anchor" href="/1-7/">Continue</a>
+                </template>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        class LevelOneRockPolymerTemplate extends Polymer.Element {
+            static get is() {
+                return 'level-one-rock-polymer-template';
+            }
+
+            static get properties() {
+                return {
+                    _levelDescription: {
+                        type: Array,
+                        value: ['The dom-module is one of the two surrounding html tags. You need a template as well.',
+                        'In the template, we\'ll add an image of a rock. You can assume it\'s located at "assets/images/rock.png".',
+                        'So add a <template> tag that contains an <img> tag pointing to "assets/images/rock.png". Don\'t forget the closing template tag!'],
+                    },
+                    _progress: {
+                        type: Object,
+                        value: {current: 6, total: 7}
+                    },
+                    _codeExercises: {
+                        type: Array,
+                        value: [],
+                    },
+                    _displayCode: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _followUpMessage: {
+                        type: String,
+                        value: 'So you added html to your web component. Yet if you\'d use it, it still wouldn\'t work. Why is that?',
+                    },
+                    _codeIsCorrect: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this._initializeCodeExercises();
+
+                this.addEventListener('paul-talked', this._showCode);
+                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
+                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
+            }
+
+            _initializeCodeExercises() {
+                this._codeExercises = [
+                    {
+                        fileName: 'rock.html',
+                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
+                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
+
+<dom-module id="rock">
+
+</dom-module>
+
+<script>
+    class Rock extends Polymer.Element {
+
+        static get is() {
+            return 'rock';
+        }
+    }
+<\/script>`,
+                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
+
+<dom-module id="rock">
+    <!-- <template> -->
+        <!-- <img src="assets/images/rock.png"/> -->
+    <!-- </template> -->
+</dom-module>
+
+<script>
+    class Rock extends Polymer.Element {
+
+        static get is() {
+            return 'rock';
+        }
+    }
+<\/script>`
+                    }
+                ]
+            }
+
+            _showCode() {
+                this._displayCode = true;
+            }
+
+            _showNextLevelButton(value) {
+                this._codeIsCorrect = value;
+            }
+        }
+
+        window.customElements.define(LevelOneRockPolymerTemplate.is, LevelOneRockPolymerTemplate);
+    </script>
+</dom-module>

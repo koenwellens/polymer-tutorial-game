@@ -1,0 +1,82 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../components/tutorial-level-title.html">
+<link rel="import" href="../../components/tutorial-paul.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="level-one">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+
+            .start {
+                background-color: #e37222;
+                color: #fff;
+                margin-top: 5%;
+                padding: 12px;
+                font-size: 2em;
+                border: 1px solid #e37222;
+                width: 25%;
+                border-radius: 25px;
+                text-decoration: none;
+
+                /* #07889B */
+                /* #E37222 */
+            }
+        </style>
+
+        <div class="container">
+            <tutorial-level-title value="Polymer Rocks" level="1"></tutorial-level-title>
+
+            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
+
+            <template is="dom-if" if="{{displayNextLevelButton}}">
+                <div>
+                    <a class="start" is="pushstate-anchor" href="/1-1/">Let's go!</a>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <script>
+
+        class LevelOne extends Polymer.Element {
+            static get is() {
+                return 'level-one';
+            }
+
+            static get properties() {
+                return {
+                    _levelDescription: {
+                        type: Array,
+                        value: ['Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. ' +
+                        'But I can\'t do it on my own. Believe me, I tried. Maybe together we can join the championships and win!',
+                            'Let\'s first have a look at what Polycraft is. Click the button below to start the journey!'],
+                    },
+                    displayNextLevelButton: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this.addEventListener('paul-talked', e => this._displayNextLevelButton(e));
+            }
+
+            _displayNextLevelButton(e) {
+                console.log(e);
+                this.displayNextLevelButton = true;
+            }
+        }
+
+        window.customElements.define(LevelOne.is, LevelOne);
+    </script>
+</dom-module>
