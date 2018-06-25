@@ -5,6 +5,7 @@
   "dependencies": {
     "app-router": "^2.7.2",
     "juicy-ace-editor": "^2.0.5",
+    "paper-dialog": "^2.1.1",
     "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
