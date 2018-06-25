@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../bower_components/juicy-ace-editor/juicy-ace-editor.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-code-practice">
@@ -59,6 +60,14 @@
                 border-radius: 2px;
                 font-size: 0.75em;
             }
+
+            .dialog {
+                background-color: #e6e6e6;
+            }
+
+            .hint-title {
+                text-decoration: underline;
+            }
         </style>
 
         <div class="practice">
@@ -85,6 +94,10 @@
                     </juicy-ace-editor>
                     <template is="dom-if" if="{{!_currentCodeIsCorrect}}">
                         <button class="hint" on-click="_showHint">Hint</button>
+                        <paper-dialog class="dialog" id="dialog" opened="{{_hintIsDisplayed}}">
+                            <h2 class="hint-title">Hint for [[_currentFilename]]</h2>
+                            <p><pre><code>[[_currentHint]]</code></pre></p>
+                        </paper-dialog>
                     </template>
                 </div>
             </div>
@@ -124,6 +137,14 @@
                         notify: true,
                         observer: '_currentCodeChanged',
                     },
+                    _currentFilename: {
+                        type: String,
+                        value: '',
+                    },
+                    _currentHint: {
+                        type: String,
+                        value: '',
+                    },
                     _currentTab: {
                         type: Number,
                         value: 0,
@@ -135,6 +156,10 @@
                     _editor: {
                         type: Object,
                         value: {},
+                    },
+                    _hintIsDisplayed: {
+                        type: Boolean,
+                        value: false,
                     }
                 };
             }
@@ -143,6 +168,8 @@
                 super.ready();
                 this._code = this.tabs.map(file => file.template);
                 this._currentCode = this._code[0];
+                this._currentFilename = this.tabs[this._currentTab].fileName;
+                this._currentHint = this.tabs[this._currentTab].hint;
 
                 this.addEventListener('change', this._currentCodeChanged);
                 this.addEventListener('editor-ready', e => this._storeEditor(e));
@@ -164,6 +191,8 @@
                 this._code[this._currentTab] = this._currentCode;
                 const tabIndex = tabChangedEvent.target.id.substr(4);
                 this._currentCode = this._code[tabIndex];
+                this._currentFilename = this.tabs[this._currentTab].fileName;
+                this._currentHint = this.tabs[this._currentTab].hint;
             }
 
             _currentCodeChanged() {
@@ -197,8 +226,7 @@
             }
 
             _showHint() {
-                // Instead of changing the text, open a pop-up!
-                this._currentCode = this.tabs[this._currentTab].hint;
+                this._hintIsDisplayed = true;
             }
         }
 
