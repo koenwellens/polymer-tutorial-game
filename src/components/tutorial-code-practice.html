@@ -2,8 +2,8 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../bower_components/juicy-ace-editor/juicy-ace-editor.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="tutorial-file-tabs.html">
+<link rel="import" href="tutorial-code-hint.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-code-practice">
@@ -43,27 +43,13 @@
             .editor {
                 height: 10em;
             }
-
-            .hint {
-                background-color: #e37222;
-                color: #fff;
-                border-radius: 2px;
-                font-size: 0.75em;
-            }
-
-            .dialog {
-                background-color: #e6e6e6;
-            }
-
-            .hint-title {
-                text-decoration: underline;
-            }
         </style>
 
         <div class="practice">
             <div class="exercise">
                 <div class="exercise-header">
-                    <tutorial-file-tabs tabs="[[tabs]]" selected-tab="[[_currentTab]]"></tutorial-file-tabs>
+                    <tutorial-file-tabs tabs="[[tabs]]" selected-tab="[[_currentTab]]">
+                    </tutorial-file-tabs>
                 </div>
                 <div class="exercise-body">
                     <juicy-ace-editor
@@ -75,20 +61,16 @@
                             mode="ace/mode/html"
                             value="{{_currentCode}}">
                     </juicy-ace-editor>
-                    <template is="dom-if" if="{{!_currentCodeIsCorrect}}">
-                        <button class="hint" on-click="_showHint">Hint</button>
-                        <paper-dialog class="dialog" id="dialog" opened="{{_hintIsDisplayed}}">
-                            <h2 class="hint-title">Hint for [[_currentFilename]]</h2>
-                            <p><pre><code>[[_currentHint]]</code></pre></p>
-                        </paper-dialog>
-                    </template>
+                    <tutorial-code-hint visible="[[!_currentCodeIsCorrect]]"
+                                        hint="[[_getCurrent('hint')]]"
+                                        file-name="[[_getCurrent('fileName')]]">
+                    </tutorial-code-hint>
                 </div>
             </div>
             <div>
                 <template is="dom-if" if="{{_currentCodeIsCorrect}}">
                     <p class="follow-up-message">[[followUpMessage]]</p>
                 </template>
-                <p></p>
             </div>
         </div>
     </template>
@@ -120,14 +102,6 @@
                         notify: true,
                         observer: '_currentCodeChanged',
                     },
-                    _currentFilename: {
-                        type: String,
-                        value: '',
-                    },
-                    _currentHint: {
-                        type: String,
-                        value: '',
-                    },
                     _currentTab: {
                         type: Number,
                         value: 0,
@@ -139,10 +113,6 @@
                     _editor: {
                         type: Object,
                         value: {},
-                    },
-                    _hintIsDisplayed: {
-                        type: Boolean,
-                        value: false,
                     }
                 };
             }
@@ -151,32 +121,24 @@
                 super.ready();
                 this._code = this.tabs.map(file => file.template);
                 this._currentCode = this._code[0];
-                this._currentFilename = this.tabs[this._currentTab].fileName;
-                this._currentHint = this.tabs[this._currentTab].hint;
 
                 this.addEventListener('change', this._currentCodeChanged);
                 this.addEventListener('editor-ready', e => this._storeEditor(e));
                 this.addEventListener('file-tab-changed', this._changeTab);
             }
 
-            _storeEditor(e) {
-                this._editor = e.detail;
+            _getCurrent(field) {
+                return this.tabs[this._currentTab][field];
             }
 
-            _additionalTabClass(tabIndex) {
-                if (tabIndex === this._currentTab) {
-                    return 'active tab';
-                }
-
-                return 'tab';
+            _storeEditor(e) {
+                this._editor = e.detail;
             }
 
             _changeTab(tabChangedEvent) {
                 this._code[this._currentTab] = this._currentCode;
                 this._currentTab = tabChangedEvent.detail.selectedTab;
                 this._currentCode = this._code[this._currentTab];
-                this._currentFilename = this.tabs[this._currentTab].fileName;
-                this._currentHint = this.tabs[this._currentTab].hint;
             }
 
             _currentCodeChanged() {
@@ -207,10 +169,6 @@
                 }
 
                 return solutionIsComplete;
-            }
-
-            _showHint() {
-                this._hintIsDisplayed = true;
             }
         }
 

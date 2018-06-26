@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<dom-module id="tutorial-code-hint">
+    <template>
+        <style>
+            .hint {
+                background-color: #e37222;
+                color: #fff;
+                border-radius: 2px;
+                font-size: 0.75em;
+            }
+
+            .dialog {
+                background-color: #e6e6e6;
+            }
+
+            .hint-title {
+                text-decoration: underline;
+            }
+        </style>
+
+        <template is="dom-if" if="{{visible}}">
+            <button class="hint" on-click="_showHint">Hint</button>
+            <paper-dialog class="dialog" id="dialog" opened="{{_hintIsDisplayed}}">
+                <h2 class="hint-title">Hint for [[fileName]]</h2>
+                <p>
+                <pre><code>[[hint]]</code></pre>
+                </p>
+            </paper-dialog>
+        </template>
+    </template>
+
+    <script>
+        class TutorialCodeHint extends Polymer.Element {
+            static get is() {
+                return 'tutorial-code-hint';
+            }
+
+            static get properties() {
+                return {
+                    fileName: {
+                        type: String,
+                        value: '',
+                    },
+                    hint: {
+                        type: String,
+                        value: '',
+                    },
+                    visible: {
+                        type: Boolean,
+                        value: true,
+                    },
+                    _hintIsDisplayed: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            _showHint() {
+                this._hintIsDisplayed = true;
+            }
+        }
+
+        window.customElements.define(TutorialCodeHint.is, TutorialCodeHint);
+    </script>
+</dom-module>
