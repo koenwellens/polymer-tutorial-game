@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="tutorial-paul-next-text-button">
+    <template>
+        <style>
+            .next-link {
+                margin-top: 5%;
+                float: right;
+                color: #E37222;
+                background-color: #eee;
+                border-radius: 5px;
+                padding: 5px;
+                cursor: pointer;
+            }
+        </style>
+
+
+        <template is="dom-if" if="{{visible}}">
+            <a class="next-link" on-click="_onClick">Next...</a>
+        </template>
+    </template>
+
+    <script>
+
+        class TutorialPaulNextTextButton extends Polymer.Element {
+            static get is() {
+                return 'tutorial-paul-next-text-button';
+            }
+
+            static get properties() {
+                return {
+                    visible: {
+                        type: Boolean,
+                        value: false,
+                    },
+                };
+            }
+
+            _onClick() {
+                this.dispatchEvent(new CustomEvent('next-text-please', {composed: true}));
+            }
+        }
+
+        window.customElements.define(TutorialPaulNextTextButton.is, TutorialPaulNextTextButton);
+    </script>
+</dom-module>

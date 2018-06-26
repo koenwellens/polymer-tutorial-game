@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="tutorial-paul-next-text-button.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-paul">
@@ -37,26 +37,15 @@
                 width: 15%;
                 height: 15%;
             }
-
-            .next-link {
-                margin-top: 5%;
-                float: right;
-                color: #E37222;
-                background-color: #eee;
-                border-radius: 5px;
-                padding: 5px;
-                cursor: pointer;
-            }
-
         </style>
 
         <div class="paul-text">
             <img class="paul-imer" src="../../static/images/paul_imer.png"/>
             <div class="text-balloon" on-click="skipTalking">
                 <p>[[currentText]]</p>
-                <template is="dom-if" if="{{displayNext}}">
-                    <a id="next-link" class="next-link" on-click="displayNextText">Next...</a>
-                </template>
+                <tutorial-paul-next-text-button id="next-link"
+                                                visible="[[displayNext]]">
+                </tutorial-paul-next-text-button>
             </div>
         </div>
     </template>
@@ -95,17 +84,17 @@
 
             ready() {
                 super.ready();
-                this.startTalking();
+                this._startTalking();
+
+                this.addEventListener('next-text-please', this._displayNextText);
             }
 
-            displayNextText() {
-                if (this.currentTextIndex < this.text.length) {
-                    this.currentTextIndex++;
-                    this.startTalking();
-                }
+            _displayNextText() {
+                this.currentTextIndex++;
+                this._startTalking();
             }
 
-            startTalking() {
+            _startTalking() {
                 this.currentText = '';
                 this._busyTalking = true;
                 this.displayNext = false;
