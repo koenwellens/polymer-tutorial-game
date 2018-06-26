@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../bower_components/juicy-ace-editor/juicy-ace-editor.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="tutorial-file-tabs.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-code-practice">
@@ -10,17 +11,6 @@
         <style>
             .exercise-header {
                 display: flex;
-            }
-
-            .active {
-                font-weight: bold;
-            }
-
-            .tab {
-                padding: 8px;
-                background-color: #66b9bf;
-                font-size: 1em;
-                color: #fff;
             }
 
             .practice {
@@ -73,14 +63,7 @@
         <div class="practice">
             <div class="exercise">
                 <div class="exercise-header">
-                    <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
-                        <template>
-                            <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]"
-                                    on-click="_changeTab">
-                                [[tab.fileName]]
-                            </button>
-                        </template>
-                    </dom-repeat>
+                    <tutorial-file-tabs tabs="[[tabs]]" selected-tab="[[_currentTab]]"></tutorial-file-tabs>
                 </div>
                 <div class="exercise-body">
                     <juicy-ace-editor
@@ -173,6 +156,7 @@
 
                 this.addEventListener('change', this._currentCodeChanged);
                 this.addEventListener('editor-ready', e => this._storeEditor(e));
+                this.addEventListener('file-tab-changed', this._changeTab);
             }
 
             _storeEditor(e) {
@@ -189,8 +173,8 @@
 
             _changeTab(tabChangedEvent) {
                 this._code[this._currentTab] = this._currentCode;
-                const tabIndex = tabChangedEvent.target.id.substr(4);
-                this._currentCode = this._code[tabIndex];
+                this._currentTab = tabChangedEvent.detail.selectedTab;
+                this._currentCode = this._code[this._currentTab];
                 this._currentFilename = this.tabs[this._currentTab].fileName;
                 this._currentHint = this.tabs[this._currentTab].hint;
             }

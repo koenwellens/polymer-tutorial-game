@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-file-tabs">
+    <template>
+        <style>
+            .active {
+                font-weight: bold;
+            }
+
+            .tab {
+                padding: 8px;
+                background-color: #66b9bf;
+                font-size: 1em;
+                color: #fff;
+            }
+        </style>
+
+        <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
+            <template>
+                <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]"
+                        on-click="_changeTab">
+                    [[tab.fileName]]
+                </button>
+            </template>
+        </dom-repeat>
+    </template>
+
+    <script>
+        class TutorialFileTabs extends Polymer.Element {
+            static get is() {
+                return 'tutorial-file-tabs';
+            }
+
+            static get properties() {
+                return {
+                    tabs: {
+                        type: Array,
+                        value: [],
+                        // [ { fileName: 'fileName', solutionRegExp: '', template: '', hint: ''}]
+                    },
+                    selectedTab: {
+                        type: Number,
+                        value: 0,
+                    },
+                };
+            }
+
+            _additionalTabClass(tabIndex) {
+                if (tabIndex === this._currentTab) {
+                    return 'active tab';
+                }
+
+                return 'tab';
+            }
+
+            _changeTab(tabChangedEvent) {
+                this.dispatchEvent(new CustomEvent('file-tab-changed', {
+                    composed: true,
+                    detail: {selectedTab: tabChangedEvent.target.id.substr(4)}
+                }));
+            }
+        }
+
+        window.customElements.define(TutorialFileTabs.is, TutorialFileTabs);
+    </script>
+</dom-module>
