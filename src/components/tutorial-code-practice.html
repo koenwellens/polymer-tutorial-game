@@ -144,31 +144,24 @@
             _currentCodeChanged() {
                 if (!!this._editor.getSession) {
                     const newValue = this._editor.getSession().getValue();
-                    const solutionRegExp = RegExp(this.tabs[this._currentTab].solutionRegExp, 'gm');
-
-                    this._currentCodeIsCorrect = solutionRegExp.test(newValue);
+                    this._currentCodeIsCorrect = this._checkSolution(this._currentTab, newValue);
                     this._code[this._currentTab] = newValue;
-                    this._fireEventWhenAllCodeIsCorrect();
+                    this._fireEventBasedOnCodeCorrectness();
                 }
             }
 
-            _fireEventWhenAllCodeIsCorrect() {
-                if (this._allCodeIsCorrect()) {
-                    this.dispatchEvent(new CustomEvent('solution-correct', {composed: true}));
-                } else {
-                    this.dispatchEvent(new CustomEvent('solution-incorrect', {composed: true}));
-                }
+            _fireEventBasedOnCodeCorrectness() {
+                const eventName = this.tabs.every((value, index) => this._checkSolution(index, this._code[index]))
+                    ? 'solution-correct'
+                    : 'solution-incorrect';
+
+                this.dispatchEvent(new CustomEvent(eventName, {composed: true}));
             }
 
-            _allCodeIsCorrect() {
-                let solutionRegExp;
-                let solutionIsComplete = true;
-                for (let index = 0; index < this.tabs.length && solutionIsComplete; index++) {
-                    solutionRegExp = RegExp(this.tabs[index].solutionRegExp, 'gm');
-                    solutionIsComplete = solutionIsComplete && solutionRegExp.test(this._code[index]);
-                }
+            _checkSolution(tabIndex, code) {
+                const solutionRegExp = RegExp(this.tabs[tabIndex].solutionRegExp, 'gm');
 
-                return solutionIsComplete;
+                return solutionRegExp.test(code);
             }
         }
 
