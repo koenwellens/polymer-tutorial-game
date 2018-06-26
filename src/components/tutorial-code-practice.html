@@ -133,10 +133,11 @@
             _currentCodeChanged() {
                 if (!!this._editor.getSession) {
                     const newValue = this._editor.getSession().getValue();
-                    this._currentCodeIsCorrect = this._checkSolution(this._currentTab, newValue);
                     this._code[this._currentTab] = newValue;
 
+                    this._currentCodeIsCorrect = this._checkSolution(this._currentTab, newValue);
                     this._allCodeIsCorrect = this.tabs.every((value, index) => this._checkSolution(index, this._code[index]));
+
                     this._fireEventBasedOnCodeCorrectness();
                 }
             }
