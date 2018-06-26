@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../components/tutorial-level-title.html">
+<link rel="import" href="../components/tutorial-paul.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-level-overview">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+        </style>
+
+        <div>
+            <tutorial-level-title value="[[levelTitle]]" level="[[level]]"></tutorial-level-title>
+
+            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+
+            <tutorial-next-button visible="[[_displayNextLevelButton]]" next="/[[level]]-1/" text="Let's go!">
+            </tutorial-next-button>
+        </div>
+    </template>
+
+    <script>
+
+        class TutorialLevelOverview extends Polymer.Element {
+            static get is() {
+                return 'tutorial-level-overview';
+            }
+
+            static get properties() {
+                return {
+                    levelTitle: {
+                        type: String,
+                        value: '',
+                    },
+                    level: {
+                        type: Number,
+                        value: 0,
+                    },
+                    levelDescription:  {
+                        type: Array,
+                        value: [],
+                    },
+                    _displayNextLevelButton: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this.addEventListener('paul-talked', () => this._displayNextLevelButton = true);
+            }
+        }
+
+        window.customElements.define(TutorialLevelOverview.is, TutorialLevelOverview);
+    </script>
+</dom-module>

@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/app-router/app-router.html">
-<link rel="import" href="./start/start-tutorial.html">
-<link rel="import" href="./level1/level1.html">
+<link rel="import" href="start/start-tutorial.html">
+<link rel="import" href="level1/level1.html">
 <link rel="import" href="level1/level-one-rock-class.html">
 <link rel="import" href="level1/level-one-rock-is.html">
 <link rel="import" href="level1/level-one-rock-polymer-dom-module.html">
@@ -9,6 +9,8 @@
 <link rel="import" href="level1/level-one-rock-polymer-register.html">
 <link rel="import" href="level1/level-one-rock-polymer-subclass.html">
 <link rel="import" href="level1/level-one-rock-polymer-template.html">
+
+<link rel="import" href="level2/level2.html">
 <link rel="import" href="./coming-soon.html">
 
 <dom-module id="polymor-tutorial-game-app">
@@ -21,7 +23,8 @@
 
         <!-- this app-route manages the top-level routes -->
         <app-router mode="auto|pushstate|hash">
-            <app-route path="/start/" element="start-tutorial"></app-route>
+            <app-route path="/start" element="start-tutorial"></app-route>
+
             <app-route path="/1/" element="level-one"></app-route>
             <app-route path="/1-1/" element="level-one-rock-class"></app-route>
             <app-route path="/1-2/" element="level-one-rock-is"></app-route>
@@ -31,8 +34,13 @@
             <app-route path="/1-6/" element="level-one-rock-polymer-template"></app-route>
             <app-route path="/1-7/" element="level-one-rock-polymer-register"></app-route>
 
+            <app-route path="/2/" element="level-two"></app-route>
+
             <app-route path="/soon/" element="coming-soon"></app-route>
-            <app-route path="*" element="start-tutorial"></app-route>
+            <app-route path="*" element="coming-soon"></app-route>
+
+            <!--TODO make this work-->
+            <app-route path="/" element="start-tutorial"></app-route>
         </app-router>
     </template>
 

@@ -1,41 +1,15 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../components/tutorial-code-practice.html">
-<link rel="import" href="../../components/tutorial-level-title.html">
-<link rel="import" href="../../components/tutorial-paul.html">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="import" href="../tutorial-level.html">
 
 <dom-module id="level-one-rock-class">
     <template>
-        <style>
-            :host {
-                display: block;
-                font-family: Roboto;
-                color: #fff;
-                padding-left: 5%;
-                padding-right: 5%;
-                padding-bottom: 5%;
-            }
-        </style>
-
-        <div class="container">
-            <tutorial-level-title
-                    value="Polymer Rocks"
-                    level="1"
-                    progress="[[_progress]]">
-            </tutorial-level-title>
-
-            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
-
-            <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[_codeExercises]]"
-                                        follow-up-message="[[_followUpMessage]]">
-                </tutorial-code-practice>
-
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/1-2/">
-                </tutorial-next-button>
-            </template>
-        </div>
+        <tutorial-level level-title="[[_levelTitle]]"
+                                 level="[[_level]]"
+                                 progress="[[_progress]]"
+                                 level-description="[[_levelDescription]]"
+                                 follow-up-message="[[_followUpMessage]]"
+                                 code-exercises="[[_codeExercises]]">
+        </tutorial-level>
     </template>
 
     <script>
@@ -46,6 +20,14 @@
 
             static get properties() {
                 return {
+                    _level: {
+                        type: Number,
+                        value: 1,
+                    },
+                    _levelTitle: {
+                        type: String,
+                        value: 'Polymer Rocks'
+                    },
                     _levelDescription: {
                         type: Array,
                         value: ['First, we\'ll need to collect some rocks. To do this, you\'ll need to create web components ' +
@@ -60,28 +42,16 @@
                         type: Array,
                         value: [],
                     },
-                    _displayCode: {
-                        type: Boolean,
-                        value: false,
-                    },
                     _followUpMessage: {
                         type: String,
                         value: 'Great! You created your first JavaScript class! Click the button below to go to the next part of this level!',
                     },
-                    _codeIsCorrect: {
-                        type: Boolean,
-                        value: false,
-                    }
                 };
             }
 
             ready() {
                 super.ready();
                 this._initializeCodeExercises();
-
-                this.addEventListener('paul-talked', this._showCode);
-                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
-                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
             }
 
             _initializeCodeExercises() {
@@ -98,15 +68,7 @@
     // }
 <\/script>`
                     }
-                ]
-            }
-
-            _showCode() {
-                this._displayCode = true;
-            }
-
-            _showNextLevelButton(value) {
-                this._codeIsCorrect = value;
+                ];
             }
         }
 
