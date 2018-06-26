@@ -17,7 +17,7 @@
 
         <dom-repeat items="{{tabs}}" as="tab" index-as="tabIndex">
             <template>
-                <button class$="{{_additionalTabClass(tabIndex)}}" id="tab-[[tabIndex]]"
+                <button class$="{{_additionalTabClass(tabIndex, selectedTab)}}" id="tab-[[tabIndex]]"
                         on-click="_changeTab">
                     [[tab.fileName]]
                 </button>
@@ -40,12 +40,13 @@
                     selectedTab: {
                         type: Number,
                         value: 0,
+                        notify: true,
                     },
                 };
             }
 
-            _additionalTabClass(tabIndex) {
-                if (tabIndex === this.selectedTab) {
+            _additionalTabClass(tabIndex, selectedTab) {
+                if (tabIndex == selectedTab) {
                     return 'active tab';
                 }
 
