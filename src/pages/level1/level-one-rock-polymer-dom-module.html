@@ -16,21 +16,6 @@
                 padding-right: 5%;
                 padding-bottom: 5%;
             }
-
-            .next {
-                background-color: #e37222;
-                color: #fff;
-                margin-top: 5%;
-                padding: 12px;
-                font-size: 2em;
-                border: 1px solid #e37222;
-                width: 25%;
-                border-radius: 25px;
-                text-decoration: none;
-
-                /* #07889B */
-                /* #E37222 */
-            }
         </style>
 
         <div class="container">
@@ -47,10 +32,8 @@
                 <tutorial-code-practice tabs="[[_codeExercises]]"
                                         follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
 
-                <!--TODO componentize the button?-->
-                <template is="dom-if" if="{{_codeIsCorrect}}">
-                    <a class="next" is="pushstate-anchor" href="/1-6/">Continue</a>
-                </template>
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/1-6/">
+                </tutorial-next-button>
             </template>
         </div>
     </template>

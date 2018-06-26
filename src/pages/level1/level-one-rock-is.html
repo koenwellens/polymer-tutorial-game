@@ -2,6 +2,7 @@
 <link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../components/tutorial-code-practice.html">
 <link rel="import" href="../../components/tutorial-level-title.html">
+<link rel="import" href="../../components/tutorial-next-button.html">
 <link rel="import" href="../../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
@@ -15,21 +16,6 @@
                 padding-left: 5%;
                 padding-right: 5%;
                 padding-bottom: 5%;
-            }
-
-            .next {
-                background-color: #e37222;
-                color: #fff;
-                margin-top: 5%;
-                padding: 12px;
-                font-size: 2em;
-                border: 1px solid #e37222;
-                width: 25%;
-                border-radius: 25px;
-                text-decoration: none;
-
-                /* #07889B */
-                /* #E37222 */
             }
         </style>
 
@@ -47,10 +33,8 @@
                 <tutorial-code-practice tabs="[[_codeExercises]]"
                                         follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
 
-                <!--TODO componentize the button?-->
-                <template is="dom-if" if="{{_codeIsCorrect}}">
-                    <a class="next" is="pushstate-anchor" href="/1-3/">Continue</a>
-                </template>
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/1-3/">
+                </tutorial-next-button>
             </template>
         </div>
     </template>

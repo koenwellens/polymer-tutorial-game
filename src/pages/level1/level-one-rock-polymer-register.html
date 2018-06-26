@@ -17,27 +17,6 @@
                 padding-bottom: 5%;
             }
 
-            .next {
-                background-color: #e37222;
-                color: #fff;
-                padding: 12px;
-                font-size: 2em;
-                border: 1px solid #e37222;
-                border-radius: 25px;
-                text-decoration: none;
-                height: fit-content;
-                width: fit-content;
-
-                /* #07889B */
-                /* #E37222 */
-            }
-
-            .level-end {
-                display: flex;
-                justify-content: space-between;
-                align-content: center;
-            }
-
             .rock-image {
                 width: 10%;
                 height: 10%;
@@ -58,13 +37,9 @@
                 <tutorial-code-practice tabs="[[_codeExercises]]"
                                         follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
 
-                <!--TODO componentize the button?-->
-                <template is="dom-if" if="{{_codeIsCorrect}}">
-                    <div class="level-end">
-                    <a class="next" is="pushstate-anchor" href="/soon/">Go to level 2</a>
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/soon/" text="Go to level 2">
                     <img class="rock-image" src="../../../static/images/rock.png"/>
-                    </div>
-                </template>
+                </tutorial-next-button>
             </template>
         </div>
     </template>
@@ -80,8 +55,8 @@
                     _levelDescription: {
                         type: Array,
                         value: ['Your web component is almost ready for use. The browser just doesn\'t know that it exists.',
-                        'How can we fix it? We need to define it as a custom element! When we do, the browser will know.',
-                        'Define your element with the "window.customElements.define()" method. It takes two parameters: a method reference to your identification string and a class reference to your rock. Add this to the bottom of your script.'],
+                            'How can we fix it? We need to define it as a custom element! When we do, the browser will know.',
+                            'Define your element with the "window.customElements.define()" method. It takes two parameters: a method reference to your identification string and a class reference to your rock. Add this to the bottom of your script.'],
                     },
                     _progress: {
                         type: Object,
