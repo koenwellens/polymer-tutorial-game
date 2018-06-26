@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-next-button">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            .next {
+                background-color: #e37222;
+                color: #fff;
+                padding: 12px;
+                font-size: 2em;
+                border: 1px solid #e37222;
+                border-radius: 25px;
+                text-decoration: none;
+                width: fit-content;
+                height: fit-content;
+                /* #07889B */
+                /* #E37222 */
+            }
+
+            .next-and-slot {
+                display: flex;
+                justify-content: space-between;
+                align-content: center;
+            }
+        </style>
+
+        <template is="dom-if" if="{{visible}}">
+            <div class="next-and-slot">
+                <a class="next" is="pushstate-anchor" href="[[next]]">[[text]]</a>
+                <slot></slot>
+            </div>
+        </template>
+    </template>
+
+    <script>
+        class TutorialNextButton extends Polymer.Element {
+            static get is() {
+                return 'tutorial-next-button';
+            }
+
+            static get properties() {
+                return {
+                    visible: {
+                        type: Boolean,
+                        value: true,
+                    },
+                    next: {
+                        type: String,
+                        value: '',
+                    },
+                    text: {
+                        type: String,
+                        value: 'Continue',
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(TutorialNextButton.is, TutorialNextButton);
+    </script>
+</dom-module>

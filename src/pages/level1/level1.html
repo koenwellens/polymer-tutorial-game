@@ -36,11 +36,8 @@
 
             <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
-            <template is="dom-if" if="{{displayNextLevelButton}}">
-                <div>
-                    <a class="start" is="pushstate-anchor" href="/1-1/">Let's go!</a>
-                </div>
-            </template>
+            <tutorial-next-button visible="[[displayNextLevelButton]]" next="/1-1/" text="Let's go!">
+            </tutorial-next-button>
         </div>
     </template>
 
