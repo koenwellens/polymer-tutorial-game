@@ -28,10 +28,10 @@
 
             <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
-            <!--TODO shouldnt the follow up message be said by Paul?-->
             <template is="dom-if" if="{{_displayCode}}">
                 <tutorial-code-practice tabs="[[_codeExercises]]"
-                                        follow-up-message="[[_followUpMessage]]"></tutorial-code-practice>
+                                        follow-up-message="[[_followUpMessage]]">
+                </tutorial-code-practice>
 
                 <tutorial-next-button visible="[[_codeIsCorrect]]" next="/1-3/">
                 </tutorial-next-button>
