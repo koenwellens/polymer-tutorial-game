@@ -1,47 +1,18 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../../bower_components/polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../components/tutorial-code-practice.html">
-<link rel="import" href="../../components/tutorial-level-title.html">
-<link rel="import" href="../../components/tutorial-paul.html">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="import" href="../tutorial-level-end.html">
 
 <dom-module id="level-one-rock-polymer-register">
     <template>
-        <style>
-            :host {
-                display: block;
-                font-family: Roboto;
-                color: #fff;
-                padding-left: 5%;
-                padding-right: 5%;
-                padding-bottom: 5%;
-            }
-
-            .rock-image {
-                width: 10%;
-                height: 10%;
-            }
-        </style>
-
-        <div class="container">
-            <tutorial-level-title
-                    value="Polymer Rocks"
-                    level="1"
-                    progress="[[_progress]]">
-            </tutorial-level-title>
-
-            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
-
-            <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[_codeExercises]]"
-                                        follow-up-message="[[_followUpMessage]]">
-                </tutorial-code-practice>
-
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/2/" text="Go to level 2">
-                    <img class="rock-image" src="../../../static/images/rock.png"/>
-                </tutorial-next-button>
-            </template>
-        </div>
+        <tutorial-level-end level-title="[[_levelTitle]]"
+                            level="[[_level]]"
+                            progress="[[_progress]]"
+                            level-description="[[_levelDescription]]"
+                            follow-up-message="[[_followUpMessage]]"
+                            next-link="[[_nextLink]]"
+                            next-link-text="[[_nextLinkText]]"
+                            code-exercises="[[_codeExercises]]"
+                            image="[[_image]]">
+        </tutorial-level-end>
     </template>
 
     <script>
@@ -52,6 +23,14 @@
 
             static get properties() {
                 return {
+                    _level: {
+                        type: Number,
+                        value: 1,
+                    },
+                    _levelTitle: {
+                        type: String,
+                        value: 'Polymer Rocks'
+                    },
                     _levelDescription: {
                         type: Array,
                         value: ['Your web component is almost ready for use. The browser just doesn\'t know that it exists.',
@@ -66,28 +45,29 @@
                         type: Array,
                         value: [],
                     },
-                    _displayCode: {
-                        type: Boolean,
-                        value: false,
-                    },
                     _followUpMessage: {
                         type: String,
                         value: 'Your rock is ready! Hooray! You can view it on the right hand side of the continue button! Well done, player! Are you ready for the next steps?',
                     },
-                    _codeIsCorrect: {
-                        type: Boolean,
-                        value: false,
+                    _nextLink: {
+                        type: String,
+                        value: '2',
+                    },
+                    _nextLinkText: {
+                        type: String,
+                        value: 'Go to level 2',
+                    },
+                    _image: {
+                        type: String,
+                        value: '../../static/images/rock.png',
                     }
                 };
             }
 
             ready() {
                 super.ready();
-                this._initializeCodeExercises();
 
-                this.addEventListener('paul-talked', this._showCode);
-                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
-                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
+                this._initializeCodeExercises();
             }
 
             _initializeCodeExercises() {
@@ -130,15 +110,7 @@
     // window.customElements.define(Rock.is, Rock);
 <\/script>`
                     }
-                ]
-            }
-
-            _showCode() {
-                this._displayCode = true;
-            }
-
-            _showNextLevelButton(value) {
-                this._codeIsCorrect = value;
+                ];
             }
         }
 
