@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="tutorial-paul-next-text-button.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-paul">
@@ -37,26 +37,15 @@
                 width: 15%;
                 height: 15%;
             }
-
-            .next-link {
-                margin-top: 5%;
-                float: right;
-                color: #E37222;
-                background-color: #eee;
-                border-radius: 5px;
-                padding: 5px;
-                cursor: pointer;
-            }
-
         </style>
 
         <div class="paul-text">
             <img class="paul-imer" src="../../static/images/paul_imer.png"/>
             <div class="text-balloon" on-click="skipTalking">
-                <p>[[currentText]]</p>
-                <template is="dom-if" if="{{displayNext}}">
-                    <a id="next-link" class="next-link" on-click="displayNextText">Next...</a>
-                </template>
+                <p>[[_currentText]]</p>
+                <tutorial-paul-next-text-button id="next-link"
+                                                visible="[[_displayNext]]">
+                </tutorial-paul-next-text-button>
             </div>
         </div>
     </template>
@@ -74,15 +63,15 @@
                         type: Array,
                         value: [],
                     },
-                    currentTextIndex: {
+                    _currentTextIndex: {
                         type: Number,
                         value: 0
                     },
-                    currentText: {
+                    _currentText: {
                         type: String,
                         value: ''
                     },
-                    displayNext: {
+                    _displayNext: {
                         type: Boolean,
                         value: false,
                     },
@@ -95,56 +84,56 @@
 
             ready() {
                 super.ready();
-                this.startTalking();
+                this._startTalking();
+
+                this.addEventListener('next-text-please', this._displayNextText);
             }
 
-            displayNextText() {
-                if (this.currentTextIndex < this.text.length) {
-                    this.currentTextIndex++;
-                    this.startTalking();
-                }
+            _displayNextText() {
+                this._currentTextIndex++;
+                this._startTalking();
             }
 
-            startTalking() {
-                this.currentText = '';
+            _startTalking() {
+                this._currentText = '';
                 this._busyTalking = true;
-                this.displayNext = false;
-                this.displayText(0);
+                this._displayNext = false;
+                this._displayText(0);
             }
 
-            displayText(index) {
-                if (index < this.text[this.currentTextIndex].length && this._busyTalking) {
-                    this.currentText += this.text[this.currentTextIndex][index];
+            _displayText(index) {
+                if (index < this.text[this._currentTextIndex].length && this._busyTalking) {
+                    this._currentText += this.text[this._currentTextIndex][index];
                     const newIndex = index + 1;
                     setTimeout(() => {
-                        this.displayText(newIndex);
+                        this._displayText(newIndex);
                     }, 15);
                 } else {
-                    this.calculateDisplayNext();
-                    this.fireEventWhenNecessary();
+                    this._calculateDisplayNext();
+                    this._fireEventWhenNecessary();
                 }
             }
 
-            paulSaysLastLine() {
-                return this.currentTextIndex === this.text.length - 1;
+            _paulSaysLastLine() {
+                return this._currentTextIndex === this.text.length - 1;
             }
 
-            calculateDisplayNext() {
-                this.displayNext = !this.paulSaysLastLine();
+            _calculateDisplayNext() {
+                this._displayNext = !this._paulSaysLastLine();
             }
 
-            fireEventWhenNecessary() {
-                if (this.paulSaysLastLine()) {
+            _fireEventWhenNecessary() {
+                if (this._paulSaysLastLine()) {
                     this.dispatchEvent(new CustomEvent('paul-talked', {composed: true}));
                 }
             }
 
             skipTalking(e) {
                 if (e.target.id !== 'next-link') {
-                    this.currentText = this.text[this.currentTextIndex];
+                    this._currentText = this.text[this._currentTextIndex];
                     this._busyTalking = false;
-                    this.calculateDisplayNext();
-                    this.fireEventWhenNecessary();
+                    this._calculateDisplayNext();
+                    this._fireEventWhenNecessary();
                 }
             }
         }

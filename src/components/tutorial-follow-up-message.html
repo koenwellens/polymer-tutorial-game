@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="tutorial-follow-up-message">
+    <template>
+        <style>
+            .follow-up-message {
+                margin-left: 5%;
+                border: 1px solid white;
+                background-color: white;
+                color: #66b9bf;
+                border-radius: 25px;
+                padding: 2%;
+                font-size: 1.2em;
+                height: 80px;
+                line-height: 1.2;
+            }
+        </style>
+
+
+        <template is="dom-if" if="{{visible}}">
+            <p class="follow-up-message">[[followUpMessage]]</p>
+        </template>
+    </template>
+
+    <script>
+        class TutorialFollowUpMessage extends Polymer.Element {
+            static get is() {
+                return 'tutorial-follow-up-message';
+            }
+
+            static get properties() {
+                return {
+                    followUpMessage: {
+                        type: String,
+                        value: '',
+                    },
+                    visible: {
+                        type: Boolean,
+                        value: false,
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(TutorialFollowUpMessage.is, TutorialFollowUpMessage);
+    </script>
+</dom-module>
