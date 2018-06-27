@@ -24,7 +24,8 @@
 
         <template is="dom-if" if="{{!!progress.total}}">
             <div id="container" class="progress-bar-container">
-                <div style$="{{_getWidthStylingFor(_currentWidth)}}" name="progress-bar" id="progress-bar" class="progress-bar">
+                <div style$="{{_getWidthStylingFor(_currentWidth)}}" name="progress-bar" id="progress-bar"
+                     class="progress-bar">
                 </div>
                 [[_progress]]%
             </div>
@@ -50,14 +51,15 @@
                         computed: '_computeProgress(progress.current, progress.total)',
                     },
                     _currentWidth: {
-                        type: String,
-                        value: '',
+                        type: Number,
+                        value: 0,
                     }
                 };
             }
 
             ready() {
                 super.ready();
+                this._currentWidth = this._progress;
 
                 this._move();
             }
@@ -67,48 +69,31 @@
             }
 
             _computeProgress(current, total) {
-                return !! current ? Math.round(current / total * 100) : 0;
+                return !!current ? Math.round(current / total * 100) : 0;
             }
 
             _move() {
                 if (!!this.progress.total) {
-                    const elem = this.$.bar;
-                    const endWidth = this._progress;
                     const progressHasBeenMade = this.progress.start < this.progress.current;
 
                     if (progressHasBeenMade) {
-                        this._moveProgressBarToTheRight(elem, this._currentWidth, endWidth);
+                        this._moveProgressBar(width => width >= this._progress, width => width + 1);
                     } else {
-                        this._moveProgressBarToTheLeft(elem, this._currentWidth, endWidth);
+                        this._moveProgressBar(width => width <= this._progress, width => width - 1);
                     }
                 }
             }
 
-            _moveProgressBarToTheRight(elem, startWidth, endWidth) {
-                let width = startWidth;
+            _moveProgressBar(isAtEndWidth, widthOperation) {
+                let width = this._currentWidth;
                 const id = setInterval(frame, 50);
                 const that = this;
 
                 function frame() {
-                    if (width >= endWidth) {
+                    if (isAtEndWidth(width)) {
                         clearInterval(id);
                     } else {
-                        width++;
-                        that._currentWidth = width;
-                    }
-                }
-            }
-
-            _moveProgressBarToTheLeft(elem, startWidth, endWidth) {
-                let width = startWidth;
-                const id = setInterval(frame, 50);
-                const that = this;
-
-                function frame() {
-                    if (width <= endWidth) {
-                        clearInterval(id);
-                    } else {
-                        width--;
+                        width = widthOperation(width);
                         that._currentWidth = width;
                     }
                 }
