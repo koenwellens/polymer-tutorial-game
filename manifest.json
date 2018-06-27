@@ -2,6 +2,6 @@
   "name": "polymor-tutorial-game",
   "short_name": "polymor-tutorial-game",
   "description": "A game to teach people how to use Polymer",
-  "start_url": "/",
+  "start_url": "/start/",
   "display": "standalone"
 }
