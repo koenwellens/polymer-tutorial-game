@@ -27,7 +27,7 @@
             <tutorial-level-title
                     value="[[levelTitle]]"
                     level="[[level]]"
-                    progress="[[progress]]">
+                    progress="[[_progress]]">
             </tutorial-level-title>
 
             <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
@@ -37,7 +37,7 @@
                                         follow-up-message="[[followUpMessage]]">
                 </tutorial-code-practice>
 
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[level]]-[[_nextLevel]]/">
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
                     <template is="dom-if" if="{{!!image}}">
                         <img class="image" src="[[image]]"/>
                     </template>
@@ -78,9 +78,21 @@
                         type: String,
                         value: '',
                     },
+                    nextLink: {
+                        type: String,
+                        value: '',
+                    },
+                    nextLinkText: {
+                        type: String,
+                        value: 'Continue',
+                    },
                     image: {
                         type: String,
                         value: '',
+                    },
+                    _progress: {
+                        type: Object,
+                        value: {},
                     },
                     _displayCode: {
                         type: Boolean,
@@ -95,19 +107,53 @@
 
             ready() {
                 super.ready();
-                this._nextLevel = this.progress.current + 1;
+
+                this._nextLink = this.level + '-' + this.progress.part + 1;
+                this._initializeProgress();
 
                 this.addEventListener('paul-talked', this._showCode);
-                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
-                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
+                this.addEventListener('solution-correct', this._handleCorrectCode);
+                this.addEventListener('solution-incorrect', this._handleIncorrectCode);
+            }
+
+            _initializeProgress() {
+                this._progress = {
+                    start: 0,
+                    current: this.progress.part - 1,
+                    total: this.progress.total
+                };
             }
 
             _showCode() {
                 this._displayCode = true;
             }
 
-            _showNextLevelButton(value) {
-                this._codeIsCorrect = value;
+            _handleCorrectCode() {
+                const solutionWasIncorrect = this._progress.start === this.progress.part;
+                this._handleCodeChange(true, solutionWasIncorrect, this.progress.part - 1, this.progress.part);
+            }
+
+            _handleIncorrectCode() {
+                const solutionWasCorrect = this._progress.start !== this.progress.part;
+                const startValueIsInitialValue = this._progress.start === 0;
+
+                if (startValueIsInitialValue) {
+                    this._handleCodeChange(false, true, this.progress.part - 1, this.progress.part - 1);
+                }
+
+                if (solutionWasCorrect) {
+                    this._handleCodeChange(false, true, this.progress.part, this.progress.part - 1);
+                }
+            }
+
+            _handleCodeChange(codeIsCorrect, progressStartValueShouldChange, newProgressStartValue, newProgressCurrentValue) {
+                this._codeIsCorrect = codeIsCorrect;
+
+                this._progress = {
+                    total: this._progress.total,
+                    start: progressStartValueShouldChange ? newProgressStartValue : this._progress.start,
+                    current: newProgressCurrentValue
+                };
             }
         }
 

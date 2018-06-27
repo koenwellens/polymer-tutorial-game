@@ -1,0 +1,120 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-progress-bar">
+    <template>
+        <style>
+            .progress-bar-container {
+                width: 100%;
+                background-color: white;
+                text-align: center; /* To center it horizontally (if you want) */
+                line-height: 20px; /* To center it vertically */
+                font-family: Roboto;
+                font-weight: bold;
+                color: black;
+            }
+
+            .progress-bar {
+                width: 1%;
+                height: 10px;
+                background-color: #e37222;
+            }
+        </style>
+
+        <template is="dom-if" if="{{!!progress.total}}">
+            <div id="container" class="progress-bar-container">
+                <div style$="{{_getWidthStylingFor(_currentWidth)}}" name="progress-bar" id="progress-bar" class="progress-bar">
+                </div>
+                [[_progress]]%
+            </div>
+        </template>
+    </template>
+
+    <script>
+        class TutorialProgressBar extends Polymer.Element {
+            static get is() {
+                return 'tutorial-progress-bar';
+            }
+
+            static get properties() {
+                return {
+                    progress: {
+                        type: Object,
+                        value: {},
+                        notify: true,
+                        observer: '_move',
+                    },
+                    _progress: {
+                        type: Number,
+                        computed: '_computeProgress(progress.current, progress.total)',
+                    },
+                    _currentWidth: {
+                        type: String,
+                        value: '',
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+
+                this._move();
+            }
+
+            _getWidthStylingFor(currentWidth) {
+                return 'width: ' + currentWidth + '%;';
+            }
+
+            _computeProgress(current, total) {
+                return !! current ? Math.round(current / total * 100) : 0;
+            }
+
+            _move() {
+                if (!!this.progress.total) {
+                    const elem = this.$.bar;
+                    const endWidth = this._progress;
+                    const progressHasBeenMade = this.progress.start < this.progress.current;
+
+                    if (progressHasBeenMade) {
+                        this._moveProgressBarToTheRight(elem, this._currentWidth, endWidth);
+                    } else {
+                        this._moveProgressBarToTheLeft(elem, this._currentWidth, endWidth);
+                    }
+                }
+            }
+
+            _moveProgressBarToTheRight(elem, startWidth, endWidth) {
+                let width = startWidth;
+                const id = setInterval(frame, 50);
+                const that = this;
+
+                function frame() {
+                    if (width >= endWidth) {
+                        clearInterval(id);
+                    } else {
+                        width++;
+                        that._currentWidth = width;
+                    }
+                }
+            }
+
+            _moveProgressBarToTheLeft(elem, startWidth, endWidth) {
+                let width = startWidth;
+                const id = setInterval(frame, 50);
+                const that = this;
+
+                function frame() {
+                    if (width <= endWidth) {
+                        clearInterval(id);
+                    } else {
+                        width--;
+                        that._currentWidth = width;
+                    }
+                }
+            }
+        }
+
+        window.customElements.define(TutorialProgressBar.is, TutorialProgressBar);
+    </script>
+</dom-module>
