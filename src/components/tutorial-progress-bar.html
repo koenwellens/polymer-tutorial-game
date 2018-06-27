@@ -22,7 +22,7 @@
             }
         </style>
 
-        <template is="dom-if" if="{{!!progress.total}}">
+        <template is="dom-if" if="{{_isVisible(progress)}}">
             <div id="container" class="progress-bar-container">
                 <div style$="{{_getWidthStylingFor(_currentWidth)}}" name="progress-bar" id="progress-bar"
                      class="progress-bar">
@@ -62,6 +62,10 @@
                 this._currentWidth = this._progress;
 
                 this._move();
+            }
+
+            _isVisible(progress) {
+                return !!progress.total;
             }
 
             _getWidthStylingFor(currentWidth) {
