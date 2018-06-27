@@ -16,6 +16,11 @@
                 padding-right: 5%;
                 padding-bottom: 5%;
             }
+
+            .image {
+                width: 10%;
+                height: 10%;
+            }
         </style>
 
         <div>
@@ -33,6 +38,9 @@
                 </tutorial-code-practice>
 
                 <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[level]]-[[_nextLevel]]/">
+                    <template is="dom-if" if="{{!!image}}">
+                        <img class="image" src="[[image]]"/>
+                    </template>
                 </tutorial-next-button>
             </template>
         </div>
@@ -54,7 +62,7 @@
                         type: Number,
                         value: 0,
                     },
-                    levelDescription:  {
+                    levelDescription: {
                         type: Array,
                         value: [],
                     },
@@ -67,6 +75,10 @@
                         value: [],
                     },
                     followUpMessage: {
+                        type: String,
+                        value: '',
+                    },
+                    image: {
                         type: String,
                         value: '',
                     },

@@ -12,6 +12,8 @@
 
 <link rel="import" href="level2/level2.html">
 <link rel="import" href="level2/level-two-handle.html">
+<link rel="import" href="level2/level-two-handle-size-property.html">
+<link rel="import" href="level2/level-two-handle-size-binding.html">
 
 <link rel="import" href="./coming-soon.html">
 
@@ -25,7 +27,7 @@
 
         <!-- this app-route manages the top-level routes -->
         <app-router mode="auto|pushstate|hash">
-            <app-route path="/start" element="start-tutorial"></app-route>
+            <app-route path="/start/" element="start-tutorial"></app-route>
 
             <app-route path="/1/" element="level-one"></app-route>
             <app-route path="/1-1/" element="level-one-rock-class"></app-route>
@@ -38,9 +40,11 @@
 
             <app-route path="/2/" element="level-two"></app-route>
             <app-route path="/2-1/" element="level-two-handle"></app-route>
+            <app-route path="/2-2/" element="level-two-handle-size-property"></app-route>
+            <app-route path="/2-3/" element="level-two-handle-size-binding"></app-route>
 
             <app-route path="/soon/" element="coming-soon"></app-route>
-            <app-route path="*" element="coming-soon"></app-route>
+            <app-route path="*" element="start-tutorial "></app-route>
 
             <!--TODO make this work-->
             <app-route path="/" element="start-tutorial"></app-route>
