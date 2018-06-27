@@ -1,9 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../tutorial-level-end.html">
+<link rel="import" href="../tutorial-level.html">
 
 <dom-module id="level-one-rock-polymer-register">
     <template>
-        <tutorial-level-end level-title="[[_levelTitle]]"
+        <tutorial-level level-title="[[_levelTitle]]"
                             level="[[_level]]"
                             progress="[[_progress]]"
                             level-description="[[_levelDescription]]"
@@ -12,7 +12,7 @@
                             next-link-text="[[_nextLinkText]]"
                             code-exercises="[[_codeExercises]]"
                             image="[[_image]]">
-        </tutorial-level-end>
+        </tutorial-level>
     </template>
 
     <script>
@@ -39,7 +39,7 @@
                     },
                     _progress: {
                         type: Object,
-                        value: {current: 7, total: 7}
+                        value: {part: 7, total: 7}
                     },
                     _codeExercises: {
                         type: Array,
@@ -47,7 +47,7 @@
                     },
                     _followUpMessage: {
                         type: String,
-                        value: 'Your rock is ready! Hooray! You can view it on the right hand side of the continue button! Well done, player! Are you ready for the next steps?',
+                        value: 'Your rock is ready! Hooray! You can view it below this text box! Well done, player! Are you ready for the next steps?',
                     },
                     _nextLink: {
                         type: String,

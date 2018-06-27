@@ -1,0 +1,133 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="tutorial-paul-next-text-button.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-paul-text-balloon">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+            }
+
+            p {
+                line-height: 1.5;
+            }
+
+            .text-balloon {
+                width: 100%;
+                border: 1px solid white;
+                flex-grow: 8;
+                background-color: white;
+                color: #66b9bf;
+                border-radius: 25px;
+                padding: 2%;
+                font-size: 1.2em;
+                height: 180px;
+            }
+        </style>
+
+        <div class="text-balloon" on-click="skipTalking">
+            <p>[[_currentText]]</p>
+            <tutorial-paul-next-text-button id="next-link"
+                                            visible="[[_displayNext]]">
+            </tutorial-paul-next-text-button>
+        </div>
+    </template>
+
+    <script>
+
+        class TutorialPaulTextBalloon extends Polymer.Element {
+            static get is() {
+                return 'tutorial-paul-text-balloon';
+            }
+
+            static get properties() {
+                return {
+                    text: {
+                        type: Array,
+                        value: [],
+                    },
+                    textSpeed: {
+                        type: Number,
+                        value: 15,
+                    },
+                    _currentTextIndex: {
+                        type: Number,
+                        value: 0
+                    },
+                    _currentText: {
+                        type: String,
+                        value: ''
+                    },
+                    _displayNext: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _busyTalking: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this._startTalking();
+
+                this.addEventListener('next-text-please', this._displayNextText);
+            }
+
+            _displayNextText() {
+                this._currentTextIndex++;
+                this._startTalking();
+            }
+
+            _startTalking() {
+                this._currentText = '';
+                this._busyTalking = true;
+                this._displayNext = false;
+                this._displayText(0);
+            }
+
+            _displayText(index) {
+                if (index < this.text[this._currentTextIndex].length && this._busyTalking) {
+                    this._currentText += this.text[this._currentTextIndex][index];
+                    const newIndex = index + 1;
+                    setTimeout(() => {
+                        this._displayText(newIndex);
+                    }, this.textSpeed);
+                } else {
+                    this._calculateDisplayNext();
+                    this._fireEventWhenNecessary();
+                }
+            }
+
+            _paulSaysLastLine() {
+                return this._currentTextIndex === this.text.length - 1;
+            }
+
+            _calculateDisplayNext() {
+                this._displayNext = !this._paulSaysLastLine();
+            }
+
+            _fireEventWhenNecessary() {
+                if (this._paulSaysLastLine()) {
+                    this.dispatchEvent(new CustomEvent('paul-talked', {composed: true}));
+                }
+            }
+
+            skipTalking(e) {
+                if (e.target.id !== 'next-link') {
+                    this._currentText = this.text[this._currentTextIndex];
+                    this._busyTalking = false;
+                    this._calculateDisplayNext();
+                    this._fireEventWhenNecessary();
+                }
+            }
+        }
+
+        window.customElements.define(TutorialPaulTextBalloon.is, TutorialPaulTextBalloon);
+    </script>
+</dom-module>

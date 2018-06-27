@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./tutorial-progress-bar.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-title">
@@ -22,6 +23,7 @@
 
             .title h3 {
                 font-size: 1.5em;
+                margin-bottom: 0;
             }
 
             .italic {
@@ -31,7 +33,10 @@
 
         <div class="title">
             <h1>[[title]]</h1>
-            <h3 class$="{{_subtitleClass}}">[[subtitle]]</h3>
+            <div>
+                <h3 class$="{{_subtitleClass}}">[[subtitle]]</h3>
+                <tutorial-progress-bar progress="[[progress]]"></tutorial-progress-bar>
+            </div>
         </div>
     </template>
 
@@ -49,6 +54,7 @@
                         type: Boolean,
                         value: false,
                     },
+                    progress: Object,
                     _subtitleClass: {
                         type: String,
                         computed: '_calculateSubtitleClass(subtitleItalic)'

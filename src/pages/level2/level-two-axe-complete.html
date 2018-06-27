@@ -3,7 +3,7 @@
 
 <dom-module id="level-two-axe-complete">
     <template>
-        <tutorial-level-end level-title="[[_levelTitle]]"
+        <tutorial-level level-title="[[_levelTitle]]"
                             level="[[_level]]"
                             progress="[[_progress]]"
                             level-description="[[_levelDescription]]"
@@ -12,7 +12,7 @@
                             next-link="[[_nextLink]]"
                             next-link-text="[[_nextLinkText]]"
                             image="[[_image]]">
-        </tutorial-level-end>
+        </tutorial-level>
     </template>
 
     <script>
@@ -40,7 +40,7 @@
                     },
                     _progress: {
                         type: Object,
-                        value: {current: 8, total: 8}
+                        value: {part: 8, total: 8}
                     },
                     _codeExercises: {
                         type: Array,

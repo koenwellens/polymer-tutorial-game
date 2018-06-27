@@ -3,7 +3,7 @@
 
 <dom-module id="tutorial-level-title">
     <template>
-        <tutorial-title title="[[value]]" subtitle="[[subtitle]]"></tutorial-title>
+        <tutorial-title title="[[value]]" subtitle="Level [[level]]" progress="[[progress]]"></tutorial-title>
     </template>
 
     <script>
@@ -17,16 +17,7 @@
                     value: String,
                     level: String,
                     progress: Object,
-                    subtitle: {
-                        type: String,
-                        computed: '_calculateSubtitle(level, progress)'
-                    }
                 };
-            }
-
-            _calculateSubtitle(level, progress) {
-                let result = `Level ${level}`;
-                return !!progress ? `${result} - ${progress.current}/${progress.total}` : result;
             }
         }
 
