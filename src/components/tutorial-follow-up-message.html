@@ -1,25 +1,18 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="tutorial-paul-text-balloon.html">
 
 <dom-module id="tutorial-follow-up-message">
     <template>
         <style>
             .follow-up-message {
                 margin-left: 5%;
-                border: 1px solid white;
-                background-color: white;
-                color: #66b9bf;
-                border-radius: 25px;
-                padding: 2%;
-                font-size: 1.2em;
-                height: 100px;
-                line-height: 1.5;
+                width: 91.8%;
             }
         </style>
 
         <template is="dom-if" if="{{visible}}">
-            <!--TODO shouldnt the follow up message be said by Paul?-->
-            <p class="follow-up-message">[[followUpMessage]]</p>
+            <tutorial-paul-text-balloon class="follow-up-message" text="[[_text]]"></tutorial-paul-text-balloon>
         </template>
     </template>
 
@@ -39,7 +32,15 @@
                         type: Boolean,
                         value: false,
                     },
+                    _text: {
+                        type: Array,
+                        computed: '_initializeText(followUpMessage)',
+                    },
                 };
+            }
+
+            _initializeText(followUpMessage) {
+                return [followUpMessage];
             }
         }
 

@@ -108,7 +108,7 @@
             ready() {
                 super.ready();
 
-                this.nextLink = this.level + '-' + (this.progress.part + 1);
+                this.nextLink = this.nextLink === '' ? this.level + '-' + (this.progress.part + 1) : this.nextLink;
                 this._initializeProgress();
 
                 this.addEventListener('paul-talked', this._showCode);
