@@ -8,8 +8,7 @@
                         progress="[[_progress]]"
                         level-description="[[_levelDescription]]"
                         follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]"
-                        image="[[_image]]">
+                        code-exercises="[[_codeExercises]]">
         </tutorial-level>
     </template>
 
@@ -51,10 +50,6 @@
                     _followUpMessage: {
                         type: String,
                         value: 'Great job! Now a size can be passed through to the handle. Let\'s see how we can use this property in the HTML.',
-                    },
-                    _image: {
-                        type: String,
-                        value: '../../static/images/handle.png',
                     },
                 };
             }
@@ -141,7 +136,7 @@
 
     window.customElements.define(Rock.is, Rock);
 <\/script>`,
-                        hint: 'Oops, you didn\'t have to change anything! Undo your change!'
+                        hint: 'Oops, you didn\'t have to change anything to this file! Undo your change!'
                     }
                 ];
             }
