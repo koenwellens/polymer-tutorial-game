@@ -1,0 +1,147 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../tutorial-level.html">
+
+<dom-module id="level-two-handle-size-property">
+    <template>
+        <tutorial-level level-title="[[_levelTitle]]"
+                        level="[[_level]]"
+                        progress="[[_progress]]"
+                        level-description="[[_levelDescription]]"
+                        follow-up-message="[[_followUpMessage]]"
+                        code-exercises="[[_codeExercises]]">
+        </tutorial-level>
+    </template>
+
+    <script>
+        class LevelTwoHandleSizeProperty extends Polymer.Element {
+            static get is() {
+                return 'level-two-handle-size-property';
+            }
+
+            static get properties() {
+                return {
+                    _level: {
+                        type: Number,
+                        value: 2,
+                    },
+                    _levelTitle: {
+                        type: String,
+                        value: 'Rock, Paper... Axes'
+                    },
+                    _levelDescription: {
+                        type: Array,
+                        value: ['We have a handle and a rock. We need some extra things to craft our axe.',
+                            'Our rock is not sharp and our handle is not long enough. We can do something about that.',
+                            'Polymer provides a way to pass properties to web components. The way to do this is to add an extra method to your class.',
+                            'This properties method returns one object for which all the properties are fields. And each field is an object with a type and a value.',
+                            'The fields can have more, but let\'s start with this for now. Property types can be String, Number, Array, Object and Boolean.',
+                            'The value field for each property is the default value it gets when it is not passed through as an attribute. More on that later.',
+                            'The method a static getter with the name "properties". It returns an object for which all the properties are fields. Go ahead and create ' +
+                            'a size property that is a String and has an empty string as value.'],
+                    },
+                    _progress: {
+                        type: Object,
+                        value: {current: 2, total: 8}
+                    },
+                    _codeExercises: {
+                        type: Array,
+                        value: [],
+                    },
+                    _followUpMessage: {
+                        type: String,
+                        value: 'Great job! Now a size can be passed through to the handle. Let\'s see how we can use this property in the HTML.',
+                    },
+                };
+            }
+
+            ready() {
+                super.ready();
+                this._initializeCodeExercises();
+            }
+
+            _initializeCodeExercises() {
+                this._codeExercises = [
+                    {
+                        fileName: 'handle.html',
+                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)` +
+                        `(id="handle">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/handle.png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)` +
+                        `(\\s)+(<script>)(\\s)+(class)(\\s)(Handle)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+` +
+                        `(return 'handle';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(size:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+` +
+                        `}(\\s)+(window\\.customElements\\.define\\(Handle\\.is,)(\\s)(Handle\\);)(\\s)+(<\/script>)`,
+                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
+
+<dom-module id="handle">
+    <template>
+         <img src="assets/images/handle.png"/>
+     </template>
+</dom-module>
+
+<script>
+    class Handle extends Polymer.Element {
+
+        static get is() {
+            return 'handle';
+        }
+
+        // TODO
+    }
+
+    window.customElements.define(Handle.is, Handle);
+<\/script>`,
+                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
+
+<dom-module id="handle">
+    <template>
+         <img src="assets/images/handle.png"/>
+     </template>
+</dom-module>
+
+<script>
+    class Handle extends Polymer.Element {
+
+        static get is() {
+            return 'handle';
+        }
+
+        // static get properties() {
+        //     return {
+        //         size: {
+        //             type: String,
+        //             value: '',
+        //         }
+        //     };
+        // }
+    }
+
+    window.customElements.define(Handle.is, Handle);
+<\/script>`
+                    }, {
+                        fileName: 'rock.html',
+                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
+                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
+
+<dom-module id="rock">
+    <template>
+         <img src="assets/images/rock.png"/>
+     </template>
+</dom-module>
+
+<script>
+    class Rock extends Polymer.Element {
+
+        static get is() {
+            return 'rock';
+        }
+    }
+
+    window.customElements.define(Rock.is, Rock);
+<\/script>`,
+                        hint: 'Oops, you didn\'t have to change anything to this file! Undo your change!'
+                    }
+                ];
+            }
+        }
+
+        window.customElements.define(LevelTwoHandleSizeProperty.is, LevelTwoHandleSizeProperty);
+    </script>
+</dom-module>

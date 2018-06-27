@@ -1,0 +1,53 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../tutorial-level-overview.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="level-two">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+        </style>
+
+        <tutorial-level-overview level-title="[[_levelTitle]]"
+                                 level="[[_level]]"
+                                 level-description="[[_levelDescription]]">
+        </tutorial-level-overview>
+    </template>
+
+    <script>
+
+        class LevelTwo extends Polymer.Element {
+            static get is() {
+                return 'level-two';
+            }
+
+            static get properties() {
+                return {
+                    _level: {
+                        type: Number,
+                        value: 2,
+                    },
+                    _levelTitle: {
+                        type: String,
+                        value: 'Rock, Paper... Axes'
+                    },
+                    _levelDescription: {
+                        type: Array,
+                        value: ['So we\'ve created a rock. What can we do with it? Well, if we sharpen it and attach it to a handle...',
+                            'We create an axe! We\'ll learn how to change the size of the handle by passing through attributes.',
+                            'Plus your axe will be a composition of other web components! Whenever you\'re ready, click the button below.'],
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(LevelTwo.is, LevelTwo);
+    </script>
+</dom-module>

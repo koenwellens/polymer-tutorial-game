@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../components/tutorial-title.html">
+<link rel="import" href="../../components/tutorial-next-button.html">
 
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
@@ -13,21 +14,6 @@
                 padding-left: 5%;
                 padding-right: 5%;
                 padding-bottom: 5%;
-            }
-
-            .start {
-                background-color: #e37222;
-                color: #fff;
-                margin-top: 5%;
-                padding: 12px;
-                font-size: 4em;
-                border: 1px solid #e37222;
-                width: 25%;
-                border-radius: 25px;
-                text-decoration: none;
-
-                /* #07889B */
-                /* #E37222 */
             }
 
             .text1, .text2 {
@@ -48,10 +34,6 @@
         <div class="container">
             <tutorial-title title="Polycraft" subtitle="a Polymer 2.x tutorial game" subtitle-italic></tutorial-title>
 
-            <div>
-                <!--TODO image-->
-            </div>
-
             <div class="text1">
                 <p>
                     Welcome to Polycraft, a game that teaches Polymer! Join Paul Imer on his quest to become the best
@@ -59,18 +41,14 @@
                 </p>
             </div>
 
-            <div>
-                <!--TODO image-->
-            </div>
-
             <div class="text2">
-                <p>Polycraft is the sport in which competitors try to create the most beautiful, complex piece of hardware.</p>
+                <p>Polycraft is the sport in which competitors try to create the most beautiful, complex piece of
+                    hardware.</p>
                 <p>Are you up for the task?</p>
             </div>
 
-            <div>
-                <a class="start" is="pushstate-anchor" href="/1/">Start game!</a>
-            </div>
+            <tutorial-next-button visible next="/1/" text="Start game!">
+            </tutorial-next-button>
         </div>
     </template>
 

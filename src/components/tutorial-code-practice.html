@@ -29,6 +29,10 @@
             .editor {
                 height: 10em;
             }
+
+            .follow-up-message {
+                width: 60%;
+            }
         </style>
 
         <div class="practice">
@@ -48,13 +52,13 @@
                             value="{{_currentCode}}">
                     </juicy-ace-editor>
                     <tutorial-code-hint visible="[[!_currentCodeIsCorrect]]"
-                                        hint="[[_getCurrent('hint')]]"
-                                        file-name="[[_getCurrent('fileName')]]">
+                                        hint="[[_getCurrent('hint', _currentTab)]]"
+                                        file-name="[[_getCurrent('fileName', _currentTab)]]">
                     </tutorial-code-hint>
                 </div>
             </div>
-            <div>
-                <tutorial-follow-up-message visible="[[_currentCodeIsCorrect]]" follow-up-message="[[followUpMessage]]">
+            <div class="follow-up-message">
+                <tutorial-follow-up-message visible="[[_allCodeIsCorrect]]" follow-up-message="[[followUpMessage]]">
                 </tutorial-follow-up-message>
             </div>
         </div>
@@ -91,6 +95,10 @@
                         type: Number,
                         value: 0,
                     },
+                    _allCodeIsCorrect: {
+                        type: Boolean,
+                        value: false,
+                    },
                     _currentCodeIsCorrect: {
                         type: Boolean,
                         value: false,
@@ -98,7 +106,7 @@
                     _editor: {
                         type: Object,
                         value: {},
-                    }
+                    },
                 };
             }
 
@@ -112,8 +120,8 @@
                 this.addEventListener('file-tab-changed', this._changeTab);
             }
 
-            _getCurrent(field) {
-                return this.tabs[this._currentTab][field];
+            _getCurrent(field, tabIndex) {
+                return this.tabs[tabIndex][field];
             }
 
             _storeEditor(e) {
@@ -129,16 +137,17 @@
             _currentCodeChanged() {
                 if (!!this._editor.getSession) {
                     const newValue = this._editor.getSession().getValue();
-                    this._currentCodeIsCorrect = this._checkSolution(this._currentTab, newValue);
                     this._code[this._currentTab] = newValue;
+
+                    this._currentCodeIsCorrect = this._checkSolution(this._currentTab, newValue);
+                    this._allCodeIsCorrect = this.tabs.every((value, index) => this._checkSolution(index, this._code[index]));
+
                     this._fireEventBasedOnCodeCorrectness();
                 }
             }
 
             _fireEventBasedOnCodeCorrectness() {
-                const eventName = this.tabs.every((value, index) => this._checkSolution(index, this._code[index]))
-                    ? 'solution-correct'
-                    : 'solution-incorrect';
+                const eventName = this._allCodeIsCorrect ? 'solution-correct' : 'solution-incorrect';
 
                 this.dispatchEvent(new CustomEvent(eventName, {composed: true}));
             }

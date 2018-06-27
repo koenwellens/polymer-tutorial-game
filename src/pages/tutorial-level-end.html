@@ -1,0 +1,121 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../components/tutorial-code-practice.html">
+<link rel="import" href="../components/tutorial-level-title.html">
+<link rel="import" href="../components/tutorial-paul.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<dom-module id="tutorial-level-end">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-family: Roboto;
+                color: #fff;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-bottom: 5%;
+            }
+
+            .image {
+                width: 10%;
+                height: 10%;
+            }
+        </style>
+
+        <div>
+            <tutorial-level-title
+                    value="[[levelTitle]]"
+                    level="[[level]]"
+                    progress="[[progress]]">
+            </tutorial-level-title>
+
+            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+
+            <template is="dom-if" if="{{_displayCode}}">
+                <tutorial-code-practice tabs="[[codeExercises]]"
+                                        follow-up-message="[[followUpMessage]]">
+                </tutorial-code-practice>
+
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
+                    <img class="image" src="[[image]]"/>
+                </tutorial-next-button>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        class TutorialLevelEnd extends Polymer.Element {
+            static get is() {
+                return 'tutorial-level-end';
+            }
+
+            static get properties() {
+                return {
+                    levelTitle: {
+                        type: String,
+                        value: '',
+                    },
+                    level: {
+                        type: Number,
+                        value: 0,
+                    },
+                    nextLink: {
+                        type: String,
+                        value: '',
+                    },
+                    nextLinkText: {
+                        type: String,
+                        value: '',
+                    },
+                    levelDescription:  {
+                        type: Array,
+                        value: [],
+                    },
+                    progress: {
+                        type: Object,
+                        value: {}
+                    },
+                    codeExercises: {
+                        type: Array,
+                        value: [],
+                    },
+                    followUpMessage: {
+                        type: String,
+                        value: '',
+                    },
+                    image: {
+                        type: String,
+                        value: '',
+                    },
+                    _displayCode: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    _codeIsCorrect: {
+                        type: Boolean,
+                        value: false,
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+
+                this.addEventListener('paul-talked', this._showCode);
+                this.addEventListener('solution-correct', () => this._showNextLevelButton(true));
+                this.addEventListener('solution-incorrect', () => this._showNextLevelButton(false));
+            }
+
+            _showCode() {
+                this._displayCode = true;
+            }
+
+            _showNextLevelButton(value) {
+                this._codeIsCorrect = value;
+            }
+        }
+
+        window.customElements.define(TutorialLevelEnd.is, TutorialLevelEnd);
+    </script>
+</dom-module>

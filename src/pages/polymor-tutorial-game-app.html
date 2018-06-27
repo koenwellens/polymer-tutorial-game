@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/app-router/app-router.html">
-<link rel="import" href="./start/start-tutorial.html">
-<link rel="import" href="./level1/level1.html">
+<link rel="import" href="start/start-tutorial.html">
+<link rel="import" href="level1/level1.html">
 <link rel="import" href="level1/level-one-rock-class.html">
 <link rel="import" href="level1/level-one-rock-is.html">
 <link rel="import" href="level1/level-one-rock-polymer-dom-module.html">
@@ -9,6 +9,17 @@
 <link rel="import" href="level1/level-one-rock-polymer-register.html">
 <link rel="import" href="level1/level-one-rock-polymer-subclass.html">
 <link rel="import" href="level1/level-one-rock-polymer-template.html">
+
+<link rel="import" href="level2/level2.html">
+<link rel="import" href="level2/level-two-handle.html">
+<link rel="import" href="level2/level-two-handle-size-property.html">
+<link rel="import" href="level2/level-two-handle-size-binding.html">
+<link rel="import" href="level2/level-two-rock-sharpness-property.html">
+<link rel="import" href="level2/level-two-axe.html">
+<link rel="import" href="level2/level-two-axe-handle-rock.html">
+<link rel="import" href="level2/level-two-axe-properties.html">
+<link rel="import" href="level2/level-two-axe-complete.html">
+
 <link rel="import" href="./coming-soon.html">
 
 <dom-module id="polymor-tutorial-game-app">
@@ -20,19 +31,30 @@
         </style>
 
         <!-- this app-route manages the top-level routes -->
-        <app-router mode="auto|pushstate|hash">
-            <app-route path="/start/" element="start-tutorial"></app-route>
-            <app-route path="/1/" element="level-one"></app-route>
-            <app-route path="/1-1/" element="level-one-rock-class"></app-route>
-            <app-route path="/1-2/" element="level-one-rock-is"></app-route>
-            <app-route path="/1-3/" element="level-one-rock-polymer-subclass"></app-route>
-            <app-route path="/1-4/" element="level-one-rock-polymer-import"></app-route>
-            <app-route path="/1-5/" element="level-one-rock-polymer-dom-module"></app-route>
-            <app-route path="/1-6/" element="level-one-rock-polymer-template"></app-route>
-            <app-route path="/1-7/" element="level-one-rock-polymer-register"></app-route>
+        <app-router id="app-router" mode="auto|pushstate|hash">
+            <app-route path="/app/start/" element="start-tutorial"></app-route>
 
-            <app-route path="/soon/" element="coming-soon"></app-route>
-            <app-route path="*" element="start-tutorial"></app-route>
+            <app-route path="/app/1/" element="level-one"></app-route>
+            <app-route path="/app/1-1/" element="level-one-rock-class"></app-route>
+            <app-route path="/app/1-2/" element="level-one-rock-is"></app-route>
+            <app-route path="/app/1-3/" element="level-one-rock-polymer-subclass"></app-route>
+            <app-route path="/app/1-4/" element="level-one-rock-polymer-import"></app-route>
+            <app-route path="/app/1-5/" element="level-one-rock-polymer-dom-module"></app-route>
+            <app-route path="/app/1-6/" element="level-one-rock-polymer-template"></app-route>
+            <app-route path="/app/1-7/" element="level-one-rock-polymer-register"></app-route>
+
+            <app-route path="/app/2/" element="level-two"></app-route>
+            <app-route path="/app/2-1/" element="level-two-handle"></app-route>
+            <app-route path="/app/2-2/" element="level-two-handle-size-property"></app-route>
+            <app-route path="/app/2-3/" element="level-two-handle-size-binding"></app-route>
+            <app-route path="/app/2-4/" element="level-two-rock-sharpness-property"></app-route>
+            <app-route path="/app/2-5/" element="level-two-axe"></app-route>
+            <app-route path="/app/2-6/" element="level-two-axe-handle-rock"></app-route>
+            <app-route path="/app/2-7/" element="level-two-axe-properties"></app-route>
+            <app-route path="/app/2-8/" element="level-two-axe-complete"></app-route>
+
+            <app-route path="/app/soon/" element="coming-soon"></app-route>
+            <!--<app-route path="*" element="coming-soon "></app-route>-->
         </app-router>
     </template>
 
@@ -41,6 +63,13 @@
         class PolymorTutorialGameApp extends Polymer.Element {
             static get is() {
                 return 'polymor-tutorial-game-app';
+            }
+
+            ready() {
+                super.ready();
+                if (!window.location.href.includes("/app/")) {
+                    this.$['app-router'].go("/app/start/");
+                }
             }
         }
 
