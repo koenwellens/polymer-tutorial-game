@@ -129,31 +129,26 @@
             }
 
             _handleCorrectCode() {
-                const solutionWasIncorrect = this._progress.start === this.progress.part;
-                this._handleCodeChange(true, solutionWasIncorrect, this.progress.part - 1, this.progress.part);
-            }
-
-            _handleIncorrectCode() {
-                const solutionWasCorrect = this._progress.start !== this.progress.part;
-                const startValueIsInitialValue = this._progress.start === 0;
-
-                if (startValueIsInitialValue) {
-                    this._handleCodeChange(false, true, this.progress.part - 1, this.progress.part - 1);
-                }
-
-                if (solutionWasCorrect) {
-                    this._handleCodeChange(false, true, this.progress.part, this.progress.part - 1);
-                }
-            }
-
-            _handleCodeChange(codeIsCorrect, progressStartValueShouldChange, newProgressStartValue, newProgressCurrentValue) {
-                this._codeIsCorrect = codeIsCorrect;
+                this._codeIsCorrect = true;
 
                 this._progress = {
                     total: this._progress.total,
-                    start: progressStartValueShouldChange ? newProgressStartValue : this._progress.start,
-                    current: newProgressCurrentValue
+                    start: this.progress.part - 1,
+                    current: this.progress.part,
                 };
+            }
+
+            _handleIncorrectCode() {
+                this._codeIsCorrect = false;
+                const solutionWasCorrect = this._progress.current === this.progress.part;
+
+                if (solutionWasCorrect) {
+                    this._progress = {
+                        total: this._progress.total,
+                        start: this.progress.part,
+                        current: this.progress.part - 1,
+                    };
+                }
             }
         }
 
