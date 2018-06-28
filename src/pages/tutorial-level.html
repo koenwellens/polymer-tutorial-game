@@ -131,15 +131,12 @@
             _handleResponse(response) {
                 const json = response.detail.__data.response;
 
-                console.log(response);
-                if(!!json){
-                    this._levelTitle = json.title;
-                    this._levelDescription = json.description;
-                    this._followUpMessage = json.followUpMessage;
-                    this._codeExercises = json.exercises;
+                this._levelTitle = json.title;
+                this._levelDescription = json.description;
+                this._followUpMessage = json.followUpMessage;
+                this._codeExercises = json.exercises;
 
-                    this._loaded = true;
-                }
+                this._loaded = true;
             }
 
             _initializeProgress() {
