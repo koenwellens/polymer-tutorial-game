@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../components/tutorial-code-practice.html">
 <link rel="import" href="../components/tutorial-level-title.html">
 <link rel="import" href="../components/tutorial-paul.html">
@@ -23,18 +24,25 @@
             }
         </style>
 
-        <div>
+        <iron-ajax
+                auto
+                url="/static/data/level-[[level]]-[[progress.part]].json"
+                handle-as="json"
+                on-response="_handleResponse">
+        </iron-ajax>
+
+        <template is="dom-if" if="{{_loaded}}">
             <tutorial-level-title
-                    value="[[levelTitle]]"
+                    value="[[_levelTitle]]"
                     level="[[level]]"
                     progress="[[_progress]]">
             </tutorial-level-title>
 
-            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
 
             <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[codeExercises]]"
-                                        follow-up-message="[[followUpMessage]]">
+                <tutorial-code-practice tabs="[[_codeExercises]]"
+                                        follow-up-message="[[_followUpMessage]]">
                 </tutorial-code-practice>
 
                 <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
@@ -43,7 +51,7 @@
                     </template>
                 </tutorial-next-button>
             </template>
-        </div>
+        </template>
     </template>
 
     <script>
@@ -54,29 +62,13 @@
 
             static get properties() {
                 return {
-                    levelTitle: {
-                        type: String,
-                        value: '',
-                    },
                     level: {
                         type: Number,
                         value: 0,
                     },
-                    levelDescription: {
-                        type: Array,
-                        value: [],
-                    },
                     progress: {
                         type: Object,
                         value: {}
-                    },
-                    codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    followUpMessage: {
-                        type: String,
-                        value: '',
                     },
                     nextLink: {
                         type: String,
@@ -87,6 +79,22 @@
                         value: 'Continue',
                     },
                     image: {
+                        type: String,
+                        value: '',
+                    },
+                    _levelTitle: {
+                        type: String,
+                        value: '',
+                    },
+                    _levelDescription: {
+                        type: Array,
+                        value: [],
+                    },
+                    _codeExercises: {
+                        type: Array,
+                        value: [],
+                    },
+                    _followUpMessage: {
                         type: String,
                         value: '',
                     },
@@ -101,7 +109,11 @@
                     _codeIsCorrect: {
                         type: Boolean,
                         value: false,
-                    }
+                    },
+                    _loaded: {
+                        type: Boolean,
+                        value: false,
+                    },
                 };
             }
 
@@ -114,6 +126,20 @@
                 this.addEventListener('paul-talked', this._showCode);
                 this.addEventListener('solution-correct', this._handleCorrectCode);
                 this.addEventListener('solution-incorrect', this._handleIncorrectCode);
+            }
+
+            _handleResponse(response) {
+                const json = response.detail.__data.response;
+
+                console.log(response);
+                if(!!json){
+                    this._levelTitle = json.title;
+                    this._levelDescription = json.description;
+                    this._followUpMessage = json.followUpMessage;
+                    this._codeExercises = json.exercises;
+
+                    this._loaded = true;
+                }
             }
 
             _initializeProgress() {

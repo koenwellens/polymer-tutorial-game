@@ -1,0 +1,15 @@
+{
+  "title": "Polymer Rocks",
+  "description": ["The JavaScript class is a great start. But what you'll also want, is a way to identify your element.",
+    "In Polymer, elements have an identification string (is). This is the string that other files will use to add this element.",
+    "Give it a try. You need a static method is that returns a string (let's use \"rock\"). Single or double quotes should work. Good luck!"],
+  "followUpMessage": "Great! You added your 'is' method! Click the button below to continue this level!",
+  "exercises": [
+    {
+      "fileName": "rock.html",
+      "template": "<script>\n    class Rock {\n\n    }\n</script>",
+      "hint": "<script>\n    class Rock {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
+      "solutionRegExp": "(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|\"rock\");(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+    }
+  ]
+}

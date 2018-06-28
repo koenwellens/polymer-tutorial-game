@@ -3,12 +3,8 @@
 
 <dom-module id="level-one-rock-is">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                        level="[[_level]]"
-                        progress="[[_progress]]"
-                        level-description="[[_levelDescription]]"
-                        follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]">
+        <tutorial-level level="[[_level]]"
+                        progress="[[_progress]]">
         </tutorial-level>
     </template>
 
@@ -24,57 +20,11 @@
                         type: Number,
                         value: 1,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['The JavaScript class is a great start. But what you\'ll also want, is a way to identify your element.',
-                            'In Polymer, elements have an identification string (is). This is the string that other files will use to add this element.',
-                            'Give it a try. You need a static method is that returns a string (let\'s use "rock"). Single or double quotes should work. Good luck!'],
-                    },
                     _progress: {
                         type: Object,
                         value: {part: 2, total: 7}
                     },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Great! You added your \'is\' method! Click the button below to continue this level!',
-                    },
                 };
-            }
-
-            ready() {
-                super.ready();
-
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|"rock");(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
-                        template: `<script>
-    class Rock {
-
-    }
-<\/script>`,
-                        hint: `<script>
-    class Rock {
-
-        // static get is() {
-            // return 'rock';
-        // }
-    }
-<\/script>`
-                    }
-                ];
             }
         }
 
