@@ -1,0 +1,14 @@
+{
+  "description": ["Sometimes web components have html. But to add html to your rock, you need to let the browser know that the html belongs to your component.",
+    "To do this, you need a dom-module element. This element requires an id (your identification string). It should be added above your script tags and below your html import.",
+    "Add <dom-module id=\"your-id\"> where your id is your identification string. And don't forget your closing tag!"],
+  "followUpMessage": "Almost there! Your rock is almost ready for use. Let's find out what's missing.",
+  "exercises": [
+    {
+      "fileName": "rock.html",
+      "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
+      "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
+      "solutionRegExp": "(<link)(\\s)(rel=\"import\")(\\s)(href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"rock\">)(\\s)*(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|\"rock\");(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+    }
+  ]
+}

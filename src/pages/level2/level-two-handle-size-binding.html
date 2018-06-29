@@ -3,12 +3,8 @@
 
 <dom-module id="level-two-handle-size-binding">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                        level="[[_level]]"
-                        progress="[[_progress]]"
-                        level-description="[[_levelDescription]]"
-                        follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]">
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -24,125 +20,11 @@
                         type: Number,
                         value: 2,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Rock, Paper... Axes'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Let\'s put the size of the handle to use! In this section, you will learn how to do data binding.',
-                        'Data binding in Polymer allows you to use your properties in your HTML code. You can use to forms of data binding: one-way and two-way.',
-                        'One-way data binding is done with 2 sets of brackets: "[[yourProperty]]". Two-way data binding is done with 2 sets of curly braces: "{{yourProperty}}".',
-                        'For this exercise, you will have to use one-way data binding of your "size" property. What will we use it for? To display a different image if necessary!',
-                        'So instead of going for "assets/images/handle.png", try to use your size property to allow users to change the image. The images you have are handle.png, handleSmall.png, handleMedium.png and handleXl.png.'],
-                    },
-                    _progress: {
-                        type: Object,
-                        value: {part: 3, total: 8}
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'You\'ve done it again! Spectacular! Maybe it is useful to have a property for the rock as well. Let\'s have a look!',
+                    _part: {
+                        type: Number,
+                        value: 3
                     },
                 };
-            }
-
-            ready() {
-                super.ready();
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'handle.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)` +
-                        `(id="handle">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/handle\\[\\[size\\]\\].png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)` +
-                        `(\\s)+(<script>)(\\s)+(class)(\\s)(Handle)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+` +
-                        `(return 'handle';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(size:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+` +
-                        `}(\\s)+(window\\.customElements\\.define\\(Handle\\.is,)(\\s)(Handle\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="handle">
-    <template>
-         <img src="assets/images/handle.png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Handle extends Polymer.Element {
-
-        static get is() {
-            return 'handle';
-        }
-
-        static get properties() {
-            return {
-                size: {
-                    type: String,
-                    value: '',
-                }
-            };
-        }
-    }
-
-    window.customElements.define(Handle.is, Handle);
-<\/script>`,
-                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="handle">
-    <template>
-         <img src="assets/images/handle[[size]].png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Handle extends Polymer.Element {
-
-        static get is() {
-            return 'handle';
-        }
-
-        static get properties() {
-            return {
-                size: {
-                    type: String,
-                    value: '',
-                }
-            };
-        }
-    }
-
-    window.customElements.define(Handle.is, Handle);
-<\/script>`
-                    }, {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="rock">
-    <template>
-         <img src="assets/images/rock.png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-
-    window.customElements.define(Rock.is, Rock);
-<\/script>`,
-                        hint: 'Oops, you didn\'t have to change anything to this file! Undo your change!'
-                    }
-                ];
             }
         }
 

@@ -3,12 +3,8 @@
 
 <dom-module id="level-one-rock-polymer-dom-module">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                        level="[[_level]]"
-                        progress="[[_progress]]"
-                        level-description="[[_levelDescription]]"
-                        follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]">
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -24,68 +20,11 @@
                         type: Number,
                         value: 1,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Sometimes web components have html. But to add html to your rock, you need to let the browser know that the html belongs to your component.',
-                        'To do this, you need a dom-module element. This element requires an id (your identification string). It should be added above your script tags and below your html import.',
-                        'Add <dom-module id="your-id"> where your id is your identification string. And don\'t forget your closing tag!'],
-                    },
-                    _progress: {
-                        type: Object,
-                        value: {part: 5, total: 7}
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Almost there! Your rock is almost ready for use. Let\'s find out what\'s missing.',
+                    _part: {
+                        type: Number,
+                        value: 5
                     },
                 };
-            }
-
-            ready() {
-                super.ready();
-
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib\/polymer\/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)*(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|"rock");(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-<\/script>`,
-                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<!-- <dom-module id="rock"> -->
-
-<!-- </dom-module> -->
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-<\/script>`
-                    }
-                ];
             }
         }
 

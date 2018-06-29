@@ -1,0 +1,85 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="tutorial-ajax">
+    <template>
+        <iron-ajax
+                auto
+                url="/static/data/level[[level]]/data.json"
+                handle-as="json"
+                on-response="_handleLevelResponse">
+        </iron-ajax>
+
+        <template is="dom-if" if="{{_needsMoreData()}}">
+            <iron-ajax
+                    auto
+                    url="/static/data/level[[level]]/[[part]].json"
+                    handle-as="json"
+                    on-response="_handleLevelPartResponse">
+            </iron-ajax>
+        </template>
+    </template>
+
+    <script>
+        class TutorialAjax extends Polymer.Element {
+            static get is() {
+                return 'tutorial-ajax';
+            }
+
+            static get properties() {
+                return {
+                    level: {
+                        type: String,
+                        value: ''
+                    },
+                    part: {
+                        type: String,
+                        value: '',
+                    },
+                    _levelData: {
+                        type: Object,
+                        value: {},
+                    },
+                    _levelPartData: {
+                        type: Object,
+                        value: {},
+                    },
+                };
+            }
+
+            _needsMoreData() {
+                return !!this.part;
+            }
+
+            _handleLevelResponse(response) {
+                const json = response.detail.__data.response;
+
+                this._levelData = json;
+                this._fireEventsIfNecessary();
+            }
+
+            _handleLevelPartResponse(response) {
+                const json = response.detail.__data.response;
+
+                this._levelPartData = json;
+                this._fireEventsIfNecessary();
+            }
+
+            _fireEventsIfNecessary() {
+                if (!!this._levelData) {
+                    if (!this._needsMoreData() || !!this._levelPartData.exercises) {
+                        const data = {
+                            ...this._levelData,
+                            ...this._levelPartData,
+                        };
+
+                        this.dispatchEvent(new CustomEvent('data-received', {composed: true, detail: data}));
+                    }
+                }
+            }
+        }
+
+        window.customElements.define(TutorialAjax.is, TutorialAjax);
+    </script>
+</dom-module>

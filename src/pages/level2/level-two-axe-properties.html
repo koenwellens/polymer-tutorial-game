@@ -3,13 +3,8 @@
 
 <dom-module id="level-two-axe-properties">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                        level="[[_level]]"
-                        progress="[[_progress]]"
-                        level-description="[[_levelDescription]]"
-                        follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]"
-                        image="[[_image]]">
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -25,169 +20,11 @@
                         type: Number,
                         value: 2,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Rock, Paper... Axes'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Let\'s use the properties we created for our rock and handle. In axe.html, you can pass through properties as html attributes.',
-                        'For rock, this means that the html tag will look something like this: "<rock sharpness="YourStringHere"></rock>',
-                        'Can you add sharpness "Sharp" for the rock and size "Medium" for the handle?'],
-                    },
-                    _progress: {
-                        type: Object,
-                        value: {part: 7, total: 8}
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Hooray, we have an axe! Not the greatest axe I\'ve ever seen though... Let\'s improve it one last time!',
-                    },
-                    _image: {
-                        type: String,
-                        value: '../../static/images/axe.png',
+                    _part: {
+                        type: Number,
+                        value: 7
                     },
                 };
-            }
-
-            ready() {
-                super.ready();
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'axe.html',
-                        solutionRegExp: `(<link rel="import" href="lib/polymer/polymer-element\\.html">)(\\s)+` +
-                        `((<link rel="import" href="handle\\.html">)(\\s)+(<link rel="import" href="rock\\.html">)|` +
-                        `(<link rel="import" href="rock\\.html">)(\\s)+(<link rel="import" href="handle\\.html">))(\\s)+` +
-                        `(<dom-module)(\\s)(id="axe">)(\\s)+(<template>)(\\s)+(<div>)(\\s)+(<rock sharpness="Sharp">)(\\s)*(</rock>)(\\s)+(<handle size="Medium">)(\\s)*(</handle>)(\\s)+(</div>)(\\s)+(</template>)(\\s)+(</dom-module>)` +
-                        `(\\s)+(<script>)(\\s)+(class)(\\s)(Axe)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+` +
-                        `(return 'axe';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Axe\\.is,)(\\s)(Axe\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-<link rel="import" href="handle.html">
-<link rel="import" href="rock.html">
-
-<dom-module id="axe">
-    <template>
-        <div>
-            <rock></rock>
-            <handle></handle>
-        </div>
-     </template>
-</dom-module>
-
-<script>
-    class Axe extends Polymer.Element {
-
-        static get is() {
-            return 'axe';
-        }
-    }
-
-    window.customElements.define(Axe.is, Axe);
-<\/script>`,
-                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
-<link rel="import" href="handle.html">
-<link rel="import" href="rock.html">
-
-<dom-module id="axe">
-    <template>
-        <div>
-            <rock sharpness="Sharp"></rock>
-            <handle size="Medium"></handle>
-        </div>
-     </template>
-</dom-module>
-
-<script>
-    class Axe extends Polymer.Element {
-
-        static get is() {
-            return 'axe';
-        }
-    }
-
-    window.customElements.define(Axe.is, Axe);
-<\/script>`
-                    },
-                    {
-                        fileName: 'handle.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)` +
-                        `(id="handle">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/handle\\[\\[size\\]\\].png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)` +
-                        `(\\s)+(<script>)(\\s)+(class)(\\s)(Handle)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+` +
-                        `(return 'handle';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(size:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+` +
-                        `}(\\s)+(window\\.customElements\\.define\\(Handle\\.is,)(\\s)(Handle\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="handle">
-    <template>
-         <img src="assets/images/handle[[size]].png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Handle extends Polymer.Element {
-
-        static get is() {
-            return 'handle';
-        }
-
-        static get properties() {
-            return {
-                size: {
-                    type: String,
-                    value: '',
-                }
-            };
-        }
-    }
-
-    window.customElements.define(Handle.is, Handle);
-<\/script>`,
-                        hint: 'Oops, you didn\'t have to change anything to this file! Undo your change!'
-                    }, {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib/polymer/polymer-element.html">)(\\s)+(<dom-module)(\\s)` +
-                        `(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock\\[\\[sharpness\\]\\].png"/>)(\\s)+(</template>)(\\s)+(</dom-module>)` +
-                        `(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+` +
-                        `(return 'rock';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(sharpness:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+` +
-                        `}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="rock">
-    <template>
-         <img src="assets/images/rock[[sharpness]].png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-
-        static get properties() {
-            return {
-                sharpness: {
-                    type: String,
-                    value: '',
-                }
-            };
-        }
-    }
-
-    window.customElements.define(Rock.is, Rock);
-<\/script>`,
-                        hint: 'Oops, you didn\'t have to change anything to this file! Undo your change'
-                    }
-                ];
             }
         }
 

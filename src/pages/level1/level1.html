@@ -3,10 +3,7 @@
 
 <dom-module id="level-one">
     <template>
-        <tutorial-level-overview level-title="[[_levelTitle]]"
-                                 level="[[_level]]"
-                                 level-description="[[_levelDescription]]">
-        </tutorial-level-overview>
+        <tutorial-level-overview level="[[_level]]"></tutorial-level-overview>
     </template>
 
     <script>
@@ -21,16 +18,6 @@
                     _level: {
                         type: Number,
                         value: 1,
-                    },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Hello! My name is Paul Imer. I want to become the best Polycrafter in the world. ' +
-                        'But I can\'t do it on my own. Believe me, I tried. Maybe together we can join the championships and win!',
-                            'Let\'s first have a look at what Polycraft is. Click the button below to start the journey!'],
                     },
                 };
             }

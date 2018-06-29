@@ -3,12 +3,8 @@
 
 <dom-module id="level-one-rock-class">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                                 level="[[_level]]"
-                                 progress="[[_progress]]"
-                                 level-description="[[_levelDescription]]"
-                                 follow-up-message="[[_followUpMessage]]"
-                                 code-exercises="[[_codeExercises]]">
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -24,51 +20,11 @@
                         type: Number,
                         value: 1,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['First, we\'ll need to collect some rocks. To do this, you\'ll need to create web components ' +
-                        'that we can use further on in the quest.',
-                            'To start, create a JavaScript class with the appropriate name. Good luck!'],
-                    },
-                    _progress: {
-                        type: Object,
-                        value: {part: 1, total: 7}
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Great! You created your first JavaScript class! Click the button below to go to the next part of this level!',
+                    _part: {
+                        type: Number,
+                        value: 1
                     },
                 };
-            }
-
-            ready() {
-                super.ready();
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+}(\\s)+(<\/script>)`,
-                        template: `<script>
-    // TODO
-<\/script>`,
-                        hint: `<script>
-    // class Rock {
-
-    // }
-<\/script>`
-                    }
-                ];
             }
         }
 

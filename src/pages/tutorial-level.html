@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../components/tutorial-ajax.html">
 <link rel="import" href="../components/tutorial-code-practice.html">
 <link rel="import" href="../components/tutorial-level-title.html">
 <link rel="import" href="../components/tutorial-paul.html">
@@ -23,27 +24,27 @@
             }
         </style>
 
-        <div>
-            <tutorial-level-title
-                    value="[[levelTitle]]"
-                    level="[[level]]"
-                    progress="[[_progress]]">
+        <tutorial-ajax level="[[level]]" part="[[part]]">
+        </tutorial-ajax>
+
+        <template is="dom-if" if="{{_isLoaded(_data)}}">
+            <tutorial-level-title value="[[_data.title]]" level="[[level]]" progress="[[_progress]]">
             </tutorial-level-title>
 
-            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+            <tutorial-paul text="[[_data.description]]"></tutorial-paul>
 
             <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[codeExercises]]"
-                                        follow-up-message="[[followUpMessage]]">
+                <tutorial-code-practice tabs="[[_data.exercises]]"
+                                        follow-up-message="[[_data.followUpMessage]]">
                 </tutorial-code-practice>
 
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
-                    <template is="dom-if" if="{{_imageIsVisible()}}">
-                        <img class="image" src="[[image]]"/>
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[_nextLink]]/" text="[[_nextLinkText]]">
+                    <template is="dom-if" if="{{_imageIsVisible(_data)}}">
+                        <img class="image" src="../../static/images/[[_data.image]]"/>
                     </template>
                 </tutorial-next-button>
             </template>
-        </div>
+        </template>
     </template>
 
     <script>
@@ -54,39 +55,23 @@
 
             static get properties() {
                 return {
-                    levelTitle: {
-                        type: String,
-                        value: '',
-                    },
                     level: {
                         type: Number,
                         value: 0,
                     },
-                    levelDescription: {
-                        type: Array,
-                        value: [],
+                    part: {
+                        type: Number,
+                        value: 0,
                     },
-                    progress: {
+                    _data: {
                         type: Object,
-                        value: {}
+                        value: {},
                     },
-                    codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    followUpMessage: {
+                    _nextLink: {
                         type: String,
                         value: '',
                     },
-                    nextLink: {
-                        type: String,
-                        value: '',
-                    },
-                    nextLinkText: {
-                        type: String,
-                        value: 'Continue',
-                    },
-                    image: {
+                    _nextLinkText: {
                         type: String,
                         value: '',
                     },
@@ -101,31 +86,47 @@
                     _codeIsCorrect: {
                         type: Boolean,
                         value: false,
-                    }
+                    },
                 };
             }
 
             ready() {
                 super.ready();
 
-                this.nextLink = this.nextLink === '' ? this.level + '-' + (this.progress.part + 1) : this.nextLink;
-                this._initializeProgress();
-
+                this.addEventListener('data-received', this._handleIncomingData);
                 this.addEventListener('paul-talked', this._showCode);
                 this.addEventListener('solution-correct', this._handleCorrectCode);
                 this.addEventListener('solution-incorrect', this._handleIncorrectCode);
             }
 
-            _initializeProgress() {
-                this._progress = {
-                    start: 0,
-                    current: this.progress.part - 1,
-                    total: this.progress.total
-                };
+            _isLoaded(data) {
+                return !!data.title;
             }
 
-            _imageIsVisible() {
-                return !!this.image;
+            _handleIncomingData(response) {
+                this._data = response.detail;
+
+                this._progress = {
+                    start: 0,
+                    current: this.part - 1,
+                    total: this._data.total
+                };
+
+                this._changeLinkWhenThisIsLastPart();
+            }
+
+            _changeLinkWhenThisIsLastPart() {
+                if(this._data.total === this.part) {
+                    this._nextLink = this._data.nextLevel;
+                    this._nextLinkText = this._data.nextLevelText;
+                } else {
+                    this._nextLink = this.level + '-' + (this.part + 1);
+                    this._nextLinkText = 'Continue';
+                }
+            }
+
+            _imageIsVisible(data) {
+                return !!data.image;
             }
 
             _showCode() {
@@ -137,20 +138,20 @@
 
                 this._progress = {
                     total: this._progress.total,
-                    start: this.progress.part - 1,
-                    current: this.progress.part,
+                    start: this.part - 1,
+                    current: this.part,
                 };
             }
 
             _handleIncorrectCode() {
                 this._codeIsCorrect = false;
-                const solutionWasCorrect = this._progress.current === this.progress.part;
+                const solutionWasCorrect = this._progress.current === this.part;
 
                 if (solutionWasCorrect) {
                     this._progress = {
                         total: this._progress.total,
-                        start: this.progress.part,
-                        current: this.progress.part - 1,
+                        start: this.part,
+                        current: this.part - 1,
                     };
                 }
             }
