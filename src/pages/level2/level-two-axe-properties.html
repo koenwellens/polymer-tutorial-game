@@ -4,8 +4,7 @@
 <dom-module id="level-two-axe-properties">
     <template>
         <tutorial-level level="[[_level]]"
-                        progress="[[_progress]]"
-                        image="[[_image]]">
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -21,13 +20,9 @@
                         type: Number,
                         value: 2,
                     },
-                    _progress: {
-                        type: Object,
-                        value: {part: 7, total: 8}
-                    },
-                    _image: {
-                        type: String,
-                        value: '../../static/images/axe.png',
+                    _part: {
+                        type: Number,
+                        value: 7
                     },
                 };
             }

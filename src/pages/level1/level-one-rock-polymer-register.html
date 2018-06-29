@@ -4,9 +4,7 @@
 <dom-module id="level-one-rock-polymer-register">
     <template>
         <tutorial-level level="[[_level]]"
-                        progress="[[_progress]]"
-                        next-link="[[_nextLink]]"
-                        next-link-text="[[_nextLinkText]]">
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -22,17 +20,9 @@
                         type: Number,
                         value: 1,
                     },
-                    _progress: {
-                        type: Object,
-                        value: {part: 7, total: 7}
-                    },
-                    _nextLink: {
-                        type: String,
-                        value: '2',
-                    },
-                    _nextLinkText: {
-                        type: String,
-                        value: 'Go to level 2',
+                    _part: {
+                        type: Number,
+                        value: 7
                     },
                 };
             }

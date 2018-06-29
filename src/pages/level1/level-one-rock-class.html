@@ -4,7 +4,7 @@
 <dom-module id="level-one-rock-class">
     <template>
         <tutorial-level level="[[_level]]"
-                        progress="[[_progress]]">
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -20,9 +20,9 @@
                         type: Number,
                         value: 1,
                     },
-                    _progress: {
-                        type: Object,
-                        value: {part: 1, total: 7}
+                    _part: {
+                        type: Number,
+                        value: 1
                     },
                 };
             }

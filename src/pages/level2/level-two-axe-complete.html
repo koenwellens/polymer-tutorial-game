@@ -4,10 +4,7 @@
 <dom-module id="level-two-axe-complete">
     <template>
         <tutorial-level level="[[_level]]"
-                        progress="[[_progress]]"
-                        next-link="[[_nextLink]]"
-                        next-link-text="[[_nextLinkText]]"
-                        image="[[_image]]">
+                        part="[[_part]]">
         </tutorial-level>
     </template>
 
@@ -23,21 +20,9 @@
                         type: Number,
                         value: 2,
                     },
-                    _progress: {
-                        type: Object,
-                        value: {part: 8, total: 8}
-                    },
-                    _nextLink: {
-                        type: String,
-                        value: 'soon',
-                    },
-                    _nextLinkText: {
-                        type: String,
-                        value: 'Go to level 3',
-                    },
-                    _image: {
-                        type: String,
-                        value: '../../static/images/nice-axe.png',
+                    _part: {
+                        type: Number,
+                        value: 8
                     },
                 };
             }

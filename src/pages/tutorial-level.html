@@ -24,7 +24,7 @@
             }
         </style>
 
-        <tutorial-ajax level="[[level]]" part="[[progress.part]]">
+        <tutorial-ajax level="[[level]]" part="[[part]]">
         </tutorial-ajax>
 
         <template is="dom-if" if="{{_isLoaded(_data)}}">
@@ -38,7 +38,7 @@
                                         follow-up-message="[[_data.followUpMessage]]">
                 </tutorial-code-practice>
 
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
+                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[_nextLink]]/" text="[[_nextLinkText]]">
                     <template is="dom-if" if="{{_imageIsVisible(_data)}}">
                         <img class="image" src="../../static/images/[[_data.image]]"/>
                     </template>
@@ -59,21 +59,21 @@
                         type: Number,
                         value: 0,
                     },
-                    progress: {
-                        type: Object,
-                        value: {}
-                    },
-                    nextLink: {
-                        type: String,
-                        value: '',
-                    },
-                    nextLinkText: {
-                        type: String,
-                        value: 'Continue',
+                    part: {
+                        type: Number,
+                        value: 0,
                     },
                     _data: {
                         type: Object,
                         value: {},
+                    },
+                    _nextLink: {
+                        type: String,
+                        value: '',
+                    },
+                    _nextLinkText: {
+                        type: String,
+                        value: '',
                     },
                     _progress: {
                         type: Object,
@@ -93,9 +93,6 @@
             ready() {
                 super.ready();
 
-                this.nextLink = this.nextLink === '' ? this.level + '-' + (this.progress.part + 1) : this.nextLink;
-                this._initializeProgress();
-
                 this.addEventListener('data-received', this._handleIncomingData);
                 this.addEventListener('paul-talked', this._showCode);
                 this.addEventListener('solution-correct', this._handleCorrectCode);
@@ -108,14 +105,24 @@
 
             _handleIncomingData(response) {
                 this._data = response.detail;
-            }
 
-            _initializeProgress() {
                 this._progress = {
                     start: 0,
-                    current: this.progress.part - 1,
-                    total: this.progress.total
+                    current: this.part - 1,
+                    total: this._data.total
                 };
+
+                this._changeLinkWhenThisIsLastPart();
+            }
+
+            _changeLinkWhenThisIsLastPart() {
+                if(this._data.total === this.part) {
+                    this._nextLink = this._data.nextLevel;
+                    this._nextLinkText = this._data.nextLevelText;
+                } else {
+                    this._nextLink = this.level + '-' + (this.part + 1);
+                    this._nextLinkText = 'Continue';
+                }
             }
 
             _imageIsVisible(data) {
@@ -131,20 +138,20 @@
 
                 this._progress = {
                     total: this._progress.total,
-                    start: this.progress.part - 1,
-                    current: this.progress.part,
+                    start: this.part - 1,
+                    current: this.part,
                 };
             }
 
             _handleIncorrectCode() {
                 this._codeIsCorrect = false;
-                const solutionWasCorrect = this._progress.current === this.progress.part;
+                const solutionWasCorrect = this._progress.current === this.part;
 
                 if (solutionWasCorrect) {
                     this._progress = {
                         total: this._progress.total,
-                        start: this.progress.part,
-                        current: this.progress.part - 1,
+                        start: this.part,
+                        current: this.part - 1,
                     };
                 }
             }
