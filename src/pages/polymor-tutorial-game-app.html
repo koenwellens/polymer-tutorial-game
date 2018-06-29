@@ -65,11 +65,39 @@
                 return 'polymor-tutorial-game-app';
             }
 
+            static get properties() {
+                return {
+                    _localStorageKey: {
+                        type: String,
+                        value: 'polymerTutorialGame'
+                    }
+                };
+            }
+
             ready() {
                 super.ready();
                 if (!window.location.href.includes("/app/")) {
-                    this.$['app-router'].go("/app/start/");
+                    this.$['app-router'].go(this._getCurrentLevelFromLocalStorage());
                 }
+
+                this._updateCurrentLevelInLocalStorage();
+            }
+
+            _getCurrentLevelFromLocalStorage() {
+                const polymerTutorialInformation = this._getPolymerTutorialGameObjectFromStorage();
+                return !!polymerTutorialInformation ? polymerTutorialInformation.currentLevel : '/app/start/';
+            }
+
+            _updateCurrentLevelInLocalStorage() {
+                const previousObject = this._getPolymerTutorialGameObjectFromStorage() || {};
+                let indexOfApp = window.location.href.indexOf('/app/');
+                previousObject.currentLevel = window.location.href.substr(indexOfApp);
+
+                window.localStorage.setItem(this._localStorageKey, JSON.stringify(previousObject));
+            }
+
+            _getPolymerTutorialGameObjectFromStorage() {
+                return JSON.parse(window.localStorage.getItem(this._localStorageKey));
             }
         }
 
