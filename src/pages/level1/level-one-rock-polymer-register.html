@@ -3,15 +3,11 @@
 
 <dom-module id="level-one-rock-polymer-register">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                            level="[[_level]]"
-                            progress="[[_progress]]"
-                            level-description="[[_levelDescription]]"
-                            follow-up-message="[[_followUpMessage]]"
-                            next-link="[[_nextLink]]"
-                            next-link-text="[[_nextLinkText]]"
-                            code-exercises="[[_codeExercises]]"
-                            image="[[_image]]">
+        <tutorial-level level="[[_level]]"
+                        progress="[[_progress]]"
+                        next-link="[[_nextLink]]"
+                        next-link-text="[[_nextLinkText]]"
+                        image="[[_image]]">
         </tutorial-level>
     </template>
 
@@ -27,27 +23,9 @@
                         type: Number,
                         value: 1,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Your web component is almost ready for use. The browser just doesn\'t know that it exists.',
-                            'How can we fix it? We need to define it as a custom element! When we do, the browser will know.',
-                            'Define your element with the "window.customElements.define()" method. It takes two parameters: a method reference to your identification string and a class reference to your rock. Add this to the bottom of your script.'],
-                    },
                     _progress: {
                         type: Object,
                         value: {part: 7, total: 7}
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Your rock is ready! Hooray! You can view it below this text box! Well done, player! Are you ready for the next steps?',
                     },
                     _nextLink: {
                         type: String,
@@ -62,55 +40,6 @@
                         value: '../../static/images/rock.png',
                     }
                 };
-            }
-
-            ready() {
-                super.ready();
-
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<link)(\\s)(rel="import")(\\s)(href="lib\/polymer\/polymer-element.html">)(\\s)+(<dom-module)(\\s)(id="rock">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src="assets/images/rock.png"/>)(\\s)+(</template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)`,
-                        template: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="rock">
-    <template>
-         <img src="assets/images/rock.png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-<\/script>`,
-                        hint: `<link rel="import" href="lib/polymer/polymer-element.html">
-
-<dom-module id="rock">
-     <template>
-         <img src="assets/images/rock.png"/>
-     </template>
-</dom-module>
-
-<script>
-    class Rock extends Polymer.Element {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-
-    // window.customElements.define(Rock.is, Rock);
-<\/script>`
-                    }
-                ];
             }
         }
 

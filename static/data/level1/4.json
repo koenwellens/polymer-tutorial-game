@@ -1,0 +1,16 @@
+{
+  "title": "Polymer Rocks",
+  "description": ["Almost there... This won't work as your browser doesn't know Polymer.Element.",
+    "You need to tell your browser where to find it. To do this, we'll use html imports.",
+    "A html import can be done as follows: <link rel=\"import\" href=\"location\">, where location is the location of the polymer-element.html file.",
+    "Add <link rel=\"import\" href=\"location\"> above your script tag. The location of polymer is \"lib/polymer/polymer-element.html\"."],
+  "followUpMessage": "Wow! You created your first Polymer element. Let's make it look a bit nicer now and add content!",
+  "exercises": [
+    {
+      "fileName": "rock.html",
+      "template": "<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
+      "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
+      "solutionRegExp": "(<link)(\\s)(rel=\"import\")(\\s)(href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|\"rock\");(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+    }
+  ]
+}

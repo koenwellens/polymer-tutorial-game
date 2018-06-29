@@ -3,12 +3,8 @@
 
 <dom-module id="level-one-rock-polymer-subclass">
     <template>
-        <tutorial-level level-title="[[_levelTitle]]"
-                        level="[[_level]]"
-                        progress="[[_progress]]"
-                        level-description="[[_levelDescription]]"
-                        follow-up-message="[[_followUpMessage]]"
-                        code-exercises="[[_codeExercises]]">
+        <tutorial-level level="[[_level]]"
+                        progress="[[_progress]]">
         </tutorial-level>
     </template>
 
@@ -24,61 +20,11 @@
                         type: Number,
                         value: 1,
                     },
-                    _levelTitle: {
-                        type: String,
-                        value: 'Polymer Rocks'
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: ['Your JavaScript class has everything it needs to become a web component. Except... there\'s no Polymer yet!',
-                        'Let\'s change that. To make a Polymer element, your class needs to extend the Polymer Element class.',
-                        'So, transform your class to a subclass from Polymer.Element!'],
-                    },
                     _progress: {
                         type: Object,
                         value: {part: 3, total: 7}
                     },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: 'Great! Your class is now a Polymer element! Or is it? Click the continue button to find out!',
-                    },
                 };
-            }
-
-            ready() {
-                super.ready();
-
-                this._initializeCodeExercises();
-            }
-
-            _initializeCodeExercises() {
-                this._codeExercises = [
-                    {
-                        fileName: 'rock.html',
-                        solutionRegExp: `(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|"rock");(\\s)+}(\\s)+}(\\s)+(<\/script>)`,
-                        template: `<script>
-    class Rock {
-
-        static get is() {
-            return 'rock';
-        }
-    }
-<\/script>`,
-                        hint: `<script>
-    class Rock // extends Polymer.Element {
-    { // HINT This curly brace can be removed when the line above is uncommented.
-
-        static get is() {
-            return 'rock';
-        }
-    }
-<\/script>`
-                    }
-                ];
             }
         }
 
