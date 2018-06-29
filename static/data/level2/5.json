@@ -1,0 +1,25 @@
+{
+  "title": "Rock, Paper... Axes",
+  "description": ["Create an axe web component without properties. There's just the identification string (is). For the HTML, you can use empty template tags for now."],
+  "followUpMessage": "Hehe. The hardest work for your axe is already done. Now let's tie together a handle and a rock!",
+  "exercises": [
+    {
+      "fileName": "axe.html",
+      "template": "<script>\n    // TODO\n</script>",
+      "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"axe\">\n    <template>\n    </template>\n</dom-module>\n\n<script>\n    class Axe extends Polymer.Element {\n\n        static get is() {\n            return 'axe';\n        }\n    }\n\n    window.customElements.define(Axe.is, Axe);\n</script>",
+      "solutionRegExp": "(<link)(\\s)(rel=\"import\")(\\s)(href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"axe\">)(\\s)+(<template>)(\\s)+(<\/template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Axe)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'axe';)(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Axe\\.is,)(\\s)(Axe\\);)(\\s)+(<\/script>)"
+    },
+    {
+      "fileName": "handle.html",
+      "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"handle\">\n    <template>\n        <img src=\"assets/images/handle[[size]].png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Handle extends Polymer.Element {\n\n        static get is() {\n            return 'handle';\n        }\n\n        static get properties() {\n            return {\n                size: {\n                    type: String,\n                    value: '',\n                }\n            };\n        }\n    }\n\n    window.customElements.define(Handle.is, Handle);\n</script>",
+      "hint": "Oops, you didn't have to change anything to this file! Undo your change!",
+      "solutionRegExp": "(<link rel=\"import\" href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"handle\">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src=\"assets\/images\/handle\\[\\[size\\]\\].png\"\/>)(\\s)+(<\/template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Handle)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'handle';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(size:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Handle\\.is,)(\\s)(Handle\\);)(\\s)+(<\/script>)"
+    },
+    {
+      "fileName": "rock.html",
+      "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n    <template>\n        <img src=\"assets/images/rock[[sharpness]].png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n\n        static get properties() {\n            return {\n                sharpness: {\n                    type: String,\n                    value: '',\n                }\n            };\n        }\n    }\n\n    window.customElements.define(Rock.is, Rock);\n</script>",
+      "hint": "Oops, you didn't have to change anything to this file! Undo your change!",
+      "solutionRegExp": "(<link rel=\"import\" href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"rock\">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src=\"assets\/images\/rock\\[\\[sharpness\\]\\].png\"\/>)(\\s)+(<\/template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(sharpness:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)"
+    }
+  ]
+}
