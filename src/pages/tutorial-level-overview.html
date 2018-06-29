@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../components/tutorial-ajax.html">
 <link rel="import" href="../components/tutorial-level-title.html">
 <link rel="import" href="../components/tutorial-paul.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -16,14 +18,17 @@
             }
         </style>
 
-        <div>
-            <tutorial-level-title value="[[levelTitle]]" level="[[level]]"></tutorial-level-title>
+        <tutorial-ajax level="[[level]]" part="[[part]]">
+        </tutorial-ajax>
 
-            <tutorial-paul text="[[levelDescription]]"></tutorial-paul>
+        <template is="dom-if" if="{{_isLoaded(_data)}}">
+            <tutorial-level-title value="[[_data.title]]" level="[[level]]"></tutorial-level-title>
+
+            <tutorial-paul text="[[_data.description]]"></tutorial-paul>
 
             <tutorial-next-button visible="[[_displayNextLevelButton]]" next="/[[level]]-1/" text="Let's go!">
             </tutorial-next-button>
-        </div>
+        </template>
     </template>
 
     <script>
@@ -35,17 +40,13 @@
 
             static get properties() {
                 return {
-                    levelTitle: {
-                        type: String,
-                        value: '',
-                    },
                     level: {
                         type: Number,
                         value: 0,
                     },
-                    levelDescription:  {
-                        type: Array,
-                        value: [],
+                    _data: {
+                        type: Object,
+                        value: {},
                     },
                     _displayNextLevelButton: {
                         type: Boolean,
@@ -56,7 +57,17 @@
 
             ready() {
                 super.ready();
+
+                this.addEventListener('data-received', this._handleIncomingData);
                 this.addEventListener('paul-talked', () => this._displayNextLevelButton = true);
+            }
+
+            _handleIncomingData(dataReceivedEvent) {
+                this._data = dataReceivedEvent.detail;
+            }
+
+            _isLoaded(data) {
+                return !!data.title;
             }
         }
 
