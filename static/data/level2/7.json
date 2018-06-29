@@ -1,8 +1,9 @@
 {
-  "title": "Rock, Paper... Axes",
-  "description": ["Let's use the properties we created for our rock and handle. In axe.html, you can pass through properties as html attributes.",
+  "description": [
+    "Let's use the properties we created for our rock and handle. In axe.html, you can pass through properties as html attributes.",
     "For rock, this means that the html tag will look something like this: '<rock sharpness=\"YourStringHere\"></rock>'",
-    "Can you add sharpness \"Sharp\" for the rock and size \"Medium\" for the handle?"],
+    "Can you add sharpness \"Sharp\" for the rock and size \"Medium\" for the handle?"
+  ],
   "followUpMessage": "Hooray, we have an axe! Not the greatest axe I've ever seen though... Let's improve it one last time!",
   "exercises": [
     {
@@ -23,5 +24,6 @@
       "hint": "Oops, you didn't have to change anything to this file! Undo your change!",
       "solutionRegExp": "(<link rel=\"import\" href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"rock\">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src=\"assets\/images\/rock\\[\\[sharpness\\]\\].png\"\/>)(\\s)+(<\/template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(sharpness:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)"
     }
-  ]
+  ],
+  "image": "axe.png"
 }

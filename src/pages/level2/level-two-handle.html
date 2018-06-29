@@ -4,8 +4,7 @@
 <dom-module id="level-two-handle">
     <template>
         <tutorial-level level="[[_level]]"
-                        progress="[[_progress]]"
-                        image="[[_image]]">
+                        progress="[[_progress]]">
         </tutorial-level>
     </template>
 
@@ -24,10 +23,6 @@
                     _progress: {
                         type: Object,
                         value: {part: 1, total: 8}
-                    },
-                    _image: {
-                        type: String,
-                        value: '../../static/images/handle.png',
                     },
                 };
             }

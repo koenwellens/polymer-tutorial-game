@@ -1,5 +1,4 @@
 {
-  "title": "Polymer Rocks",
   "description": ["Sometimes web components have html. But to add html to your rock, you need to let the browser know that the html belongs to your component.",
     "To do this, you need a dom-module element. This element requires an id (your identification string). It should be added above your script tags and below your html import.",
     "Add <dom-module id=\"your-id\"> where your id is your identification string. And don't forget your closing tag!"],

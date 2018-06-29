@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../components/tutorial-ajax.html">
 <link rel="import" href="../components/tutorial-code-practice.html">
 <link rel="import" href="../components/tutorial-level-title.html">
 <link rel="import" href="../components/tutorial-paul.html">
@@ -24,27 +24,23 @@
             }
         </style>
 
-        <iron-ajax
-                auto
-                url="/static/data/level[[level]]/[[progress.part]].json"
-                handle-as="json"
-                on-response="_handleResponse">
-        </iron-ajax>
+        <tutorial-ajax level="[[level]]" part="[[progress.part]]">
+        </tutorial-ajax>
 
-        <template is="dom-if" if="{{_loaded}}">
-            <tutorial-level-title value="[[_levelTitle]]" level="[[level]]" progress="[[_progress]]">
+        <template is="dom-if" if="{{_isLoaded(_data)}}">
+            <tutorial-level-title value="[[_data.title]]" level="[[level]]" progress="[[_progress]]">
             </tutorial-level-title>
 
-            <tutorial-paul text="[[_levelDescription]]"></tutorial-paul>
+            <tutorial-paul text="[[_data.description]]"></tutorial-paul>
 
             <template is="dom-if" if="{{_displayCode}}">
-                <tutorial-code-practice tabs="[[_codeExercises]]"
-                                        follow-up-message="[[_followUpMessage]]">
+                <tutorial-code-practice tabs="[[_data.exercises]]"
+                                        follow-up-message="[[_data.followUpMessage]]">
                 </tutorial-code-practice>
 
                 <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[nextLink]]/" text="[[nextLinkText]]">
-                    <template is="dom-if" if="{{_imageIsVisible()}}">
-                        <img class="image" src="[[image]]"/>
+                    <template is="dom-if" if="{{_imageIsVisible(_data)}}">
+                        <img class="image" src="../../static/images/[[_data.image]]"/>
                     </template>
                 </tutorial-next-button>
             </template>
@@ -75,25 +71,9 @@
                         type: String,
                         value: 'Continue',
                     },
-                    image: {
-                        type: String,
-                        value: '',
-                    },
-                    _levelTitle: {
-                        type: String,
-                        value: '',
-                    },
-                    _levelDescription: {
-                        type: Array,
-                        value: [],
-                    },
-                    _codeExercises: {
-                        type: Array,
-                        value: [],
-                    },
-                    _followUpMessage: {
-                        type: String,
-                        value: '',
+                    _data: {
+                        type: Object,
+                        value: {},
                     },
                     _progress: {
                         type: Object,
@@ -107,10 +87,6 @@
                         type: Boolean,
                         value: false,
                     },
-                    _loaded: {
-                        type: Boolean,
-                        value: false,
-                    },
                 };
             }
 
@@ -120,20 +96,18 @@
                 this.nextLink = this.nextLink === '' ? this.level + '-' + (this.progress.part + 1) : this.nextLink;
                 this._initializeProgress();
 
+                this.addEventListener('data-received', this._handleIncomingData);
                 this.addEventListener('paul-talked', this._showCode);
                 this.addEventListener('solution-correct', this._handleCorrectCode);
                 this.addEventListener('solution-incorrect', this._handleIncorrectCode);
             }
 
-            _handleResponse(response) {
-                const json = response.detail.__data.response;
+            _isLoaded(data) {
+                return !!data.title;
+            }
 
-                this._levelTitle = json.title;
-                this._levelDescription = json.description;
-                this._followUpMessage = json.followUpMessage;
-                this._codeExercises = json.exercises;
-
-                this._loaded = true;
+            _handleIncomingData(response) {
+                this._data = response.detail;
             }
 
             _initializeProgress() {
@@ -144,8 +118,8 @@
                 };
             }
 
-            _imageIsVisible() {
-                return !!this.image;
+            _imageIsVisible(data) {
+                return !!data.image;
             }
 
             _showCode() {

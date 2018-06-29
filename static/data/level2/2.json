@@ -1,5 +1,4 @@
 {
-  "title": "Rock, Paper... Axes",
   "description": ["We have a handle and a rock. We need some extra things to craft our axe.",
     "Our rock is not sharp and our handle is not long enough. We can do something about that.",
     "Polymer provides a way to pass properties to web components. The way to do this is to add an extra method to your class.",

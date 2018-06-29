@@ -1,5 +1,4 @@
 {
-  "title": "Polymer Rocks",
   "description": ["Almost there... This won't work as your browser doesn't know Polymer.Element.",
     "You need to tell your browser where to find it. To do this, we'll use html imports.",
     "A html import can be done as follows: <link rel=\"import\" href=\"location\">, where location is the location of the polymer-element.html file.",

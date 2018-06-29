@@ -1,5 +1,4 @@
 {
-  "title": "Rock, Paper... Axes",
   "description": ["Let's put the size of the handle to use! In this section, you will learn how to do data binding.",
     "Data binding in Polymer allows you to use your properties in your HTML code. You can use to forms of data binding: one-way and two-way.",
     "One-way data binding is done with 2 sets of brackets: \"[[yourProperty]]\". Two-way data binding is done with 2 sets of curly braces: \"{{yourProperty}}\".",

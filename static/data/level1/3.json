@@ -1,5 +1,4 @@
 {
-  "title": "Polymer Rocks",
   "description": ["Your JavaScript class has everything it needs to become a web component. Except... there's no Polymer yet!",
     "Let's change that. To make a Polymer element, your class needs to extend the Polymer Element class.",
     "So, transform your class to a subclass from Polymer.Element!"],

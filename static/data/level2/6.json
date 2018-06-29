@@ -1,5 +1,4 @@
 {
-  "title": "Rock, Paper... Axes",
   "description": ["To wield an axe, it needs a handle and a rock craftily put together. In Polymer, we do this by adding the web components in our HTML.",
     "You can use a web component by using their identification string (is) as an HTML tag.",
     "Inside the template, you need at least one parent element. Since we'll be adding two web components, it's wise to add a div around them.",
@@ -24,5 +23,6 @@
       "hint": "Oops, you didn't have to change anything to this file! Undo your change!",
       "solutionRegExp": "(<link rel=\"import\" href=\"lib\/polymer\/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"rock\">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src=\"assets\/images\/rock\\[\\[sharpness\\]\\].png\"\/>)(\\s)+(<\/template>)(\\s)+(<\/dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+(static get properties\\(\\))(\\s)+{(\\s)+(return)(\\s)+{(\\s)+(sharpness:)(\\s)+{(\\s)+(type: String,)(\\s)+(value: ''),?(\\s)+},?(\\s)+};?(\\s)+}(\\s)+}(\\s)+(window\\.customElements\\.define\\(Rock\\.is,)(\\s)(Rock\\);)(\\s)+(<\/script>)"
     }
-  ]
+  ],
+  "image": "hammer.png"
 }

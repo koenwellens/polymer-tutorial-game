@@ -1,5 +1,4 @@
 {
-  "title": "Polymer Rocks",
   "description": ["The dom-module is one of the two surrounding html tags. You need a template as well.",
     "In the template, we'll add an image of a rock. You can assume it's located at \"assets/images/rock.png\".",
     "So add a <template> tag that contains an <img> tag pointing to \"assets/images/rock.png\". Don't forget the closing template tag!"],

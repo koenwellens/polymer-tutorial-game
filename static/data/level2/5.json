@@ -1,5 +1,4 @@
 {
-  "title": "Rock, Paper... Axes",
   "description": ["Create an axe web component without properties. There's just the identification string (is). For the HTML, you can use empty template tags for now."],
   "followUpMessage": "Hehe. The hardest work for your axe is already done. Now let's tie together a handle and a rock!",
   "exercises": [

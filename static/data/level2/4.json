@@ -1,5 +1,4 @@
 {
-  "title": "Rock, Paper... Axes",
   "description": ["We just created a property for the handle. Now let's have a look at the properties for the rock.",
     "We'll introduce a sharpness property, which is also a String and has default value ''.",
     "The usage of the property will be the same as with the Handle. So you can assume that there are multiple rock images.",

@@ -1,5 +1,4 @@
 {
-  "title": "Polymer Rocks",
   "description": ["First, we'll need to collect some rocks. To do this, you'll need to create web components that we can use further on in the quest.",
     "To start, create a JavaScript class with the appropriate name. Good luck!"],
   "followUpMessage": "Great! You created your first JavaScript class! Click the button below to go to the next part of this level!",
