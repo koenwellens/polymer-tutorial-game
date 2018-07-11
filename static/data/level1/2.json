@@ -8,7 +8,12 @@
       "fileName": "rock.html",
       "template": "<script>\n    class Rock {\n\n    }\n</script>",
       "hint": "<script>\n    class Rock {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "solutionRegExp": "(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|\"rock\");(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+      "minifiedSolutions": [
+        {
+          "html": "<script></script>",
+          "js": "class Rock extends Polymer.Element{}"
+        }
+      ]
     }
   ]
 }

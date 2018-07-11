@@ -179,6 +179,9 @@
                         removeTagWhitespace: true,
                     });
 
+                    console.log(minifiedCode);
+                    console.log(jsCode);
+
                     return this.tabs[tabIndex].minifiedSolutions.some((solution) => minifiedCode === solution.html && jsCode === solution.js);
                 }
 

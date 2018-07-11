@@ -9,7 +9,6 @@
       "fileName": "rock.html",
       "template": "<script>\n    // TODO\n</script>",
       "hint": "<script>\n    class Rock {\n\n    }\n</script>",
-      "solutionRegExp": "(<script>)(\\s)+(class)(\\s)(Rock)(\\s)+{(\\s)+}(\\s)+(<\/script>)",
       "minifiedSolutions": [
         {
           "html": "<script></script>",
