@@ -8,7 +8,12 @@
       "fileName": "rock.html",
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n     <template>\n          <img src=\"assets/images/rock.png\"/>\n     </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "solutionRegExp": "(<link)(\\s)(rel=\"import\")(\\s)(href=\"lib/polymer/polymer-element.html\">)(\\s)+(<dom-module)(\\s)(id=\"rock\">)(\\s)+(<template>)(\\s)+(<img)(\\s)(src=\"assets/images/rock.png\"/>)(\\s)+(</template>)(\\s)+(</dom-module>)(\\s)+(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return 'rock';)(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+      "minifiedSolutions": [
+        {"TODO": "TODO",
+          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"/assets/images/rock.png\"></template></dom-module><script></script>",
+          "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}"
+        }
+      ]
     }
   ]
 }

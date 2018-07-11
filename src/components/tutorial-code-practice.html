@@ -163,26 +163,40 @@
 
             _checkSolution(tabIndex, code) {
                 if (this.tabs[tabIndex].minifiedSolutions !== undefined) {
-                    let splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
-                    let jsCode = butternut.squash(splittedString[4]).code;
-                    let codeWithoutJavaScript = splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7];
-
-                    const minifiedCode = this._minifier.minify(codeWithoutJavaScript, {
-                        collapseWhitespace: true,
-                        ignoreCustomComments: [/\/\//, /\/*/],
-                        minifyCSS: true,
-                        minifyJS: true,
-                        quoteCharacter: "\"",
-                        removeComments: true,
-                        removeScriptTypeAttributes: true,
-                        removeStyleLinkTypeAttributes: true,
-                        removeTagWhitespace: true,
-                    });
+                    const splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
+                    const jsCode = tryToParseJavaScript(splittedString[4].replace(/"/g, "'"));
+                    const minifiedCode = tryToParseHTML(this._minifier, splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7]);
 
                     console.log(minifiedCode);
                     console.log(jsCode);
 
                     return this.tabs[tabIndex].minifiedSolutions.some((solution) => minifiedCode === solution.html && jsCode === solution.js);
+
+                    function tryToParseJavaScript(javaScriptCode) {
+                        try {
+                            return butternut.squash(javaScriptCode).code;
+                        } catch (syntaxError) {
+                            console.log(syntaxError.name);
+                        }
+                    }
+
+                    function tryToParseHTML(minifier, html) {
+                        try {
+                            return minifier.minify(html, {
+                                collapseWhitespace: true,
+                                ignoreCustomComments: [/\/\//, /\/*/],
+                                minifyCSS: true,
+                                minifyJS: true,
+                                quoteCharacter: "\"",
+                                removeComments: true,
+                                removeScriptTypeAttributes: true,
+                                removeStyleLinkTypeAttributes: true,
+                                removeTagWhitespace: true,
+                            });
+                        } catch (syntaxError) {
+                            console.log(syntaxError.name);
+                        }
+                    }
                 }
 
                 const solutionRegExp = RegExp(this.tabs[tabIndex].solutionRegExp, 'gm');

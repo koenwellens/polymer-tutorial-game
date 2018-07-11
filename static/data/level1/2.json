@@ -11,7 +11,7 @@
       "minifiedSolutions": [
         {
           "html": "<script></script>",
-          "js": "class Rock extends Polymer.Element{}"
+          "js": "class Rock{static get is(){return'rock'}}"
         }
       ]
     }
