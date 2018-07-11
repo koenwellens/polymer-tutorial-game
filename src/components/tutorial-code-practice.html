@@ -64,6 +64,8 @@
         </div>
     </template>
 
+    <script src="../lib/html-minifier/htmlminifier.min.js"></script>
+    <script src="../lib/butternut/butternut.min.js"></script>
     <script>
         class TutorialCodePractice extends Polymer.Element {
             static get is() {
@@ -107,11 +109,18 @@
                         type: Object,
                         value: {},
                     },
+                    _minifier: {
+                        type: Object,
+                        value: {},
+                    },
                 };
             }
 
             ready() {
                 super.ready();
+
+                this._minifier = require('html-minifier');
+
                 this._code = this.tabs.map(file => file.template);
                 this._currentCode = this._code[0];
 
@@ -153,8 +162,27 @@
             }
 
             _checkSolution(tabIndex, code) {
-                const solutionRegExp = RegExp(this.tabs[tabIndex].solutionRegExp, 'gm');
+                if (this.tabs[tabIndex].minifiedSolutions !== undefined) {
+                    let splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
+                    let jsCode = butternut.squash(splittedString[4]).code;
+                    let codeWithoutJavaScript = splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7];
 
+                    const minifiedCode = this._minifier.minify(codeWithoutJavaScript, {
+                        collapseWhitespace: true,
+                        ignoreCustomComments: [/\/\//, /\/*/],
+                        minifyCSS: true,
+                        minifyJS: true,
+                        quoteCharacter: "\"",
+                        removeComments: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true,
+                        removeTagWhitespace: true,
+                    });
+
+                    return this.tabs[tabIndex].minifiedSolutions.some((solution) => minifiedCode === solution.html && jsCode === solution.js);
+                }
+
+                const solutionRegExp = RegExp(this.tabs[tabIndex].solutionRegExp, 'gm');
                 return solutionRegExp.test(code);
             }
         }
