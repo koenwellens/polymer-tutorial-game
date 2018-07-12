@@ -162,10 +162,10 @@
             }
 
             _checkSolution(tabIndex, code) {
-                const splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
+                const dividedCode = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
 
-                return this._htmlCodeIsCorrect(tabIndex, splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7])
-                    && this._javaScriptCodeIsCorrect(tabIndex, splittedString[4].replace(/"/g, "'"));
+                return this._htmlCodeIsCorrect(tabIndex, dividedCode[1] + dividedCode[3] + dividedCode[6] + dividedCode[7])
+                    && this._javaScriptCodeIsCorrect(tabIndex, dividedCode[4].replace(/"/g, "'"));
             }
 
             _javaScriptCodeIsCorrect(tabIndex, javaScriptCode) {
@@ -186,8 +186,6 @@
                     const minifiedHtmlCode = this._minifier.minify(htmlCode, {
                         collapseWhitespace: true,
                         ignoreCustomComments: [/\/\//, /\/*/],
-                        minifyCSS: true,
-                        minifyJS: true,
                         quoteCharacter: "\"",
                         removeComments: true,
                         removeScriptTypeAttributes: true,
