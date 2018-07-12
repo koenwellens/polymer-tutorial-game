@@ -162,7 +162,7 @@
             }
 
             _checkSolution(tabIndex, code) {
-                if (this.tabs[tabIndex].minifiedSolutions !== undefined) {
+                if (this.tabs[tabIndex].minifiedHtmlSolutions !== undefined) {
                     const splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
                     const jsCode = tryToParseJavaScript(splittedString[4].replace(/"/g, "'"));
                     const minifiedCode = tryToParseHTML(this._minifier, splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7]);
