@@ -164,7 +164,8 @@
             _checkSolution(tabIndex, code) {
                 const dividedCode = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
 
-                return this._htmlCodeIsCorrect(tabIndex, dividedCode[1] + dividedCode[3] + dividedCode[6] + dividedCode[7])
+                return dividedCode !== null
+                    && this._htmlCodeIsCorrect(tabIndex, dividedCode[1] + dividedCode[3] + dividedCode[6] + dividedCode[7])
                     && this._javaScriptCodeIsCorrect(tabIndex, dividedCode[4].replace(/"/g, "'"));
             }
 
