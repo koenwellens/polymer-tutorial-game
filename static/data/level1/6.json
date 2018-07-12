@@ -9,8 +9,8 @@
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n     <template>\n          <img src=\"assets/images/rock.png\"/>\n     </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "minifiedSolutions": [
-        {"TODO": "TODO",
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"/assets/images/rock.png\"></template></dom-module><script></script>",
+        {
+          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>",
           "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}"
         }
       ]
