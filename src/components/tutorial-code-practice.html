@@ -77,7 +77,7 @@
                     tabs: {
                         type: Array,
                         value: [],
-                        // [ { fileName: 'fileName', solutionRegExp: '', template: '', hint: ''}]
+                        // [ { fileName: 'fileName', minifiedHtmlSolutions: [], minifiedJavaScriptSolutions: [], template: '', hint: ''}]
                     },
                     followUpMessage: {
                         type: String,
@@ -162,46 +162,43 @@
             }
 
             _checkSolution(tabIndex, code) {
-                if (this.tabs[tabIndex].minifiedHtmlSolutions !== undefined) {
-                    const splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
-                    const jsCode = tryToParseJavaScript(splittedString[4].replace(/"/g, "'"));
-                    const minifiedCode = tryToParseHTML(this._minifier, splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7]);
+                const splittedString = code.match(/^((.|\n)*)(<script>)((.|\n)*)(<\/script>)((.|\n)*)$/);
 
-                    console.log(minifiedCode);
-                    console.log(jsCode);
+                return this._htmlCodeIsCorrect(tabIndex, splittedString[1] + splittedString[3] + splittedString[6] + splittedString[7])
+                    && this._javaScriptCodeIsCorrect(tabIndex, splittedString[4].replace(/"/g, "'"));
+            }
 
-                    return this.tabs[tabIndex].minifiedHtmlSolutions.some((solution) => minifiedCode === solution)
-                        && this.tabs[tabIndex].minifiedJavaScriptSolutions.some((solution) => jsCode === solution);
+            _javaScriptCodeIsCorrect(tabIndex, javaScriptCode) {
+                try {
+                    // console.log(javaScriptCode);
+                    const minifiedJSCode = butternut.squash(javaScriptCode).code;
 
-                    function tryToParseJavaScript(javaScriptCode) {
-                        try {
-                            return butternut.squash(javaScriptCode).code;
-                        } catch (syntaxError) {
-                            console.log(syntaxError.name);
-                        }
-                    }
-
-                    function tryToParseHTML(minifier, html) {
-                        try {
-                            return minifier.minify(html, {
-                                collapseWhitespace: true,
-                                ignoreCustomComments: [/\/\//, /\/*/],
-                                minifyCSS: true,
-                                minifyJS: true,
-                                quoteCharacter: "\"",
-                                removeComments: true,
-                                removeScriptTypeAttributes: true,
-                                removeStyleLinkTypeAttributes: true,
-                                removeTagWhitespace: true,
-                            });
-                        } catch (syntaxError) {
-                            console.log(syntaxError.name);
-                        }
-                    }
+                    return this.tabs[tabIndex].minifiedJavaScriptSolutions.some((solution) => minifiedJSCode === solution);
+                } catch (syntaxError) {
+                    console.log(syntaxError.name);
                 }
+            }
 
-                const solutionRegExp = RegExp(this.tabs[tabIndex].solutionRegExp, 'gm');
-                return solutionRegExp.test(code);
+            _htmlCodeIsCorrect(tabIndex, htmlCode) {
+                try {
+                    // console.log(htmlCode);
+
+                    const minifiedHtmlCode = this._minifier.minify(htmlCode, {
+                        collapseWhitespace: true,
+                        ignoreCustomComments: [/\/\//, /\/*/],
+                        minifyCSS: true,
+                        minifyJS: true,
+                        quoteCharacter: "\"",
+                        removeComments: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true,
+                        removeTagWhitespace: true,
+                    });
+
+                    return this.tabs[tabIndex].minifiedHtmlSolutions.some((solution) => minifiedHtmlCode === solution);
+                } catch (syntaxError) {
+                    console.log(syntaxError.name);
+                }
             }
         }
 
