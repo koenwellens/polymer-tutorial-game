@@ -32,7 +32,7 @@
             <paper-dialog class="dialog" id="dialog" opened="{{_hintIsDisplayed}}">
                 <h2 class="hint-title">Hint for [[fileName]]</h2>
                 <p>
-                <pre><code>[[hint]]</code></pre>
+                <pre><code>[[_getHint(hint)]]</code></pre>
                 </p>
             </paper-dialog>
         </template>
@@ -63,6 +63,10 @@
                         value: false,
                     }
                 };
+            }
+
+            _getHint(hint) {
+                return hint || "Oops, you didn't have to change anything to this file! Undo your change!";
             }
 
             _showHint() {
