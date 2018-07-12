@@ -170,7 +170,8 @@
                     console.log(minifiedCode);
                     console.log(jsCode);
 
-                    return this.tabs[tabIndex].minifiedSolutions.some((solution) => minifiedCode === solution.html && jsCode === solution.js);
+                    return this.tabs[tabIndex].minifiedHtmlSolutions.some((solution) => minifiedCode === solution)
+                        && this.tabs[tabIndex].minifiedJavaScriptSolutions.some((solution) => jsCode === solution);
 
                     function tryToParseJavaScript(javaScriptCode) {
                         try {

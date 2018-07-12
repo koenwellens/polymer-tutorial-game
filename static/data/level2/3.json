@@ -10,34 +10,25 @@
       "fileName": "handle.html",
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"handle\">\n    <template>\n        <img src=\"assets/images/handle.png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Handle extends Polymer.Element {\n\n        static get is() {\n            return 'handle';\n        }\n\n    static get properties() {\n        return {\n            size: {\n                type: String,\n                value: '',\n            }\n        };\n    }\n\n    window.customElements.define(Handle.is, Handle);\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"handle\">\n    <template>\n        <img src=\"assets/images/handle[[size]].png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Handle extends Polymer.Element {\n\n        static get is() {\n            return 'handle';\n        }\n\n    static get properties() {\n        return {\n            size: {\n                type: String,\n                value: '',\n            }\n        };\n    }\n\n    window.customElements.define(Handle.is, Handle);\n</script>",
-      "minifiedSolutions": [
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>",
-          "js": "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{type:String,value:''}}}}window.customElements.define(Handle.is,Handle)"
-        },
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>",
-          "js": "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{value:'',type:String}}}}window.customElements.define(Handle.is,Handle)"
-        },
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>",
-          "js": "class Handle extends Polymer.Element{static get properties(){return{size:{type:String,value:''}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)"
-        },
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>",
-          "js": "class Handle extends Polymer.Element{static get properties(){return{size:{value:'',type:String}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)"
-        }
+      "minifiedHtmlSolutions": [
+        "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{type:String,value:''}}}}window.customElements.define(Handle.is,Handle)",
+        "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{value:'',type:String}}}}window.customElements.define(Handle.is,Handle)",
+        "class Handle extends Polymer.Element{static get properties(){return{size:{type:String,value:''}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)",
+        "class Handle extends Polymer.Element{static get properties(){return{size:{value:'',type:String}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)"
       ]
     },
     {
       "fileName": "rock.html",
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n    <template>\n        <img src=\"assets/images/rock.png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n\n    window.customElements.define(Rock.is, Rock);\n</script>",
       "hint": "Oops, you didn't have to change anything to this file! Undo your change!",
-      "minifiedSolutions": [
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>",
-          "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}window.customElements.define(Rock.is,Rock)"
-        }
+      "minifiedHtmlSolutions": [
+        "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Rock extends Polymer.Element{static get is(){return'rock'}}window.customElements.define(Rock.is,Rock)"
       ]
     }
   ]

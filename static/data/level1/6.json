@@ -1,18 +1,20 @@
 {
-  "description": ["The dom-module is one of the two surrounding html tags. You need a template as well.",
+  "description": [
+    "The dom-module is one of the two surrounding html tags. You need a template as well.",
     "In the template, we'll add an image of a rock. You can assume it's located at \"assets/images/rock.png\".",
-    "So add a <template> tag that contains an <img> tag pointing to \"assets/images/rock.png\". Don't forget the closing template tag!"],
+    "So add a <template> tag that contains an <img> tag pointing to \"assets/images/rock.png\". Don't forget the closing template tag!"
+  ],
   "followUpMessage": "So you added html to your web component. Yet if you'd use it, it still wouldn't work. Why is that?",
   "exercises": [
     {
       "fileName": "rock.html",
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n     <template>\n          <img src=\"assets/images/rock.png\"/>\n     </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "minifiedSolutions": [
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>",
-          "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}"
-        }
+      "minifiedHtmlSolutions": [
+        "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Rock extends Polymer.Element{static get is(){return'rock'}}"
       ]
     }
   ]

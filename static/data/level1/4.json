@@ -11,11 +11,11 @@
       "fileName": "rock.html",
       "template": "<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "minifiedSolutions": [
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><script></script>",
-          "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}"
-        }
+      "minifiedHtmlSolutions": [
+        "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Rock extends Polymer.Element{static get is(){return'rock'}}"
       ]
     }
   ]

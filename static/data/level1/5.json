@@ -1,18 +1,20 @@
 {
-  "description": ["Sometimes web components have html. But to add html to your rock, you need to let the browser know that the html belongs to your component.",
+  "description": [
+    "Sometimes web components have html. But to add html to your rock, you need to let the browser know that the html belongs to your component.",
     "To do this, you need a dom-module element. This element requires an id (your identification string). It should be added above your script tags and below your html import.",
-    "Add <dom-module id=\"your-id\"> where your id is your identification string. And don't forget your closing tag!"],
+    "Add <dom-module id=\"your-id\"> where your id is your identification string. And don't forget your closing tag!"
+  ],
   "followUpMessage": "Almost there! Your rock is almost ready for use. Let's find out what's missing.",
   "exercises": [
     {
       "fileName": "rock.html",
       "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "minifiedSolutions": [
-        {
-          "html": "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"></dom-module><script></script>",
-          "js": "class Rock extends Polymer.Element{static get is(){return'rock'}}"
-        }
+      "minifiedHtmlSolutions": [
+        "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"></dom-module><script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Rock extends Polymer.Element{static get is(){return'rock'}}"
       ]
     }
   ]
