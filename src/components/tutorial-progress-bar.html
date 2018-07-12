@@ -10,7 +10,7 @@
                 background-color: white;
                 text-align: center;
                 line-height: 20px;
-                font-family: Roboto;
+                font-family: Roboto, sans-serif;
                 font-weight: bold;
                 color: #e37222;
             }
@@ -24,8 +24,11 @@
 
         <template is="dom-if" if="{{_isVisible(progress)}}">
             <div id="container" class="progress-bar-container">
-                <div style$="{{_getWidthStylingFor(_currentWidth)}}" name="progress-bar" id="progress-bar"
-                     class="progress-bar">
+                <div
+                    id="progress-bar"
+                    style$="{{_getWidthStylingFor(_currentWidth)}}"
+                    name="progress-bar"
+                    class="progress-bar">
                 </div>
                 [[_progress]]%
             </div>

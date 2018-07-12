@@ -3,15 +3,14 @@
 <link rel="import" href="../components/tutorial-ajax.html">
 <link rel="import" href="../components/tutorial-code-practice.html">
 <link rel="import" href="../components/tutorial-level-title.html">
+<link rel="import" href="../components/tutorial-next-button.html">
 <link rel="import" href="../components/tutorial-paul.html">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-level">
     <template>
         <style>
             :host {
                 display: block;
-                font-family: Roboto;
                 color: #fff;
                 padding-left: 5%;
                 padding-right: 5%;
@@ -116,7 +115,7 @@
             }
 
             _changeLinkWhenThisIsLastPart() {
-                if(this._data.total === this.part) {
+                if (this._data.total === this.part) {
                     this._nextLink = this._data.nextLevel;
                     this._nextLinkText = this._data.nextLevelText;
                 } else {

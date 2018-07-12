@@ -14,6 +14,9 @@
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "babel-eslint": "^7.2.3",
     "babel-preset-minify": "^0.2.0",
+    "eclint": "^2.8.0",
+    "eslint": "^5.1.0",
+    "eslint-plugin-html": "^4.0.5",
     "gulp": "^4.0.0",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^4.0.0",
@@ -26,6 +29,8 @@
     "parse5": "^4.0.0",
     "polymer-build": "^2.1.1",
     "polymer-cli": "^1.7.0",
+    "stylelint": "^9.3.0",
+    "stylelint-config-standard": "^18.2.0",
     "bower": "^1.8.4"
   },
   "scripts": {
@@ -33,7 +38,11 @@
     "build": "polymer build && gulp copy-assets",
     "test": "npm run lint && polymer test --npm --module-resolution=node",
     "serve": "polymer serve --npm --module-resolution=node --hostname 0.0.0.0 --port $PORT",
-    "lint": "gulp lint",
+    "lint": "npm run lint:js && npm run lint:polymer && npm run lint:css && npm run lint:editor",
+    "lint:css": "stylelint {src,test}/**/*.{html,css}; exit 0;",
+    "lint:editor": "eclint check src/**/* test/**/*; exit 0;",
+    "lint:js": "eslint {src,test}/**/*.html; exit 0;",
+    "lint:polymer": "polymer lint --rules=polymer-2; exit 0;",
     "deploy": "firebase deploy"
   },
   "repository": {
