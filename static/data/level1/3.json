@@ -1,14 +1,21 @@
 {
-  "description": ["Your JavaScript class has everything it needs to become a web component. Except... there's no Polymer yet!",
+  "description": [
+    "Your JavaScript class has everything it needs to become a web component. Except... there's no Polymer yet!",
     "Let's change that. To make a Polymer element, your class needs to extend the Polymer Element class.",
-    "So, transform your class to a subclass from Polymer.Element!"],
+    "So, transform your class to a subclass from Polymer.Element!"
+  ],
   "followUpMessage": "Great! Your class is now a Polymer element! Or is it? Click the continue button to find out!",
   "exercises": [
     {
       "fileName": "rock.html",
       "template": "<script>\n    class Rock {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
       "hint": "<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n</script>",
-      "solutionRegExp": "(<script>)(\\s)+(class)(\\s)(Rock)(\\s)(extends)(\\s)(Polymer\\.Element)(\\s)+{(\\s)+(static get is\\(\\))(\\s)+{(\\s)+(return)(\\s)('rock'|\"rock\");(\\s)+}(\\s)+}(\\s)+(<\/script>)"
+      "minifiedHtmlSolutions": [
+        "<script></script>"
+      ],
+      "minifiedJavaScriptSolutions": [
+        "class Rock extends Polymer.Element{static get is(){return'rock'}}"
+      ]
     }
   ]
 }
