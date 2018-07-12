@@ -2,15 +2,14 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../components/tutorial-ajax.html">
 <link rel="import" href="../components/tutorial-level-title.html">
+<link rel="import" href="../components/tutorial-next-button.html">
 <link rel="import" href="../components/tutorial-paul.html">
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="tutorial-level-overview">
     <template>
         <style>
             :host {
                 display: block;
-                font-family: Roboto;
                 color: #fff;
                 padding-left: 5%;
                 padding-right: 5%;
@@ -18,7 +17,7 @@
             }
         </style>
 
-        <tutorial-ajax level="[[level]]" part="[[part]]">
+        <tutorial-ajax level="[[level]]">
         </tutorial-ajax>
 
         <template is="dom-if" if="{{_isLoaded(_data)}}">
