@@ -1,0 +1,51 @@
+{
+    "description": [
+        "Want to learn something? The browser has this thing called a DOM. All HTML elements of a webpage get loaded into it.",
+        "Web components have a shadow DOM. Everything underneath it is hidden from other elements. This way, we can ",
+        "First, we need a JavaScript class with a getter for the identification string (is).",
+        "The class will be a subclass of Polymer.Element which we won't forget to import (right?).",
+        "For this html implementation, let's use a strip image at \"assets/images/strip.png\".",
+        "We'll give it a property as well: side. This property is a string and it's default value is empty.",
+        "So, as a quick reminder: the location of Polymer.Element is \"lib/polymer/polymer-element.html\" and the image is located at \"assets/images/strip.png\". Good luck!"
+    ],
+    "followUpMessage": "Woohoo! Another one! Now, let's make an extra web component and tell some more about it!",
+    "exercises": [
+        {
+            "fileName": "rubber-strip.html",
+            "template": "<script>\n    // TODO\n</script>",
+            "minifiedHtmlSolutions": [
+                "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rubber-strip\"><template><img src=\"assets/images/strip[[size]].png\"></template></dom-module><script></script>"
+            ],
+            "minifiedJavaScriptSolutions": [
+                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{size:{type:String,value:''}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{size:{value:'',type:String}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get properties(){return{size:{type:String,value:''}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get properties(){return{size:{value:'',type:String}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)"
+            ]
+        },
+        {
+            "fileName": "handle.html",
+            "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"handle\">\n    <template>\n        <img src=\"assets/images/handle[[size]].png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Handle extends Polymer.Element {\n\n        static get is() {\n            return 'handle';\n        }\n\n        static get properties() {\n            return {\n                size: {\n                    type: String,\n                    value: '',\n                }\n            };\n        }\n    }\n\n    window.customElements.define(Handle.is, Handle);\n</script>",
+            "minifiedHtmlSolutions": [
+                "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"handle\"><template><img src=\"assets/images/handle[[size]].png\"></template></dom-module><script></script>"
+            ],
+            "minifiedJavaScriptSolutions": [
+                "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{type:String,value:''}}}}window.customElements.define(Handle.is,Handle)",
+                "class Handle extends Polymer.Element{static get is(){return'handle'}static get properties(){return{size:{value:'',type:String}}}}window.customElements.define(Handle.is,Handle)",
+                "class Handle extends Polymer.Element{static get properties(){return{size:{type:String,value:''}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)",
+                "class Handle extends Polymer.Element{static get properties(){return{size:{value:'',type:String}}}static get is(){return'handle'}}window.customElements.define(Handle.is,Handle)"
+            ]
+        },
+        {
+            "fileName": "rock.html",
+            "template": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rock\">\n    <template>\n        <img src=\"assets/images/rock.png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class Rock extends Polymer.Element {\n\n        static get is() {\n            return 'rock';\n        }\n    }\n\n    window.customElements.define(Rock.is, Rock);\n</script>",
+            "minifiedHtmlSolutions": [
+                "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rock\"><template><img src=\"assets/images/rock.png\"></template></dom-module><script></script>"
+            ],
+            "minifiedJavaScriptSolutions": [
+                "class Rock extends Polymer.Element{static get is(){return'rock'}}window.customElements.define(Rock.is,Rock)"
+            ]
+        }
+    ],
+    "image": "handle.png"
+}
