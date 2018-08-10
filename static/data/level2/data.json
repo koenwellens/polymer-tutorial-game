@@ -1,7 +1,7 @@
 {
   "title": "Rock, Paper... Axes",
   "total": 8,
-  "nextLevel": "soon",
+  "nextLevel": "3",
   "nextLevelText": "Go to level 3",
   "description": ["So we've created a rock. What can we do with it? Well, if we sharpen it and attach it to a handle...",
     "We create an axe! We'll learn how to change the size of the handle by passing through attributes.",

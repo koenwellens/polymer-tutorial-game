@@ -12,14 +12,15 @@
         {
             "fileName": "rubber-strip.html",
             "template": "<script>\n    // TODO\n</script>",
+            "hint": "<link rel=\"import\" href=\"lib/polymer/polymer-element.html\">\n\n<dom-module id=\"rubber-strip\">\n    <template>\n        <img src=\"assets/images/strip[[side]].png\"/>\n    </template>\n</dom-module>\n\n<script>\n    class RubberStrip extends Polymer.Element {\n\n        static get is() {\n            return 'rubber-strip';\n        }\n\n        static get properties() {\n            return {\n                side: {\n                    type: String,\n                    value: '',\n                }\n            };\n        }\n    }\n\n    window.customElements.define(RubberStrip.is, RubberStrip);\n</script>",
             "minifiedHtmlSolutions": [
-                "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rubber-strip\"><template><img src=\"assets/images/strip[[size]].png\"></template></dom-module><script></script>"
+                "<link rel=\"import\"href=\"lib/polymer/polymer-element.html\"><dom-module id=\"rubber-strip\"><template><img src=\"assets/images/strip[[side]].png\"></template></dom-module><script></script>"
             ],
             "minifiedJavaScriptSolutions": [
-                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{size:{type:String,value:''}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
-                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{size:{value:'',type:String}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
-                "class RubberStrip extends Polymer.Element{static get properties(){return{size:{type:String,value:''}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)",
-                "class RubberStrip extends Polymer.Element{static get properties(){return{size:{value:'',type:String}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)"
+                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{side:{type:String,value:''}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get is(){return'rubber-strip'}static get properties(){return{side:{value:'',type:String}}}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get properties(){return{side:{type:String,value:''}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)",
+                "class RubberStrip extends Polymer.Element{static get properties(){return{side:{value:'',type:String}}}static get is(){return'rubber-strip'}}window.customElements.define(RubberStrip.is,RubberStrip)"
             ]
         },
         {
@@ -46,5 +47,5 @@
             ]
         }
     ],
-    "image": "handle.png"
+    "image": "rubber-strip.png"
 }

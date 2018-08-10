@@ -1,0 +1,33 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../tutorial-level.html">
+
+<dom-module id="level-three-strip">
+    <template>
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
+        </tutorial-level>
+    </template>
+
+    <script>
+        class LevelThreeStrip extends Polymer.Element {
+            static get is() {
+                return 'level-three-strip';
+            }
+
+            static get properties() {
+                return {
+                    _level: {
+                        type: Number,
+                        value: 3,
+                    },
+                    _part: {
+                        type: Number,
+                        value: 1
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(LevelThreeStrip.is, LevelThreeStrip);
+    </script>
+</dom-module>
