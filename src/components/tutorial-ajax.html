@@ -53,16 +53,12 @@
             }
 
             _handleLevelResponse(response) {
-                const json = response.detail.__data.response;
-
-                this._levelData = json;
+                this._levelData = response.detail.__data.response;
                 this._fireEventsIfNecessary();
             }
 
             _handleLevelPartResponse(response) {
-                const json = response.detail.__data.response;
-
-                this._levelPartData = json;
+                this._levelPartData = response.detail.__data.response;
                 this._fireEventsIfNecessary();
             }
 

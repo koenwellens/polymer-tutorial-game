@@ -1,7 +1,7 @@
 {
-  "title": "Ready, Set, Shot!",
+  "title": "Ready, Set, Fire!",
   "total": 6,
-  "nextLevel": "soon",
+  "nextLevel": "4",
   "nextLevelText": "Go to level 4",
   "description": ["Before we continue our grand adventure, let's take some time to review what we've done.",
       "We've created some web components and used them in a different one.",
