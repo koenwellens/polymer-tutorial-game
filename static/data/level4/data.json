@@ -1,0 +1,11 @@
+{
+    "title": "Observe: Events!",
+    "total": 6,
+    "nextLevel": "soon",
+    "nextLevelText": "Go to level 5",
+    "description": [
+        "We have a slingshot now! That's great, isn't it? You know what I hate about slingshots?",
+        "Sometimes they break. And when they do, I keep pulling it! Let's try to build a mechanism that doesn't do that!",
+        "Let's have a look at observers and events!"
+    ]
+}

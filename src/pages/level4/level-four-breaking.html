@@ -1,0 +1,33 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../tutorial-level.html">
+
+<dom-module id="level-four-breaking">
+    <template>
+        <tutorial-level level="[[_level]]"
+                        part="[[_part]]">
+        </tutorial-level>
+    </template>
+
+    <script>
+        class LevelFourBreaking extends Polymer.Element {
+            static get is() {
+                return 'level-four-breaking';
+            }
+
+            static get properties() {
+                return {
+                    _level: {
+                        type: Number,
+                        value: 4,
+                    },
+                    _part: {
+                        type: Number,
+                        value: 2,
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(LevelFourBreaking.is, LevelFourBreaking);
+    </script>
+</dom-module>

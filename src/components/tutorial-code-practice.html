@@ -43,13 +43,13 @@
                 </div>
                 <div class="exercise-body">
                     <juicy-ace-editor
-                            id="code-editor"
-                            class="editor"
-                            min-lines="10"
-                            max-lines="25"
-                            theme="ace/theme/monokai"
-                            mode="ace/mode/html"
-                            value="{{_currentCode}}">
+                        id="code-editor"
+                        class="editor"
+                        min-lines="10"
+                        max-lines="25"
+                        theme="ace/theme/monokai"
+                        mode="ace/mode/html"
+                        value="{{_currentCode}}">
                     </juicy-ace-editor>
                     <tutorial-code-hint visible="[[!_currentCodeIsCorrect]]"
                                         hint="[[_getCurrent('hint', _currentTab)]]"
