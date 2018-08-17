@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial ajax test</title>
+
+    <script src="../../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../src/elements/tutorial-ajax.html">
+</head>
+<body>
+
+<test-fixture id="BasicAjaxTestFixture">
+    <template>
+        <tutorial-ajax level="1"></tutorial-ajax>
+    </template>
+</test-fixture>
+
+<test-fixture id="PartAndLevelAjaxTestFixture">
+    <template>
+        <tutorial-ajax level="1" part="2"></tutorial-ajax>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-ajax>', function () {
+        let ajax;
+        let server;
+
+        setup(function () {
+            server = sinon.fakeServer.create();
+            server.respondWith(
+                'GET',
+                /\/static\/data\/level1\/data.json.*/, [
+                    200,
+                    '{"level":1}'
+                ]
+            );
+            server.respondWith(
+                'GET',
+                /\/static\/data\/level1\/2.json.*/, [
+                    200,
+                    '{"part":2}'
+                ]
+            );
+        });
+
+        teardown(function () {
+            server.restore();
+        });
+
+        suite('when only passing level GET requests for JSON', function () {
+            setup(function () {
+                // get fresh instance of iron-ajax before every test
+                ajax = fixture('BasicAjaxTestFixture');
+            });
+
+            test('retrieves level correctly', function (done) {
+                ajax.addEventListener('data-received', function (event) {
+                    expect(event.detail).to.be.equal('tested!');
+                    done();
+                });
+
+                server.respond();
+                // expect(request.response).to.be.ok;
+                // expect(request.response).to.be.an('object');
+                // expect(request.response.level).to.be.equal(1);
+            });
+        });
+
+        suite('when passing level and part GETs requests for JSON', function () {
+            setup(function () {
+                // get fresh instance of iron-ajax before every test
+                ajax = fixture('PartAndLevelAjaxTestFixture');
+            });
+
+            test('retrieves level correctly', function (done) {
+                ajax.addEventListener('data-received', function (event) {
+                    expect(event.detail).to.be.equal('tested!');
+                    done();
+                });
+
+                server.respond();
+                // expect(request.response).to.be.ok;
+                // expect(request.response).to.be.an('object');
+                // expect(request.response.level).to.be.equal(1);
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

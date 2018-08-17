@@ -138,7 +138,7 @@
             }
 
             _changeTab(tabChangedEvent) {
-                this._code[this._currentTab] = this._currentCode;
+                this._code[this._currentTab] = this._editor.getSession().getValue();
                 this._currentTab = tabChangedEvent.detail.selectedTab;
                 this._currentCode = this._code[this._currentTab];
             }

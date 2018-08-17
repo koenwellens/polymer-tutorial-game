@@ -1,10 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
-<link rel="import" href="../components/tutorial-ajax.html">
-<link rel="import" href="../components/tutorial-code-practice.html">
-<link rel="import" href="../components/tutorial-level-title.html">
-<link rel="import" href="../components/tutorial-next-button.html">
-<link rel="import" href="../components/tutorial-paul.html">
+<link rel="import" href="../elements/tutorial-ajax.html">
+<link rel="import" href="../elements/tutorial-code-practice.html">
+<link rel="import" href="../elements/tutorial-level-title.html">
+<link rel="import" href="../elements/tutorial-next-button.html">
+<link rel="import" href="../elements/tutorial-paul.html">
 
 <dom-module id="tutorial-level">
     <template>
@@ -39,7 +39,7 @@
 
                 <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[_nextLink]]/" text="[[_nextLinkText]]">
                     <template is="dom-if" if="{{_imageIsVisible(_data)}}">
-                        <img class="image" src="../../static/images/[[_data.image]]"/>
+                        <img class="image" src="/static/images/[[_data.image]]"/>
                     </template>
                 </tutorial-next-button>
             </template>
@@ -119,7 +119,7 @@
                     this._nextLink = this._data.nextLevel;
                     this._nextLinkText = this._data.nextLevelText;
                 } else {
-                    this._nextLink = this.level + '-' + (this.part + 1);
+                    this._nextLink = this.level + '/' + (this.part + 1);
                     this._nextLinkText = 'Continue';
                 }
             }

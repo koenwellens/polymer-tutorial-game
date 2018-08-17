@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="./tutorial-level.html">
+<link rel="import" href="./tutorial-level-overview.html">
+
+<dom-module id="tutorial-level-route">
+    <template>
+
+        <template is="dom-if" if="{{_visible(visible)}}">
+
+            <template is="dom-if" if="{{!_has(part)}}">
+                <tutorial-level-overview level="[[level]]"></tutorial-level-overview>
+            </template>
+
+            <template is="dom-if" if="{{_has(part)}}">
+                <tutorial-level level="[[level]]" part="[[part]]"></tutorial-level>
+            </template>
+
+        </template>
+
+    </template>
+
+    <script>
+        class TutorialLevelRoute extends Polymer.Element {
+            static get is() {
+                return 'tutorial-level-route';
+            }
+
+            static get properties() {
+                return {
+                    level: {
+                        type: Number,
+                        value: 0,
+                    },
+                    part: {
+                        type: Number,
+                        value: 0,
+                    },
+                    visible: {
+                        type: Boolean,
+                        value: false,
+                    },
+                };
+            }
+
+            ready() {
+                super.ready();
+            }
+
+            _has(part) {
+                return /\d/.test(part) && typeof part === "number" && part !== 0;
+            }
+
+            _visible(visible) {
+                return !!visible;
+            }
+        }
+
+        window.customElements.define(TutorialLevelRoute.is, TutorialLevelRoute);
+    </script>
+</dom-module>

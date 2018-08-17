@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <dom-module id="coming-soon">
@@ -35,15 +36,17 @@
             }
         </style>
 
-        <div class="container">
-            <div class="title">
-                <h1>Coming soon!</h1>
-            </div>
+        <template is="dom-if" if="{{_visible(visible)}}">
+            <div class="container">
+                <div class="title">
+                    <h1>Coming soon!</h1>
+                </div>
 
-            <div>
-                <a class="go-back" is="pushstate-anchor" href="/start/">Click here to go back!</a>
+                <div>
+                    <a class="go-back" is="pushstate-anchor" href="/start/">Click here to go back!</a>
+                </div>
             </div>
-        </div>
+        </template>
     </template>
 
     <script>
@@ -51,6 +54,19 @@
         class ComingSoon extends Polymer.Element {
             static get is() {
                 return 'coming-soon';
+            }
+
+            static get properties() {
+                return {
+                    visible: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            _visible(visible) {
+                return !!visible;
             }
         }
 
