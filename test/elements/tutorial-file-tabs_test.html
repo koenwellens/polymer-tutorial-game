@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial file tabs test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-file-tabs.html">
+
+<test-fixture id="FileTabsTestFixture">
+    <template>
+        <tutorial-file-tabs tabs='[{"fileName": "file1"}, {"fileName": "file2"}]'
+                            selected-tab="1"></tutorial-file-tabs>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-file-tabs>', function () {
+        test('sets properties correctly', function () {
+            const element = fixture('FileTabsTestFixture');
+
+            expect(element.tabs).to.be.eql([{fileName: 'file1'}, {fileName: 'file2'}]);
+            expect(element.selectedTab).to.be.equal(1);
+        });
+
+        suite('_additionalTabClass', function () {
+            let element;
+
+            setup(function () {
+                element = fixture('FileTabsTestFixture');
+            });
+
+            test('returns active when tabIndex is equal to selectedTab', function () {
+                const tabClass = element._additionalTabClass(1, element.selectedTab);
+                expect(tabClass).to.be.equal('active tab');
+            });
+
+            test('does not return active when tabIndex is not equal to selectedTab', function () {
+                const tabClass = element._additionalTabClass(0, element.selectedTab);
+                expect(tabClass).to.be.equal('tab');
+            });
+        });
+
+        suite('_changeTab', function () {
+            let element;
+
+            setup(function () {
+                element = fixture('FileTabsTestFixture');
+            });
+
+            test('fires event correctly', function (done) {
+                element.addEventListener('file-tab-changed', function(event) {
+                    expect(event.detail.selectedTab).to.be.equal('0');
+                    done();
+                });
+
+                element._changeTab({target: {id: 'tab-0'}});
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
