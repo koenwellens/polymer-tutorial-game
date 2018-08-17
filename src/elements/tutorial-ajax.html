@@ -5,18 +5,18 @@
 <dom-module id="tutorial-ajax">
     <template>
         <iron-ajax
-                auto
-                url="/static/data/level[[level]]/data.json"
-                handle-as="json"
-                on-response="_handleLevelResponse">
+            auto
+            url="/static/data/level[[level]]/data.json"
+            handle-as="json"
+            on-response="_handleLevelResponse">
         </iron-ajax>
 
         <template is="dom-if" if="{{_needsMoreData()}}">
             <iron-ajax
-                    auto
-                    url="/static/data/level[[level]]/[[part]].json"
-                    handle-as="json"
-                    on-response="_handleLevelPartResponse">
+                auto
+                url="/static/data/level[[level]]/[[part]].json"
+                handle-as="json"
+                on-response="_handleLevelPartResponse">
             </iron-ajax>
         </template>
     </template>
