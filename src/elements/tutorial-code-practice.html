@@ -51,7 +51,7 @@
                         mode="ace/mode/html"
                         value="{{_currentCode}}">
                     </juicy-ace-editor>
-                    <tutorial-code-hint visible="[[!_currentCodeIsCorrect]]"
+                    <tutorial-code-hint hide="[[_currentCodeIsCorrect]]"
                                         hint="[[_getCurrent('hint', _currentTab)]]"
                                         file-name="[[_getCurrent('fileName', _currentTab)]]">
                     </tutorial-code-hint>

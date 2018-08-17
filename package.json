@@ -39,7 +39,7 @@
     "scripts": {
         "postinstall": "bower install",
         "build": "polymer build && gulp copy-assets",
-        "test": "polymer test --npm --module-resolution=node",
+        "test": "polymer test --npm --module-resolution=node --local chrome",
         "serve": "polymer serve --npm --module-resolution=node --hostname 0.0.0.0 --port $PORT",
         "lint": "npm run lint:js && npm run lint:polymer && npm run lint:css && npm run lint:editor",
         "lint:css": "stylelint {src,test}/**/*.{html,css}; exit 0;",

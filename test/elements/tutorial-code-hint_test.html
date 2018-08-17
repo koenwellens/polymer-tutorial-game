@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial ajax test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-code-hint.html">
+
+<test-fixture id="BasicHintTestFixture">
+    <template>
+        <tutorial-code-hint file-name="myFile" hint="myHint"></tutorial-code-hint>
+    </template>
+</test-fixture>
+
+<test-fixture id="InvisibleHintTestFixture">
+    <template>
+        <tutorial-code-hint file-name="myFile" hint="myHint" hide></tutorial-code-hint>
+    </template>
+</test-fixture>
+
+<test-fixture id="DefaultHintTestFixture">
+    <template>
+        <tutorial-code-hint file-name="myFile"></tutorial-code-hint>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-code-hint>', function () {
+        suite('when passing fileName and hint', function () {
+            test('displays them correctly', function () {
+                const element = fixture('BasicHintTestFixture');
+
+                expect(element.fileName).to.be.equal('myFile');
+                expect(element._getHint(element.hint)).to.be.equal('myHint');
+                expect(element.hide).not.to.be.ok;
+                expect(element._hintIsDisplayed).not.to.be.ok;
+            });
+        });
+
+        suite('when passing fileName and hint and setting visibility to false', function () {
+            test('does not display text', function () {
+                const element = fixture('InvisibleHintTestFixture');
+
+                expect(element.fileName).to.be.equal('myFile');
+                expect(element._getHint(element.hint)).to.be.equal('myHint');
+                expect(element.hide).to.be.ok;
+                expect(element._hintIsDisplayed).not.to.be.ok;
+            });
+        });
+
+        suite('when passing fileName but no hint', function () {
+            test('displays default hint', function () {
+                const element = fixture('DefaultHintTestFixture');
+
+                expect(element.fileName).to.be.equal('myFile');
+                expect(element._getHint(element.hint)).to.be.equal('Oops, you didn\'t have to change anything to this file! Undo your change!');
+                expect(element.hide).not.to.be.ok;
+                expect(element._hintIsDisplayed).not.to.be.ok;
+            });
+        });
+
+        suite('when button is clicked', function () {
+            test('shows hint dialog', function () {
+                const element = fixture('BasicHintTestFixture');
+
+                element._showHint();
+                expect(element._hintIsDisplayed).to.be.ok;
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
