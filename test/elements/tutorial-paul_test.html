@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial paul test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-paul.html">
+
+<test-fixture id="PaulTestFixture">
+    <template>
+        <tutorial-paul text='["text1", "text2", "text3"]'></tutorial-paul>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-next-button>', function () {
+        test('sets property correctly', function () {
+            const element = fixture('PaulTestFixture');
+
+            expect(element.text).to.be.eql(["text1", "text2", "text3"]);
+        });
+    });
+</script>
+
+
+</body>
+</html>

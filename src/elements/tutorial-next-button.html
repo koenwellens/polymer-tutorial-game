@@ -29,7 +29,7 @@
             }
         </style>
 
-        <template is="dom-if" if="{{visible}}">
+        <template is="dom-if" if="{{!hide}}">
             <div class="next-and-slot">
                 <a class="next" is="pushstate-anchor" href="/app[[next]]">[[text]]</a>
                 <slot></slot>
@@ -45,9 +45,9 @@
 
             static get properties() {
                 return {
-                    visible: {
+                    hide: {
                         type: Boolean,
-                        value: true,
+                        value: false,
                     },
                     next: {
                         type: String,

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial follow up message test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-follow-up-message.html">
+
+<test-fixture id="FollowUpMessageTestFixture">
+    <template>
+        <tutorial-follow-up-message follow-up-message='some string' visible></tutorial-follow-up-message>
+    </template>
+</test-fixture>
+
+<test-fixture id="InvisibleFollowUpMessageTestFixture">
+    <template>
+        <tutorial-follow-up-message follow-up-message='some string'></tutorial-follow-up-message>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-follow-up-message>', function () {
+        test('sets properties correctly', function () {
+            const element = fixture('FollowUpMessageTestFixture');
+
+            expect(element.followUpMessage).to.be.equal('some string');
+            expect(element.visible).to.be.ok;
+            expect(element._text).to.be.eql(['some string']);
+        });
+
+        test('works when invisible', function () {
+            const element = fixture('InvisibleFollowUpMessageTestFixture');
+
+            expect(element.followUpMessage).to.be.equal('some string');
+            expect(element.visible).not.to.be.ok;
+            expect(element._text).to.be.eql(['some string']);
+        });
+    });
+</script>
+
+
+</body>
+</html>

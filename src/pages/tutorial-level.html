@@ -37,7 +37,7 @@
                                         follow-up-message="[[_data.followUpMessage]]">
                 </tutorial-code-practice>
 
-                <tutorial-next-button visible="[[_codeIsCorrect]]" next="/[[_nextLink]]/" text="[[_nextLinkText]]">
+                <tutorial-next-button hide="[[!_codeIsCorrect]]" next="/[[_nextLink]]/" text="[[_nextLinkText]]">
                     <template is="dom-if" if="{{_imageIsVisible(_data)}}">
                         <img class="image" src="/static/images/[[_data.image]]"/>
                     </template>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial next button test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-next-button.html">
+
+<test-fixture id="NextButtonTestFixture">
+    <template>
+        <tutorial-next-button next="nextLevel" text='some text'></tutorial-next-button>
+    </template>
+</test-fixture>
+
+<test-fixture id="InvisibleNextButtonTestFixture">
+    <template>
+        <tutorial-next-button hide next="nextLevel" text='some text'></tutorial-next-button>
+    </template>
+</test-fixture>
+
+<test-fixture id="DefaultTextNextButtonTestFixture">
+    <template>
+        <tutorial-next-button next="nextLevel"></tutorial-next-button>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-next-button>', function () {
+        test('sets properties correctly', function () {
+            const element = fixture('NextButtonTestFixture');
+
+            expect(element.next).to.be.equal('nextLevel');
+            expect(element.text).to.be.equal('some text');
+            expect(element.hide).not.to.be.ok;
+        });
+
+        test('sets hide correctly', function () {
+            const element = fixture('InvisibleNextButtonTestFixture');
+
+            expect(element.next).to.be.equal('nextLevel');
+            expect(element.text).to.be.equal('some text');
+            expect(element.hide).to.be.ok;
+        });
+
+        test('sets default text correctly', function () {
+            const element = fixture('DefaultTextNextButtonTestFixture');
+
+            expect(element.next).to.be.equal('nextLevel');
+            expect(element.text).to.be.equal('Continue');
+            expect(element.hide).not.to.be.ok;
+        });
+    });
+</script>
+
+
+</body>
+</html>

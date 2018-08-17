@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial paul text balloon test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-paul-text-balloon.html">
+
+<test-fixture id="PaulTextBalloonTestFixture">
+    <template>
+        <tutorial-paul-text-balloon text='["text1", "text2", "text3"]' text-speed="7"></tutorial-paul-text-balloon>
+    </template>
+</test-fixture>
+
+<test-fixture id="DefaultSpeedPaulTextBalloonTestFixture">
+    <template>
+        <tutorial-paul-text-balloon text='["text1", "text2", "text3"]'></tutorial-paul-text-balloon>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-paul-text-balloon>', function () {
+        test('sets property correctly', function () {
+            const element = fixture('PaulTextBalloonTestFixture');
+
+            expect(element.text).to.be.eql(["text1", "text2", "text3"]);
+            expect(element.textSpeed).to.be.equal(7);
+        });
+
+        test('has a default speed', function () {
+            const element = fixture('DefaultSpeedPaulTextBalloonTestFixture');
+
+            expect(element.text).to.be.eql(["text1", "text2", "text3"]);
+            expect(element.textSpeed).to.be.equal(15);
+        });
+
+        // TODO
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial level title test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-level-title.html">
+
+<test-fixture id="LevelTitleTestFixture">
+    <template>
+        <tutorial-level-title value="myValue" level="myLevel" progress='{"total":100, "current": 99}'></tutorial-level-title>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-level-title>', function () {
+        test('sets properties correctly', function () {
+            const element = fixture('LevelTitleTestFixture');
+
+            expect(element.value).to.be.equal('myValue');
+            expect(element.level).to.be.equal('myLevel');
+            expect(element.progress).to.be.eql({total: 100, current: 99});
+        });
+    });
+</script>
+
+
+</body>
+</html>
