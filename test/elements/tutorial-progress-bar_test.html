@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tutorial progress bar test</title>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="/node_modules/@polymer/sinonjs/sinon.js"></script>
+
+</head>
+<body>
+<link rel="import" href="../../src/elements/tutorial-progress-bar.html">
+
+<test-fixture id="ProgressBarTestFixture">
+    <template>
+        <tutorial-progress-bar progress='{"current": 4, "total": 6, "start": 1}'></tutorial-progress-bar>
+    </template>
+</test-fixture>
+
+<test-fixture id="EmptyProgressBarTestFixture">
+    <template>
+        <tutorial-progress-bar progress='{}'></tutorial-progress-bar>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<tutorial-next-button>', function () {
+        test('sets property correctly', function () {
+            const element = fixture('ProgressBarTestFixture');
+
+            expect(element.progress).to.be.eql({current: 4, total: 6, start: 1});
+            expect(element._progress).to.be.equal(67);
+            expect(element._isVisible(element.progress)).to.be.ok;
+            expect(element._currentWidth).to.be.equal(67);
+        });
+
+        test('sets defaults correctly', function () {
+            const element = fixture('EmptyProgressBarTestFixture');
+
+            expect(element.progress).to.be.eql({});
+            expect(element._progress).to.be.equal(0);
+            expect(element._isVisible(element.progress)).not.to.be.ok;
+            expect(element._currentWidth).to.be.equal(0);
+        });
+
+        test('_getWidthStylingFor', function () {
+            const element = fixture('ProgressBarTestFixture');
+
+            expect(element._getWidthStylingFor(element._currentWidth)).to.be.equal('width: 67%;');
+        });
+
+        suite('move', function () {
+            test('moves left correctly', function () {
+                const element = fixture('ProgressBarTestFixture');
+
+
+            });
+
+        });
+    });
+</script>
+
+
+</body>
+</html>
